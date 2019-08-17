@@ -23,8 +23,8 @@ app.get('', (req, res) => {
     })
 })
 
-app.get('/tables',(req, res) =>{
-    res.render('tables',{
+app.get('/logs',(req, res) =>{
+    res.render('logs',{
 
     })
 })
