@@ -25,7 +25,7 @@ app.get('', (req, res) => {
 
 app.get('/logs',(req, res) =>{
     res.render('logs',{
-
+        
     })
 })
 

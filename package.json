@@ -38,7 +38,8 @@
         "express": "^4.17.1",
         "hbs": "^4.0.4",
         "jquery": "3.4.1",
-        "jquery.easing": "^1.4.1"
+        "jquery.easing": "^1.4.1",
+        "mongodb": "^3.3.0"
     },
     "devDependencies": {
         "browser-sync": "2.26.7",

@@ -9,6 +9,8 @@ User will chose filters, and by those, we can filter specific data to show ! */
 
 const myTable = document.querySelector('tbody')
 function fillTable(){
+
+    // Clear the table
     while(myTable.firstChild){
         myTable.removeChild(myTable.firstChild)
     }
