@@ -1,32 +1,48 @@
-// const arr =[
-//     ['my id','is time','type','soruce','category','pc-david','1.1.1.1','xdavidt','windows'],
+$.getJSON('/logs/data2table',function(data){
+    fillTable(data)
+})
 
-//     ['my id2','is tim2e','typ2e','soruce2','catego2ry','pc-d2avid','21.1.1.1','dsg','linux']
-// ]
-
-const request = require('request')
-
-/*This java script page would get json files from MongoDB
-User will chose filters, and by those, we can filter specific data to show ! */
-
-const myTable = document.querySelector('tbody')
-function fillTable(){
-
+function fillTable(logsData){
+    const myTable = document.querySelector('tbody')
     // Clear the table
     while(myTable.firstChild){
         myTable.removeChild(myTable.firstChild)
     }
-
-    arr.forEach((item) => {
+    logsData.forEach(function (_log) {
         const tr = document.createElement('tr')
 
-        item.forEach((cell) =>{
-            const td = document.createElement('td')
-            td.textContent = cell
-            tr.appendChild(td)
-        })
+
+        const td1 = document.createElement('td')
+        td1.textContent = _log.logid
+        tr.appendChild(td1)
+        const td2 = document.createElement('td')
+        td2.textContent = _log.time
+        tr.appendChild(td2)
+        const td3 = document.createElement('td')
+        td3.textContent = _log.type
+        tr.appendChild(td3)
+        const td4 = document.createElement('td')
+        td4.textContent = _log.src
+        tr.appendChild(td4)
+        const td5 = document.createElement('td')
+        td5.textContent = _log.cat
+        tr.appendChild(td5)
+        const td6 = document.createElement('td')
+        td6.textContent = _log.hostname
+        tr.appendChild(td6)
+        const td7 = document.createElement('td')
+        td7.textContent = _log.ip_add
+        tr.appendChild(td7)
+        const td8 = document.createElement('td')
+        td8.textContent = _log.username
+        tr.appendChild(td8)
+        const td9 = document.createElement('td')
+        td9.textContent = _log.os
+        tr.appendChild(td9)
+
         myTable.appendChild(tr)
     })
-    console.log("OK")
 }
-fillTable()
+
+
+//TODO: Understand how datatable is generate (select entries etc..)
