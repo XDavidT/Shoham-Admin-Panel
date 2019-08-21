@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path')
 const hbs = require('hbs')
+const getLogsFromDB = require('./utilities/mongoHandler')
 
 const app = express()
 
@@ -26,6 +27,18 @@ app.get('', (req, res) => {
 app.get('/logs',(req, res) =>{
     res.render('logs',{
         
+    })
+})
+
+// req=> your filters {logid: 123, src:"windows..."}
+// res=> mongo output {[logid: 123, src:"windows..",type:"2"....],[]...}
+app.get('/logs/data2table',(req, res) => {
+    getLogsFromDB(req.query,(error,result) =>{
+        if(error){
+            res.send(error)
+        } else {
+            res.jsonp(result)
+        }
     })
 })
 
