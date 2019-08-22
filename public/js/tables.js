@@ -2,6 +2,7 @@ $.getJSON('/logs/data2table',function(data){
     fillTable(data)
 })
 
+
 function fillTable(logsData){
     const myTable = document.querySelector('tbody')
     // Clear the table
