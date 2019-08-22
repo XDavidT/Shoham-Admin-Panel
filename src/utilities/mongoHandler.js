@@ -1,7 +1,7 @@
 const mongodb = require('mongodb')
 const mongoClient = mongodb.MongoClient
 
-const connectionURL = 'mongodb://192.168.0.128:27017'
+const connectionURL = 'mongodb://10.0.0.64:27017'
 const databaseName = 'clientManager'
 const collectionName = 'clientLog'
 
@@ -19,7 +19,7 @@ const getLogsFromDB = (myfilter,callback) => {
             callback(error,undefined)
         }
         const clientLogs = client.db(databaseName).collection(collectionName)
-        const result = clientLogs.find(myfilter).toArray((error,logList) => {
+        const result = clientLogs.find(myfilter,{limit:25}).toArray((error,logList) => {
             callback(undefined,logList)
         })
         //when finish - Close the connection!!

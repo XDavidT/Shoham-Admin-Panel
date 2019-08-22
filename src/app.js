@@ -18,9 +18,10 @@ hbs.registerPartials(partialsPath)
 // Setup static dir to serve
 app.use(express.static(public_dir))
 
+
+//Get resolver for site
 app.get('', (req, res) => {
     res.render('index',{
-
     })
 })
 
