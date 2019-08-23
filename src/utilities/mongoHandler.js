@@ -9,12 +9,16 @@ const collectionName = 'clientLog'
 const getLogsFromDB = (myfilter,callback) => {
     mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
         if(error) {
+            console.log('Connection to mongo fail !')
+            console.log(error)
             callback(error,undefined)
-        }
-        const clientLogs = client.db(databaseName).collection(collectionName)
-        const result = clientLogs.find(myfilter).toArray((error,logList) => {
+        } else {
+            const clientLogs = client.db(databaseName).collection(collectionName)
+            clientLogs.find(myfilter).toArray((error,logList) => {
             callback(undefined,logList)
         })
+        }
+        
         //when finish - Close the connection!!
         client.close()
     })

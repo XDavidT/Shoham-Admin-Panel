@@ -1,6 +1,6 @@
 $.getJSON('/logs/data2table',function(data){
     $(document).ready(function() {
-        $('#dataTable').DataTable({
+        $('#dataTableLogs').DataTable({
             data:data,
             columns: [
                 {data: 'logid'},
