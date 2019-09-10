@@ -18,4 +18,3 @@ $.getJSON('/logs/data2table',function(data){
 })
 
 
-//TODO: Understand how datatable is generate (select entries etc..)
