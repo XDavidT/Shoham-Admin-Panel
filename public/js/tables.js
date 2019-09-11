@@ -1,4 +1,4 @@
-$.getJSON('/logs/data2table',function(data){
+$.getJSON('/api/logs/data2table',function(data){
     $(document).ready(function() {
 
         $('#dataTableLogs thead tr').clone(true).appendTo( '#dataTableLogs thead' );

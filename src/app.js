@@ -34,7 +34,7 @@ app.get('/logs',(req, res) =>{
 //~ Get data from mongoDb API ~//
 // req=> your filters {logid: 123, src:"windows..."}
 // res=> mongo output {[logid: 123, src:"windows..",type:"2"....],[]...}
-app.get('/logs/data2table',(req, res) => {
+app.get('/api/logs/data2table',(req, res) => {
     getLogsFromDB(req.query,(error,result) =>{
         if(error){
             res.send(error)
