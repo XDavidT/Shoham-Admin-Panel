@@ -31,6 +31,7 @@ $.getJSON('/api/logs/data2table',function(data){
                 {data: 'mac_add'},
                 {data: 'username'},
                 {data: 'os'}
+                
             ]
         });
       });
