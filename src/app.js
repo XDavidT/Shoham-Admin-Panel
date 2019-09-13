@@ -40,9 +40,14 @@ app.get('/users',(req, res) => {
 //~ Get data from mongoDb API ~//
 // req=> your filters {logid: 123, src:"windows..."}
 // res=> mongo output {[logid: 123, src:"windows..",type:"2"....],[]...}
+<<<<<<< HEAD
 app.get('/logs/data2table',(req, res) => {
     
     mongo_handler.getLogsFromDB(req.query,(error,result) =>{
+=======
+app.get('/api/logs/data2table',(req, res) => {
+    getLogsFromDB(req.query,(error,result) =>{
+>>>>>>> dbd669ab8e9b121b91d307a8f04467e46b32e605
         if(error){
             res.send(error)
         } else {

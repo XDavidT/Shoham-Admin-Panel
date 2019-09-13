@@ -1,8 +1,8 @@
-$.getJSON('/logs/data2table',function(data){
+$.getJSON('/api/logs/data2table',function(data){
     $(document).ready(function() {
 
-        $('#dataTable thead tr').clone(true).appendTo( '#dataTable thead' );
-        $('#dataTable thead tr:eq(1) th').each( function (i) {
+        $('#dataTableLogs thead tr').clone(true).appendTo( '#dataTableLogs thead' );
+        $('#dataTableLogs thead tr:eq(1) th').each( function (i) {
             var title = $(this).text();
             $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
      
@@ -16,7 +16,7 @@ $.getJSON('/logs/data2table',function(data){
             } );
         } );
 
-        var table = $('#dataTable').DataTable({
+        var table = $('#dataTableLogs').DataTable({
             orderCellsTop: true,
             fixedHeader: true,
             data:data,
@@ -35,6 +35,10 @@ $.getJSON('/logs/data2table',function(data){
             ]
         });
       });
-})
+}).done(function() {
+    $('.loading-section').hide();   //Hide Loading GIF when done to load the logs
+  }).fail(function() {
+    console.log( "error" );
+  })
 
 
