@@ -81,9 +81,7 @@ const me = new User(
 )
 
 me.save().then(() => {
-    console.log(me)
 }) .catch((error) => {
-    console.log('error!',error)
 })
 
 /*userSchema.pre('save', async function(next) {
@@ -103,11 +101,6 @@ const sendUsersToDB = mongoose.model('User', userSchema)
 const passwordHash_Func = async () => {
     const password = '1q2w3e4rr'
     const hashedPassword = await bcrypt.hash(password, 8)
-
-    console.log(password)
-    console.log(hashedPassword)
-   
-
     const isMatch = await bcrypt.compare('1q2w3e4rr', hashedPassword)
     console.log(isMatch)
 }

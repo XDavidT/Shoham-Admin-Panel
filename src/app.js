@@ -40,14 +40,9 @@ app.get('/users',(req, res) => {
 //~ Get data from mongoDb API ~//
 // req=> your filters {logid: 123, src:"windows..."}
 // res=> mongo output {[logid: 123, src:"windows..",type:"2"....],[]...}
-<<<<<<< HEAD
-app.get('/logs/data2table',(req, res) => {
-    
-    mongo_handler.getLogsFromDB(req.query,(error,result) =>{
-=======
+
 app.get('/api/logs/data2table',(req, res) => {
-    getLogsFromDB(req.query,(error,result) =>{
->>>>>>> dbd669ab8e9b121b91d307a8f04467e46b32e605
+    mongo_handler.getLogsFromDB(req.query,(error,result) =>{
         if(error){
             res.send(error)
         } else {
@@ -74,6 +69,6 @@ app.get('*',(req, res) =>{
 })
 
 
-app.listen(3000,()=>{
+app.listen(3000 ,() => {
     console.log('Server is up on port 3000')
 })
