@@ -1,8 +1,8 @@
 const express = require('express')
 const path = require('path')
 const hbs = require('hbs')
-const getLogsFromDB = require('./utilities/mongoHandler')
-
+const mongo_handler = require('./utilities/mongoHandler')
+const user_handler = require('./utilities/UsersHandler/UsersHandler')
 const app = express()
 
 // Define paths for express config
@@ -31,15 +31,33 @@ app.get('/logs',(req, res) =>{
     })
 })
 
+app.get('/users',(req, res) => {
+    res.render('users',{
+
+    })
+})
+
 //~ Get data from mongoDb API ~//
 // req=> your filters {logid: 123, src:"windows..."}
 // res=> mongo output {[logid: 123, src:"windows..",type:"2"....],[]...}
 app.get('/logs/data2table',(req, res) => {
-    getLogsFromDB(req.query,(error,result) =>{
+    
+    mongo_handler.getLogsFromDB(req.query,(error,result) =>{
         if(error){
             res.send(error)
         } else {
             res.jsonp(result)
+        }
+    })
+})
+
+app.get('/users/data2table',(req, res) => {
+    user_handler.getUsersFromDB(req.query,(error,user_result) =>{
+        if(error){
+            res.send(error)
+        } else {
+            
+            res.jsonp(user_result)
         }
     })
 })
@@ -49,15 +67,6 @@ app.get('*',(req, res) =>{
 
     })
 })
-
-
-
-
-
-
-
-
-
 
 
 app.listen(3000,()=>{

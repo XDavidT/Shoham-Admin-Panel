@@ -1,4 +1,4 @@
-$.getJSON('/logs/data2table',function(data){
+$.getJSON('/users/data2table',function(data){
     $(document).ready(function() {
 
         $('#dataTable thead tr').clone(true).appendTo( '#dataTable thead' );
@@ -21,17 +21,9 @@ $.getJSON('/logs/data2table',function(data){
             fixedHeader: true,
             data:data,
             columns: [
-                {data: 'logid'},
-                {data: 'time'},
-                {data: 'type'},
-                {data: 'src'},
-                {data: 'cat'},
-                {data: 'hostname'},
-                {data: 'ip_add'},
-                {data: 'mac_add'},
-                {data: 'username'},
-                {data: 'os'}
-                
+                {data: 'user'},
+                {data: 'role'} 
+                 
             ]
         });
       });
