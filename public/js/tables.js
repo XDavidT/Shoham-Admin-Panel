@@ -22,7 +22,7 @@ $.getJSON('/api/logs/data2table',function(data){
             data:data,
             columns: [
                 {data: 'logid'},
-                {data: 'time'},
+                {data: 'client_time'},
                 {data: 'type'},
                 {data: 'src'},
                 {data: 'cat'},
