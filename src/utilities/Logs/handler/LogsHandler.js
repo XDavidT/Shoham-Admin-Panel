@@ -10,7 +10,7 @@ const collectionName = 'clientLog'
 
 // Using in callback
 const getLogsFromDB = (myfilter,callback) => {
-    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+    mongoClient.connect(connectionURL,{useNewUrlParser: true , useUnifiedTopology: true },(error, client) => {
         if(error) {
             console.log('Error in MongoDB connection (MongoHandler)')
             callback(error,undefined)

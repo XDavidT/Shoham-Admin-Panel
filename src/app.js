@@ -1,9 +1,9 @@
 const express = require('express')
 const path = require('path')
 const hbs = require('hbs')
-const mongo_handler = require('./utilities/mongoHandler')
-const user_handler = require('./utilities/UsersHandler/UsersHandler')
+const mongo_handler = require('./utilities/Logs/handler/LogsHandler')
 const app = express()
+require('./utilities/Users/handler/UsersHandler')
 
 // Define paths for express config
 const viewsPath = path.join(__dirname,'../templates/views')
@@ -17,29 +17,14 @@ hbs.registerPartials(partialsPath)
 
 // Setup static dir to serve
 app.use(express.static(public_dir))
-
-
-//Get resolver for site
-app.get('', (req, res) => {
-    res.render('index',{
-    })
-})
+app.use(express.json())
+//app.use(userRouter)
 
 app.get('/logs',(req, res) =>{
     res.render('logs',{
         
     })
 })
-
-app.get('/users',(req, res) => {
-    res.render('users',{
-
-    })
-})
-
-//~ Get data from mongoDb API ~//
-// req=> your filters {logid: 123, src:"windows..."}
-// res=> mongo output {[logid: 123, src:"windows..",type:"2"....],[]...}
 
 app.get('/api/logs/data2table',(req, res) => {
     mongo_handler.getLogsFromDB(req.query,(error,result) =>{
@@ -51,16 +36,12 @@ app.get('/api/logs/data2table',(req, res) => {
     })
 })
 
-app.get('/users/data2table',(req, res) => {
-    user_handler.getUsersFromDB(req.query,(error,user_result) =>{
-        if(error){
-            res.send(error)
-        } else {
-            
-            res.jsonp(user_result)
-        }
+//Get resolver for site
+app.get('', (req, res) => {
+    res.render('index',{
     })
 })
+
 
 app.get('*',(req, res) =>{
     res.render('404',{
