@@ -41,11 +41,11 @@ const User = mongoose.model('User', {
     }
 })
 
-const passwordHash_Func = async () => {
+/*const passwordHash_Func = async () => {
     const password = '1q2w3e4rr'
     const hashedPassword = await bcrypt.hash(password, 8)
     const isMatch = await bcrypt.compare('1q2w3e4rr', hashedPassword)
 }
 passwordHash_Func()
-
+*/
 module.exports = User

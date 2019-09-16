@@ -1,26 +1,24 @@
 const express = require('express')
 const User = require('../utilities/Users/models/user_model')
-const router = express()
 require('../utilities/Users/handler/UsersHandler')
 
+const router = express()
 router.use(express.json())
 
-router.get('/users',(req, res) =>{
-    res.jason('users',{
-        
-    })
-})
+
 
 //getting Users to DB
-router.get('/users/data2table',(req, res) => {
-    User.find({}).then((users) => {
-        res.send(users).status(200)
-    }).catch((error) => {
-
-    })
+router.get('/users', async (req, res) => {
+    try {
+        const users = await User.find({})
+        res.send(users)
+    } catch (e) {
+        res.status(500).send()
+    }
 })
 
-router.get('/users/data2table/:id', async (req, res) => {
+
+router.get('/users/:id', async (req, res) => {
     const _id = req.params.id
 
     try {
@@ -36,7 +34,8 @@ router.get('/users/data2table/:id', async (req, res) => {
     }
 })
 
-router.patch('/users/data2table/:id', async (req, res) => {
+
+router.patch('/users/:id', async (req, res) => {
     const updates = Object.keys(req.body)
     const allowedUpdates = ['name', 'email', 'password', 'age']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
@@ -46,28 +45,49 @@ router.patch('/users/data2table/:id', async (req, res) => {
     }
 
     try {
-        const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
-    
-        if (!user) {
-            return res.status(404).send()
-        }
-
+        const user = await User.findByIdAndUpdate({_id: req.params.id}, req.body).then(function() {            
+            User.findOne({_id: req.param.id}).then(function(user) {
+            })
+        })
+        console.log(user)
         res.send(user)
     } catch (e) {
         res.status(400).send(e)
     }
 })
 
-//posting Users to DB
-router.post('/users/data2table',(req,res) => {
-    const user = new User(req.body)
-    user.save().then(() => {
-        res.status(201).send(user)
-    }).catch((error) => {
-        res.status(400).send(error)
 
+//posting Users to DB
+router.post('/users', async (req, res) => {
+    const user = new User(req.body)
+								   
+						 
+
+    try {
+        await user.save()
+        res.status(201).send(user)
+    } catch (e) {
+        res.status(400).send(e)
+    }
 })
+
+router.delete('/users/:id', async (req, res) => {
+        try{
+         const user = await User.findByIdAndDelete(req.param.id).then(function() {
+                            User.findOneAndDelete(req.param.id).then(function(user) {
+                            })
+                        })
+        if (!user) {
+            return res.status(404).send()
+        }                    
+
+        res.send(user)
+    }   catch (error) {
+        res.status(505).send()
+    }
 })
+
+
 
 router.listen(3000 ,() => {
     console.log('Server is up on port 3000')
