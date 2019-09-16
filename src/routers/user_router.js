@@ -17,6 +17,7 @@ router.get('/users', async (req, res) => {
     }
 })
 
+//getting one User from DB
 
 router.get('/users/:id', async (req, res) => {
     const _id = req.params.id
@@ -34,7 +35,7 @@ router.get('/users/:id', async (req, res) => {
     }
 })
 
-
+//Updating User to DB
 router.patch('/users/:id', async (req, res) => {
     const updates = Object.keys(req.body)
     const allowedUpdates = ['name', 'email', 'password', 'age']
@@ -57,7 +58,7 @@ router.patch('/users/:id', async (req, res) => {
 })
 
 
-//posting Users to DB
+//Creating User to DB
 router.post('/users', async (req, res) => {
     const user = new User(req.body)
 								   
@@ -70,7 +71,7 @@ router.post('/users', async (req, res) => {
         res.status(400).send(e)
     }
 })
-
+//deleting User from DB
 router.delete('/users/:id', async (req, res) => {
         try{
          const user = await User.findByIdAndDelete(req.param.id).then(function() {
@@ -86,6 +87,7 @@ router.delete('/users/:id', async (req, res) => {
         res.status(505).send()
     }
 })
+//deleting All documents from DB
 
 router.delete('/users' , async (req, res) => { 
     try{
