@@ -87,6 +87,16 @@ router.delete('/users/:id', async (req, res) => {
     }
 })
 
+router.delete('/users' , async (req, res) => { 
+    try{
+    const user = User.remove({}, function(err,removed) {
+    })
+} catch(e)
+{
+    res.status(404).send()
+}
+})
+
 
 
 router.listen(3000 ,() => {
