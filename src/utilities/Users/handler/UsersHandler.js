@@ -1,7 +1,4 @@
-const mongodb = require('mongodb')
 const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs')
-const mongoClient = mongodb.MongoClient
 
 
 ////CoonectTo-Users-DB////

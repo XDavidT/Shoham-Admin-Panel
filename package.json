@@ -32,6 +32,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "5.9.0",
+        "async": "^3.1.0",
         "bcryptjs": "^2.4.3",
         "bootstrap": "4.3.1",
         "chart.js": "2.8.0",
@@ -40,6 +41,7 @@
         "hbs": "^4.0.4",
         "jquery": "3.4.1",
         "jquery.easing": "^1.4.1",
+        "jsonwebtoken": "^8.5.1",
         "mongodb": "^3.3.0",
         "mongoose": "^5.7.0",
         "request": "^2.88.0",
