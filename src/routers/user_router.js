@@ -1,11 +1,17 @@
 const express = require('express')
 const User = require('../utilities/Users/models/user_model')
 require('../utilities/Users/handler/UsersHandler')
+const auth = require('../middleware/auth')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const router = express()
 router.use(express.json())
 
+
+//getting Authenticated User from DB
+router.get('/users/me', auth, async (req , res) => {
+       res.send(req.user)
+})
 
 
 //getting Users to DB
