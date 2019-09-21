@@ -2,8 +2,6 @@ const express = require('express')
 const User = require('../utilities/Users/models/user_model')
 require('../utilities/Users/handler/UsersHandler')
 const auth = require('../middleware/auth')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
 const router = express()
 router.use(express.json())
 
@@ -66,13 +64,11 @@ router.patch('/users/:id', async (req, res) => {
 //Creating User to DB
 router.post('/users', async (req, res) => {
     const user = new User(req.body)
-								   
-						 
 
     try {
         await user.save()
-        const token = user.generateAuthToken()
-        res.status(201).send(user)
+        const token = await user.generateAuthToken()
+        res.status(201).send({ user, token })
     } catch (e) {
         res.status(400).send(e)
     }
@@ -87,7 +83,32 @@ router.post('/users/login', async(req, res) => {
     console.log("Login Succes")
     } catch(error){
         console.log("Login Error")
-        res.status(404).send()
+        res.status(400).send()
+    }
+})
+
+//Logout User
+router.post('/users/logout', auth, async (req, res) => {
+    try {
+        req.user.tokens = req.user.tokens.filter((token) => {
+           delete token.token
+        })
+        await req.user.save()
+
+        res.send('Logout Successfuly')
+    } catch (e) {
+        res.status(500).send('Logout Failed')
+    }
+})
+
+//Logout All-Users
+router.post('/users/logoutAll', auth, async (req, res) => {
+    try {
+        req.user.tokens = []
+        await req.user.save()
+        res.send()
+    } catch (e) {
+        res.status(500).send()
     }
 })
 
@@ -107,15 +128,20 @@ router.delete('/users/:id', async (req, res) => {
         res.status(505).send()
     }
 })
-//deleting All documents from DB
 
+//deleting All documents from DB
 router.delete('/users' , async (req, res) => { 
     try{
-    const user = User.remove({}, function(err,removed) {
+    const user = await User.remove({}, function(err,removed) {
+        res.status(200).send('Delete success')
     })
-} catch(e)
+        if (!user) {
+            return res.status(404).send('There are no documents')
+        }
+
+    }catch(error)
 {
-    res.status(404).send()
+    res.status(404).send('There are no documents')
 }
 })
 /*
