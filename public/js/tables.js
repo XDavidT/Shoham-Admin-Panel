@@ -1,4 +1,4 @@
-$.getJSON('/api/logs/data2table',function(data){
+$.getJSON('/logs/data2table',function(data){
     $(document).ready(function() {
 
         $('#dataTableLogs thead tr').clone(true).appendTo( '#dataTableLogs thead' );
@@ -22,7 +22,7 @@ $.getJSON('/api/logs/data2table',function(data){
             data:data,
             columns: [
                 {data: 'logid'},
-                {data: 'client_time'},
+                {data: 'time'},
                 {data: 'type'},
                 {data: 'src'},
                 {data: 'cat'},

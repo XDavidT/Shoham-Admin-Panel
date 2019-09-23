@@ -1,9 +1,12 @@
 const express = require('express')
+const app = express()
+const user_Router = require('./Routers/user_router')
+const logs_Router = require('./Routers/logs_router')
+require('./utilities/Users/models/user_model')
+
 const path = require('path')
 const hbs = require('hbs')
-const mongo_handler = require('./utilities/Logs/handler/LogsHandler')
-const app = express()
-require('./utilities/Users/handler/UsersHandler')
+
 
 // Define paths for express config
 const viewsPath = path.join(__dirname,'../templates/views')
@@ -18,23 +21,10 @@ hbs.registerPartials(partialsPath)
 // Setup static dir to serve
 app.use(express.static(public_dir))
 app.use(express.json())
-//app.use(userRouter)
+app.use(user_Router)
+app.use(logs_Router)
 
-app.get('/logs',(req, res) =>{
-    res.render('logs',{
-        
-    })
-})
 
-app.get('/api/logs/data2table',(req, res) => {
-    mongo_handler.getLogsFromDB(req.query,(error,result) =>{
-        if(error){
-            res.send(error)
-        } else {
-            res.jsonp(result)
-        }
-    })
-})
 
 //Get resolver for site
 app.get('', (req, res) => {

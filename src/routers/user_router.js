@@ -1,19 +1,24 @@
 const express = require('express')
 const User = require('../utilities/Users/models/user_model')
 require('../utilities/Users/handler/UsersHandler')
-const auth = require('../middleware/auth')
-const router = express()
-router.use(express.json())
+const auth = require('./auth')
+const user_router = new express.Router()
 
 
 //getting Authenticated User from DB
-router.get('/users/me', auth, async (req , res) => {
+user_router.get('/users/me', auth, async (req , res) => {
        res.send(req.user)
+})
+
+user_router.get('/users',(req, res) =>{
+    res.render('users',{
+        
+    })
 })
 
 
 //getting Users to DB
-router.get('/users', async (req, res) => {
+user_router.get('/users/data2table', async (req, res) => {
     try {
         const users = await User.find({})
         res.send(users)
@@ -23,7 +28,7 @@ router.get('/users', async (req, res) => {
 })
 
 //getting one User from DB
-router.get('/users/:id', async (req, res) => {
+user_router.get('/users/:id', async (req, res) => {
     const _id = req.params.id
 
     try {
@@ -40,9 +45,9 @@ router.get('/users/:id', async (req, res) => {
 })
 
 //Updating User to DB
-router.patch('/users/:id', async (req, res) => {
+user_router.patch('/users/:id', async (req, res) => {
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['name', 'email', 'password', 'age']
+    const allowedUpdates = ['name', 'email', 'password']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidOperation) {
@@ -62,7 +67,7 @@ router.patch('/users/:id', async (req, res) => {
 })
 
 //Creating User to DB
-router.post('/users', async (req, res) => {
+user_router.post('/users', async (req, res) => {
     const user = new User(req.body)
 
     try {
@@ -75,7 +80,7 @@ router.post('/users', async (req, res) => {
 })
 
 //Login User 
-router.post('/users/login', async(req, res) => {
+user_router.post('/users/login', async(req, res) => {
     try{
     const user = await User.findByCredentials(req.body.email , req.body.password)
     const token = await user.generateAuthToken()
@@ -88,7 +93,7 @@ router.post('/users/login', async(req, res) => {
 })
 
 //Logout User
-router.post('/users/logout', auth, async (req, res) => {
+user_router.post('/users/logout', auth, async (req, res) => {
     try {
         req.user.tokens = req.user.tokens.filter((token) => {
            delete token.token
@@ -102,7 +107,7 @@ router.post('/users/logout', auth, async (req, res) => {
 })
 
 //Logout All-Users
-router.post('/users/logoutAll', auth, async (req, res) => {
+user_router.post('/users/logoutAll', auth, async (req, res) => {
     try {
         req.user.tokens = []
         await req.user.save()
@@ -113,7 +118,7 @@ router.post('/users/logoutAll', auth, async (req, res) => {
 })
 
 //deleting User from DB
-router.delete('/users/:id', async (req, res) => {
+user_router.delete('/users/:id', async (req, res) => {
         try{
          const user = await User.findByIdAndDelete(req.param.id).then(function() {
                             User.findOneAndDelete(req.param.id).then(function(user) {
@@ -130,7 +135,7 @@ router.delete('/users/:id', async (req, res) => {
 })
 
 //deleting All documents from DB
-router.delete('/users' , async (req, res) => { 
+user_router.delete('/users' , async (req, res) => { 
     try{
     const user = await User.remove({}, function(err,removed) {
         res.status(200).send('Delete success')
@@ -144,6 +149,11 @@ router.delete('/users' , async (req, res) => {
     res.status(404).send('There are no documents')
 }
 })
+
+
+module.exports = user_router
+
+
 /*
 const Password_Hash = async () => {
     const password = '21932193'
@@ -159,8 +169,8 @@ const Password_Hash = async () => {
 Password_Hash()
 */
 
-
-router.listen(3000 ,() => {
+/*
+user_router.listen(3000 ,() => {
     console.log('Server is up on port 3000')
 })
-
+*/

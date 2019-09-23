@@ -33,15 +33,6 @@ const userSchema = new mongoose.Schema({
             }
         }
     },
-    age: {
-        type: Number,
-        default: 0,
-        validate(value) {
-            if (value < 0) {
-                throw new Error('Age must be a postive number')
-            }
-        }
-    },
     tokens: [{
         token: {
             type: String,
@@ -50,6 +41,15 @@ const userSchema = new mongoose.Schema({
     }]
 })
 
+userSchema.methods.toJSON = function () {
+    const user = this
+    const userObject = user.toObject()
+
+    delete userObject.password
+    delete userObject.tokens
+
+    return userObject
+}
 
 userSchema.methods.generateAuthToken = async function() {
     const user = this
