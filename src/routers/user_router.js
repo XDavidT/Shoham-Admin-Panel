@@ -1,6 +1,6 @@
 const express = require('express')
-const User = require('../utilities/Users/models/user_model')
-require('../utilities/Users/handler/UsersHandler')
+const User = require('../utilities/models/user_model')
+require('../utilities/handler/UsersHandler')
 const auth = require('./auth')
 const user_router = new express.Router()
 

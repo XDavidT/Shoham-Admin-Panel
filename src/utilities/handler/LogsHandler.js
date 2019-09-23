@@ -29,7 +29,5 @@ const getLogsFromDB = (myfilter,callback) => {
 
 
 module.exports = {
-    getLogsFromDB: getLogsFromDB, //logs from MongoDB
+    getLogsFromDB: getLogsFromDB //logs from MongoDB
 }
-
- 
