@@ -22,7 +22,7 @@ $.getJSON('/api/logs/data2table',function(data){
             data:data,
             columns: [
                 {data: 'logid'},
-                {data: 'client_time'},
+                {data: 'insert_time'},
                 {data: 'type'},
                 {data: 'src'},
                 {data: 'cat'},
@@ -40,5 +40,47 @@ $.getJSON('/api/logs/data2table',function(data){
   }).fail(function() {
     console.log( "error" );
   })
+
+
+                //rules table//
+$.getJSON('/api/policy/data2table',function(data){
+    
+    $(document).ready(function() {
+        
+        var table = $('.RuleDataTable').DataTable({
+            orderCellsTop: true,
+            fixedHeader: true,
+            data:data,
+            "pageLength": 5,
+            columns: [
+                {data: '_id'},
+                {data: 'name'},
+                {data: 'field'},
+                {data: 'value'}
+            ]
+        });
+      });
+})
+                //event table///
+$.getJSON('/api/policy/eventData2table',function(data){
+
+    $(document).ready(function() {
+        
+        var table = $('.eventDataTable').DataTable({
+            orderCellsTop: true,
+            fixedHeader: true,
+            data:data,
+            "pageLength": 5,
+            columns: [
+                {data: '_id'},
+                {data: 'name'},
+                {data: 'Description'},
+                {data: 'rule_id'},
+                {data: 'repeated'},
+                {data: 'TIMEOUT'}
+            ]
+        });
+      });
+})
 
 

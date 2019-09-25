@@ -1,6 +1,6 @@
 const mongodb = require('mongodb')
 const mongoClient = mongodb.MongoClient
-const connectionURL = 'mongodb://13.68.170.154:27017'
+const connectionURL = 'mongodb://mongo.davidt.net:27018'
 
 //////////Logs-DB//////////
 const databaseName = 'clientManager'
@@ -31,5 +31,3 @@ const getLogsFromDB = (myfilter,callback) => {
 module.exports = {
     getLogsFromDB: getLogsFromDB //logs from MongoDB
 }
-
- 
