@@ -75,6 +75,7 @@ $.getJSON('/api/policy/eventData2table',function(data){
                 {data: '_id'},
                 {data: 'name'},
                 {data: 'Description'},
+                {data: 'Type'},
                 {data: 'rule_id'},
                 {data: 'repeated'},
                 {data: 'TIMEOUT'}

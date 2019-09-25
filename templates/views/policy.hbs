@@ -17,7 +17,7 @@
 
   <!-- Custom styles for this template -->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
-  <link href="css/policy.css" rel="stylesheet">
+  <link href="css/Siem-css.css" rel="stylesheet">
 
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -263,35 +263,48 @@
                   <!-- add event -->
           
             <form class="input-group" method="post" action="/api/policy/postEvents" style="margin-bottom: 20px">
-            
+
+              <div class="input-group-prepend" id="nameBtnGroupAddon" style="padding-left: 145px"> 
+                <div class="input-group-text" >Event Name</div>
+              </div>
+              <input type="text" id="eventName" name="eventName" size="17"  autocomplete="off" onkeyup="emptyInput()" required>
+
+              <div class="input-group-prepend" id="nameBtnGroupAddon" style="padding-left: 30px"> 
+                <div class="input-group-text" >Description</div>
+              </div>
+              <input type="text" id="eventDescription" name="eventDescription" size="27"  autocomplete="off" onkeyup="emptyInput()" required>              
+              
+              <div class="input-group-prepend" id="nameBtnGroupAddon" style="padding-left: 30px"> 
+                <div class="input-group-text" >Type</div>
+              </div>
+              <select id="type_select" name="type_select" class="dropdown"style=" height:36px;">
+                <option value="Local">Local</option>
+                <option value="Global">Global</option>
+              </select>
+
                 <!-- Add event - Clone -->
-               <div class="event_creation" >
+              <div class="event_creation" >
                   <div class="rule_fields_for_duplication ">
 
-                    <div class="input-group-prepend" id="nameBtnGroupAddon"style="display: inline-block;margin-left:280px;padding-left: 30px">
-                      <div class="input-group-text" >Rule ID</div>
+                    <div class="input-group-prepend" id="nameBtnGroupAddon"style="display: inline-block;  padding-left: 270px; padding-top: 9px">
+                      <div class="input-group-text" s>Rule ID</div>
                     </div>
-                    <input type="text" id="ruleNum" name="ruleNum" size="2"  autocomplete="off" style="display: inline-block" style="margin-right: 10px" onkeyup="emptyInput()" required>
+                    <input type="text" id="ruleNum" name="ruleNum" size="2"  autocomplete="off" style="padding-top: 9px;text-align: center" onkeyup="emptyInput()" required>
 
-                    <div class="input-group-prepend" id="nameBtnGroupAddon"style="display: inline-block;padding-left: 30px">
+                    <div class="input-group-prepend" id="nameBtnGroupAddon"style="display: inline-block; padding-left: 30px; padding-top: 9px">
                       <div class="input-group-text" >Repeated</div>
                     </div>
-                    <input type="text" id="repeated" name="repeated" size="2" style="display: inline-block"autocomplete="off" style="margin-right: 30px" onkeyup="emptyInput()" required>
+                    <input type="text" id="repeated" name="repeated" size="2" autocomplete="off" style="padding-top: 9px;text-align: center" onkeyup="emptyInput()" required>
                     
-                    <div class="input-group-prepend" id="nameBtnGroupAddon"style="display: inline-block;padding-left: 30px">
+                    <div class="input-group-prepend" id="nameBtnGroupAddon"style="display: inline-block; padding-left: 30px; padding-top: 9px">
                       <div class="input-group-text" >Timeout</div>
                     </div>
-                    <input type="text" id="TIMEOUT" name="TIMEOUT" size="4" style="display: inline-block" autocomplete="off" style="margin-right: 30px" onkeyup="emptyInput()" required>
-                  </div>
-                </div>
+                    <input type="text" id="TIMEOUT" name="TIMEOUT" size="4"  autocomplete="off" style="padding-top: 9px;text-align: center" onkeyup="emptyInput()" required>
 
+                  </div>
+               </div>
 
                     <div><button class="btn btn-primary btn-user btn-block;input-group-text" href="#" id="addMore" style="position: absolute;right: 200px;bottom:0;">ADD RULE</button></div>
-
-                    <div class="input-group-prepend" id="nameBtnGroupAddon" style="padding-left: 30px">
-                      <div class="input-group-text" style="position: absolute;left: 60px;bottom:0;">Event Name</div>
-                    </div>
-                    <input type="text" id="eventName" name="eventName" size="10" style="position: absolute;left: 175px;bottom:5px;" autocomplete="off" onkeyup="emptyInput()" required>
                     
                     <button type="submit" id="send2" class="btn btn-success btn-circle"style="position: absolute;right: 150px;bottom:0;"onclick="incRuleID()" disabled >
                           <i class="fas fa-check"></i>
@@ -341,7 +354,8 @@
                     <tr>
                       <th>EVENT ID</th>                      
                       <th>EVENT NAME</th>
-                      <th>DESCRIPTION</th>                       
+                      <th>DESCRIPTION</th>
+                      <th>TYPE</th>                      
                       <th>RULE ID</th>                     
                       <th>REPEATED</th>
                       <th>TIMEOUT</th>
@@ -349,6 +363,7 @@
                   </thead>
                   <tbody>
                     <tr>
+                      <td>Error</td>
                       <td>Error</td>
                       <td>Error</td>
                       <td>Error</td>
