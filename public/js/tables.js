@@ -79,7 +79,7 @@ $.getJSON('/api/policy/eventData2table',function(data){
                 {data: 'rules', 
                 render: function ( full, type, full, meta ) {
                     var result = '';
-                    $.each(full.rules.rule_id, function( index, value ) {
+                    $.each(full.rules, function( index, value ) {
                       result = value.rule_id;
                       console.log(value)
                       console.log(result)
