@@ -31,7 +31,7 @@ function emptyInput(target) {
     if (target=="rule"){
 
         if(document.getElementById("NameRule").value==="" || document.getElementById("ruleField").value===""
-          || document.getElementById("ruleValue").value==="") 
+        || document.getElementById("ruleValue").value==="") 
         { 
             document.getElementById('send').disabled = true; 
         } else { 
