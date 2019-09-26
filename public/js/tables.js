@@ -63,9 +63,9 @@ $.getJSON('/api/policy/data2table',function(data){
 })
                 //event table///
 $.getJSON('/api/policy/eventData2table',function(data){
-
+    
     $(document).ready(function() {
-        
+        console.log(data)
         var table = $('.eventDataTable').DataTable({
             orderCellsTop: true,
             fixedHeader: true,
@@ -76,9 +76,44 @@ $.getJSON('/api/policy/eventData2table',function(data){
                 {data: 'name'},
                 {data: 'Description'},
                 {data: 'Type'},
-                {data: 'rule_id'},
-                {data: 'repeated'},
-                {data: 'TIMEOUT'}
+                {data: 'rules', 
+                render: function ( full, type, full, meta ) {
+                    var result = '';
+                    $.each(full.rules, function( index, value ) {
+                      result = value.rule_id;
+                      console.log(value)
+                      console.log(result)
+                      console.log("--------")
+                       if (index < result.length)
+                           result = result + ', ';
+                    });
+                    return result;
+                }
+            
+            
+            },
+                {data: 'rules',
+                render: function ( full, type, full, meta ) {
+                    var result = '';
+                    $.each(full.rules, function( index, value ) {
+                      result = value.repeated;
+                       if (index < result.length)
+                           result = result + ', ';
+                    });
+                    return result;
+                }
+            },
+                {data: 'rules',
+                render: function ( full, type, full, meta ) {
+                    var result = '';
+                    $.each(full.rules, function( index, value ) {
+                      result = value.timeout;
+                       if (index < result.length)
+                           result = result + ', ';
+                    });
+                    return result;
+                }
+            }
             ]
         });
       });
