@@ -80,12 +80,13 @@ user_router.post('/users', async (req, res) => {
 })
 
 //Login User 
-user_router.post('/users/login', async(req, res) => {
+user_router.post('/users/login', async (req, res) => {
     console.log(req.body)
     try{
     const user = await User.findByCredentials(req.body.email , req.body.password)
     const token = await user.generateAuthToken()
-    res.send({ user, token })
+    //res.send({ user, token })
+    res.redirect(302 , 'http://localhost:3000')
     console.log("Login Succes")
     } catch(error){
         console.log("Login Error")

@@ -1,8 +1,9 @@
 const express = require('express')
 const app = express()
+const bodyParser = require('body-parser')
 const user_Router = require('./routers/user_router')
 const logs_Router = require('./routers/logs_router')
-const policy_Router = require('./Routers/policy_router')
+const policy_Router = require('./routers/policy_router')
 require('./utilities/models/user_model')
 require('./utilities/handler/policyHandler')
 
@@ -23,6 +24,9 @@ hbs.registerPartials(partialsPath)
 // Setup static dir to serve
 app.use(express.static(public_dir))
 app.use(express.json())
+app.use(bodyParser.urlencoded({
+    extended: true
+  }))
 
 
 app.use(user_Router)
