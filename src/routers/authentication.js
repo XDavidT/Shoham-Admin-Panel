@@ -1,8 +1,9 @@
 const User = require('../utilities/models/user_model')
 const jwt = require('jsonwebtoken')
 
-const auth = async (req, res, next) => {
-    try {
+const authentication = async (req, res, next) => {
+    console.log(req.header)
+    try {   
         const token = req.header('Authorization').replace('Bearer ', '')
         const decoded = jwt.verify(token, 'PrivateToken')
         const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
@@ -10,7 +11,7 @@ const auth = async (req, res, next) => {
         if (!user) {
             throw new Error()
         }
-
+        req.token = token
         req.user = user
         next()
     } catch (e) {
@@ -18,4 +19,4 @@ const auth = async (req, res, next) => {
     }
 }
 
-module.exports = auth
+module.exports = authentication

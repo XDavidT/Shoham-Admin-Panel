@@ -1,12 +1,13 @@
 const express = require('express')
 const User = require('../utilities/models/user_model')
 require('../utilities/handler/UsersHandler')
-const auth = require('./auth')
+const authentication = require('./authentication')
+const authorize = require('./Authorization')
 const user_router = new express.Router()
 
 
 //getting Authenticated User from DB
-user_router.get('/users/me', auth, async (req , res) => {
+user_router.get('/users/me', authentication, async (req , res) => {
        res.send(req.user)
 })
 
@@ -17,8 +18,8 @@ user_router.get('/users',(req, res) =>{
 })
 
 
-//getting Users to DB
-user_router.get('/users/data2table', async (req, res) => {
+//getting Users from DB and be Authorized!
+user_router.get('/users/data2table', authorize , async (req, res) => {
     try {
         const users = await User.find({})
         res.send(users)
@@ -95,7 +96,7 @@ user_router.post('/users/login', async (req, res) => {
 })
 
 //Logout User
-user_router.post('/users/logout', auth, async (req, res) => {
+user_router.post('/users/logout', authentication, async (req, res) => {
     try {
         req.user.tokens = req.user.tokens.filter((token) => {
            delete token.token
@@ -109,7 +110,7 @@ user_router.post('/users/logout', auth, async (req, res) => {
 })
 
 //Logout All-Users
-user_router.post('/users/logoutAll', auth, async (req, res) => {
+user_router.post('/users/logoutAll', authentication, async (req, res) => {
     try {
         req.user.tokens = []
         await req.user.save()

@@ -65,7 +65,6 @@ $.getJSON('/api/policy/data2table',function(data){
 $.getJSON('/api/policy/eventData2table',function(data){
     
     $(document).ready(function() {
-        console.log(data)
         var table = $('.eventDataTable').DataTable({
             orderCellsTop: true,
             fixedHeader: true,
