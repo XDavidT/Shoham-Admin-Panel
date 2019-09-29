@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const user_Router = require('./routers/user_router')
 const logs_Router = require('./routers/logs_router')
 const policy_Router = require('./routers/policy_router')
+const cookieParser = require('cookie-parser')
 require('./utilities/models/user_model')
 require('./utilities/handler/policyHandler')
 
@@ -27,6 +28,7 @@ app.use(express.json())
 app.use(bodyParser.urlencoded({
     extended: true
   }))
+  app.use(cookieParser())
 
 
 app.use(user_Router)

@@ -4,6 +4,8 @@ require('../utilities/handler/UsersHandler')
 const authentication = require('./authentication')
 const authorize = require('./Authorization')
 const user_router = new express.Router()
+const cookieParser = require('cookie-parser')
+
 
 
 //getting Authenticated User from DB
@@ -11,7 +13,7 @@ user_router.get('/users/me', authentication, async (req , res) => {
        res.send(req.user)
 })
 
-user_router.get('/users',(req, res) =>{
+user_router.get('/users', authentication, (req, res) => {
     res.render('users',{
         
     })
@@ -19,7 +21,7 @@ user_router.get('/users',(req, res) =>{
 
 
 //getting Users from DB and be Authorized!
-user_router.get('/users/data2table', authorize , async (req, res) => {
+user_router.get('/users/data2table', authentication , async (req, res) => {
     try {
         const users = await User.find({})
         res.send(users)
@@ -82,16 +84,16 @@ user_router.post('/users', async (req, res) => {
 
 //Login User 
 user_router.post('/users/login', async (req, res) => {
-    console.log(req.body)
+    
     try{
     const user = await User.findByCredentials(req.body.email , req.body.password)
     const token = await user.generateAuthToken()
-    //res.send({ user, token })
+    res.cookie('token',token,{httpOnly: true})
     res.redirect(302 , 'http://localhost:3000')
     console.log("Login Succes")
     } catch(error){
         console.log("Login Error")
-        res.status(400).send()
+        res.status(400).send('Login error')
     }
 })
 
