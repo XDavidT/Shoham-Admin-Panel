@@ -114,13 +114,15 @@ const getEventsFromDB = (myfilter,callback) => {
     })
 }
 
-const postCategoryToDB = (events,callback)=>{
+const postCategoryToDB = (category,callback)=>{
     mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
         if(error) {
             callback(error,undefined)
         }
-    
-    client.db(dbPolicy).collection(collCategory).insertOne(events)
+    category_array = category.category_select
+    client.db(dbPolicy).collection(collCategory).findOneAndUpdate(
+        {},{ $set: { category_select: category_array} }, { returnNewDocument: true }
+    );
     callback(error,undefined)
     client.close()
 })
