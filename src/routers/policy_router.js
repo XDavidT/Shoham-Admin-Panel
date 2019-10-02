@@ -17,7 +17,7 @@ policy_router.get('/policy',(req, res) =>{
 
 
 policy_router.post('/api/policy/postRules', (req, res) => {
-
+console.log(req.body)
     policy_handler.postRulesToDB(req.body,(error,result) =>{
         if(error){
             res.send(error)

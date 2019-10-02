@@ -58,10 +58,12 @@
                       <th>Id</th>
                       <th>name</th>
                       <th>email</th>
+                      <th>role</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
+                      <td>Error</td>
                       <td>Error</td>
                       <td>Error</td>
                       <td>Error</td>
@@ -118,41 +120,40 @@
     <div class="modal-content">
         <div class="modal-header">
               <h3 class='col-12 modal-title text-center'>
-              Centered Modal Title
+              Create User
               <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
               </button></h3>
         </div>
         <div class="modal-body">
-            <form class="input-group" method="post" action="/users" >
-                  
-                  <div class="input-group-prepend-users"  >
-                    <div class="input-group-text-users" >NAME</div>
+              <form class="input-group" method="post" action="/users/add">
+        
+                  <div class="input-group-prepend-users">
+                    <div class="input-group-text-users">Name</div>
                   </div>
-                  <input type="text" id="NameRule" name="NameRule" size="38" autocomplete="off" required>
+                  <input type="text" id="Name" name="Name" size="38" autocomplete="off" required>
   
-                  <div class="input-group-prepend-users"  >
-                    <div class="input-group-text-users" >FIELD</div>
+                  <div class="input-group-prepend-users">
+                    <div class="input-group-text-users">Email</div>
                   </div>
-                  <input type="text" id="ruleField" name="ruleField" size="4" autocomplete="off" required>
+                  <input type="text" id="Email" name="Email" size="38" autocomplete="off" required>
                   
                   <div class="input-group-prepend-users"  >
-                    <div class="input-group-text-users" >VALUE</div>
+                    <div class="input-group-text-users">Password</div>
                   </div>
-                  <input type="text" id="ruleValue" name="ruleValue" size="4" autocomplete="off" required>
-                  
-                  <button type="submit" id="send" class="btn btn-success btn-circle" >
-                        <i class="fas fa-check"></i>
-                  </button>
-                  
-              </form>
+                  <input type="text" id="Password" name="Password" size="38" autocomplete="off" required>         
+
+                  <div class="input-group-prepend-users">
+                    <div class="input-group-text-users">Role</div>
+                  </div>
+                  <input type="text" id="Role" name="Role" size="38" autocomplete="off" required>   
         </div>
+
         <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" id="send" class="btn btn-success btn-circle" > <i class="fas fa-check"></i> </button>
+               </form>
         </div>
-    </div>
-    </div>
-</div>
 
 
 
@@ -177,6 +178,7 @@
 
   {{!-- Script to fill the table manual --}}
   <script src="js/Users.js"></script>
+  
   
 
 </body>

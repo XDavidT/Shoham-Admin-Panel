@@ -70,13 +70,13 @@ user_router.patch('/users/:id', async (req, res) => {
 })
 
 //Creating User to DB
-user_router.post('/users', async (req, res) => {
+user_router.post('/users/add', async (req, res) => {
     const user = new User(req.body)
 
     try {
         await user.save()
         const token = await user.generateAuthToken()
-        res.status(201).send({ user, token })
+        res.redirect('/users')
     } catch (e) {
         res.status(400).send(e)
     }
@@ -84,9 +84,10 @@ user_router.post('/users', async (req, res) => {
 
 //Login User 
 user_router.post('/users/login', async (req, res) => {
-    
     try{
     const user = await User.findByCredentials(req.body.email , req.body.password)
+    console.log(user)
+    console.log('this is good')
     const token = await user.generateAuthToken()
     res.cookie('token',token,{httpOnly: true})
     res.redirect(302 , 'http://localhost:3000')

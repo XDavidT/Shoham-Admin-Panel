@@ -23,11 +23,23 @@ $.getJSON('/users/data2table',function(data){
             columns: [
                 {data: '_id'},
                 {data: 'name'},
-                {data: 'email'}
-                   
+                {data: 'email'},
+                {data: 'role'}
             ]
         });
       });
 })
 
+function emptyInput(target) {
+    if (target=="user"){
 
+        if(document.getElementById("name").value==="" || document.getElementById("email").value===""
+        || document.getElementById("password").value==="" || document.getElementById("role").value==="")
+        { 
+            document.getElementById('send').disabled = true; 
+        } else { 
+            document.getElementById('send').disabled = false;
+        }
+    }
+
+}
