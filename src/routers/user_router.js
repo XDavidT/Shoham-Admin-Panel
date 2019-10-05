@@ -86,10 +86,8 @@ user_router.post('/users/add', async (req, res) => {
 user_router.post('/users/login', async (req, res) => {
     try{
     const user = await User.findByCredentials(req.body.email , req.body.password)
-    console.log(user)
-    console.log('this is good')
     const token = await user.generateAuthToken()
-    res.cookie('token',token,{httpOnly: true})
+    res.cookie('token',token,{'maxAge': 3600000, httpOnly: true}) // sending cookie with expire time of 1 Hour.
     res.redirect(302 , 'http://localhost:3000')
     console.log("Login Succes")
     } catch(error){
@@ -124,7 +122,7 @@ user_router.post('/users/logoutAll', authentication, async (req, res) => {
 })
 
 //deleting User from DB
-user_router.delete('/users/:id', async (req, res) => {
+user_router.delete('/users/delete', async (req, res) => {
         try{
          const user = await User.findByIdAndDelete(req.param.id).then(function() {
                             User.findOneAndDelete(req.param.id).then(function(user) {

@@ -3,15 +3,13 @@ const jwt = require('jsonwebtoken')
 
 const authentication = async (req, res, next) => {
     try {   
-        const token = req.cookies.token
-        if(!token)
-            return res.status(401).send('No Token provided')
-        const decoded = jwt.verify(token, 'PrivateToken')
+        const token = req.cookies.token // requesting cookie from the user
+        const decoded = jwt.verify(token, 'PrivateToken') // verify the cookie
         const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
 
         next()
     } catch (e) {
-        res.status(401).send({ error: 'Please authenticate.' })
+       return res.redirect('/login') // redirecting to login page
     }
 }
 

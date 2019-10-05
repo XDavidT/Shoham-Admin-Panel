@@ -5,7 +5,6 @@ $.getJSON('/users/data2table',function(data){
         $('#dataTableUsers thead tr:eq(1) th').each( function (i) {
             var title = $(this).text();
             $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-     
             $( 'input', this ).on( 'keyup change', function () {
                 if ( table.column(i).search() !== this.value ) {
                     table
@@ -24,7 +23,9 @@ $.getJSON('/users/data2table',function(data){
                 {data: '_id'},
                 {data: 'name'},
                 {data: 'email'},
-                {data: 'role'}
+                {data: 'role'},
+                //{defaultContent:'<form method="delete" action="/users/delete"><input type="hidden" name="_id" value="hidden" /><button class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button></form>'}
+                {defaultContent:'<form method="delete" action="/users/delete"><button class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button></form>'}
             ]
         });
       });
@@ -43,3 +44,19 @@ function emptyInput(target) {
     }
 
 }
+
+/*
+$('table td').click(function(){
+    $(this).parent().remove();
+})
+*/
+// $(document).on('click', 'btn btn-danger btn-circle btn-sm', function () {
+//      alert("aa");
+//      $(this).closest('tr').remove();
+//      return false;
+//  });
+
+$("#dataTableUsers tbody tr").on("dblclick", function(){
+    var datarow = table.row(this).data;
+    console.log(datarow)
+})
