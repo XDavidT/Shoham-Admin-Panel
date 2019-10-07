@@ -65,6 +65,10 @@ $.getJSON('/api/policy/data2table',function(data){
 $.getJSON('/api/policy/eventData2table',function(data){
     
     $(document).ready(function() {
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 49f5330f77b0c9c24491cb24e898d724f9341ba7
         var table = $('.eventDataTable').DataTable({
             orderCellsTop: true,
             fixedHeader: true,
@@ -75,42 +79,47 @@ $.getJSON('/api/policy/eventData2table',function(data){
                 {data: 'name'},
                 {data: 'Description'},
                 {data: 'Type'},
-                {data: 'rules', 
+                {data: 'full.rules.rule_id', 
                 render: function ( full, type, full, meta ) {
-                    var result = '';
+                    var result = '';                   
                     $.each(full.rules, function( index, value ) {
-                      result = value.rule_id;
-                      console.log(value)
-                      console.log(result)
-                      console.log("--------")
+
+                      result_temp = value.rule_id;
+                      if (index < full.rules.length)
+                      result = result + result_temp + ', '  ;
 
                     });
-                    return result;
-                }
-            
-            
+                    return result.split(", ").join("<br/>");
+                },
+                "className": "text-center"
             },
-                {data: 'rules',
+                {data: 'full.rules.repeated',
                 render: function ( full, type, full, meta ) {
                     var result = '';
                     $.each(full.rules, function( index, value ) {
-                      result = value.repeated;
-                       if (index < result.length)
-                           result = result + ', ';
+
+                        result_temp = value.repeated;
+                        if (index < full.rules.length)
+                        result = result + result_temp + ', '  ;
+
                     });
-                    return result;
-                }
+                    return result.split(", ").join("<br/>");
+                },
+                "className": "text-center"
             },
-                {data: 'rules',
+                {data: 'full.rules.timeout',
                 render: function ( full, type, full, meta ) {
                     var result = '';
                     $.each(full.rules, function( index, value ) {
-                      result = value.timeout;
-                       if (index < result.length)
-                           result = result + ', ';
+
+                        result_temp = value.timeout;
+                        if (index < full.rules.length)
+                        result = result + result_temp + ', '  ;
+
                     });
-                    return result;
-                }
+                    return result.split(", ").join("<br/>");
+                },
+                "className": "text-center"
             }
             ]
         });

@@ -50,13 +50,13 @@
               <!-- Category select button -->
               <form method="POST" action="/policy/category_select" id="category" >
               <h5align="right" style="font-weight: bold">Category</h5>
-                    <select id="category-select" name="category-select" multiple="multiple" class="dropdown">
-                    <option value="application">Application</option>
+                    <select id="category_select" name="category_select" multiple="multiple"  class="multiple">
+                    <option value="application" >Application</option>
                     <option value="system">System</option>
                     <option value="security">Security</option>
                     <option value="setup">Setup</option>
                     </select>
-                <input type="submit" onclick="cat()">
+                <input type="submit" >
               </form>
 
             
@@ -348,7 +348,7 @@
 
           <!-- Page Heading -->
           <!-- DataTales Example -->
-              <div class="table-responsive">
+              <div class="table-responsive" style="min-width: 980px;padding-top: 8px">
                 <table class="table table-bordered eventDataTable" width="100%" cellspacing="0"style="margin-top: 20px">
                   <thead>
                     <tr>
