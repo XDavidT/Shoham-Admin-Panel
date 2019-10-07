@@ -106,10 +106,6 @@ const getEventsFromDB = (myfilter,callback) => {
         const events = client.db(dbPolicy).collection(collEvents)
         
         eve =events.find().toArray((error,eventsList) => {
-<<<<<<< HEAD
-            //console.log(eventsList)
-=======
->>>>>>> 49f5330f77b0c9c24491cb24e898d724f9341ba7
             callback(undefined,eventsList)
         })
         client.close()

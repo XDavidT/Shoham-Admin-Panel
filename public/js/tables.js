@@ -65,10 +65,7 @@ $.getJSON('/api/policy/data2table',function(data){
 $.getJSON('/api/policy/eventData2table',function(data){
     
     $(document).ready(function() {
-<<<<<<< HEAD
-=======
         
->>>>>>> 49f5330f77b0c9c24491cb24e898d724f9341ba7
         var table = $('.eventDataTable').DataTable({
             orderCellsTop: true,
             fixedHeader: true,
