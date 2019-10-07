@@ -25,7 +25,11 @@ $.getJSON('/users/data2table',function(data){
                 {data: 'email'},
                 {data: 'role'},
                 //{defaultContent:'<form method="delete" action="/users/delete"><input type="hidden" name="_id" value="hidden" /><button class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button></form>'}
-                {defaultContent:'<form method="delete" action="/users/delete"><button class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button></form>'}
+                //{defaultContent:'<form method="delete" action="/users/delete"><button class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button></form>'}
+                { render: function ( data, type, full, meta ) {
+                    return '<a href=/#"'+{full}+'>' + 'remove' + '</a>';
+                }
+                }
             ]
         });
       });
@@ -56,7 +60,3 @@ $('table td').click(function(){
 //      return false;
 //  });
 
-$("#dataTableUsers tbody tr").on("dblclick", function(){
-    var datarow = table.row(this).data;
-    console.log(datarow)
-})
