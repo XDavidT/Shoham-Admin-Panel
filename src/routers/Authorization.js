@@ -1,19 +1,21 @@
-const expressJwt = require('express-jwt');
-const { secret } = require('config.json');
 const User = require('../utilities/models/user_model')
+const jwt = require('jsonwebtoken')
 
-
-//Getting Authorized
-const authorize = async(req,res,next) => {
-    const role = req.body.role
-     const email = req.body.email
-     const user = await User.findOne({ email , 'role': role})
-     if(!user){
+//Need to complete
+const Authorize = async(req,res,next) => {
+    try{
+        const token = req.cookies.token // requesting cookie from the user
+        const decoded = jwt.verify(token, 'PrivateToken') // verify the cookie
+        const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
+        console.log(user.role)
+        if( !user || user.role !== 'admin'  ){
             // user's role is not authorized
-            return res.status(401).json({ message: 'Unauthorized' })
+            return res.status(401).json({ message: 'Unauthorized->Not admin' })
+            }   
+            next()
+        }catch(e) {
+            return res.send('Unauthorized->Not loggin').status(401)
         }
-
-       next();
     }
 
-module.exports = authorize;
+module.exports = Authorize;

@@ -1,8 +1,8 @@
 const User = require('../utilities/models/user_model')
 const jwt = require('jsonwebtoken')
 
-const authentication = async (req, res, next) => {
-    try {   
+const Authenticate = async (req, res, next) => {
+    try { 
         const token = req.cookies.token // requesting cookie from the user
         const decoded = jwt.verify(token, 'PrivateToken') // verify the cookie
         const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
@@ -13,4 +13,4 @@ const authentication = async (req, res, next) => {
     }
 }
 
-module.exports = authentication
+module.exports = Authenticate

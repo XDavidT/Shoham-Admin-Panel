@@ -1,19 +1,18 @@
 const express = require('express')
 const User = require('../utilities/models/user_model')
 require('../utilities/handler/UsersHandler')
-const authentication = require('./authentication')
-const authorize = require('./Authorization')
+const Authenticate = require('./Authentication')
+const Authorize = require('./Authorization')
 const user_router = new express.Router()
-const cookieParser = require('cookie-parser')
 
 
 
 //getting Authenticated User from DB
-user_router.get('/users/me', authentication, async (req , res) => {
+user_router.get('/users/me', Authenticate, async (req , res) => {
        res.send(req.user)
 })
 
-user_router.get('/users', authentication, (req, res) => {
+user_router.get('/users', Authenticate, (req, res) => {
     res.render('users',{
         
     })
@@ -21,7 +20,7 @@ user_router.get('/users', authentication, (req, res) => {
 
 
 //getting Users from DB and be Authorized!
-user_router.get('/users/data2table', authentication , async (req, res) => {
+user_router.get('/users/data2table', Authenticate , async (req, res) => {
     try {
         const users = await User.find({})
         res.send(users)
@@ -70,7 +69,7 @@ user_router.patch('/users/:id', async (req, res) => {
 })
 
 //Creating User to DB
-user_router.post('/users/add', async (req, res) => {
+user_router.post('/users/add', Authorize, async (req, res) => {
     const user = new User(req.body)
 
     try {
@@ -97,7 +96,7 @@ user_router.post('/users/login', async (req, res) => {
 })
 
 //Logout User
-user_router.post('/users/logout', authentication, async (req, res) => {
+user_router.post('/users/logout', Authenticate, async (req, res) => {
     try {
         req.user.tokens = req.user.tokens.filter((token) => {
            delete token.token
@@ -111,7 +110,7 @@ user_router.post('/users/logout', authentication, async (req, res) => {
 })
 
 //Logout All-Users
-user_router.post('/users/logoutAll', authentication, async (req, res) => {
+user_router.post('/users/logoutAll', Authenticate, async (req, res) => {
     try {
         req.user.tokens = []
         await req.user.save()
@@ -156,25 +155,3 @@ user_router.delete('/users' , async (req, res) => {
 
 
 module.exports = user_router
-
-
-/*
-const Password_Hash = async () => {
-    const password = '21932193'
-    const hashedPassword = await bcrypt.hash(password, 8)
-
-    console.log(password)
-    console.log(hashedPassword)
-
-    const isMatch = await bcrypt.compare('21932193', hashedPassword)
-    console.log(isMatch)
-}
-
-Password_Hash()
-*/
-
-/*
-user_router.listen(3000 ,() => {
-    console.log('Server is up on port 3000')
-})
-*/
