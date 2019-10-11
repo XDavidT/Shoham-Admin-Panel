@@ -1,8 +1,8 @@
 const express = require('express')
 const User = require('../utilities/models/user_model')
 require('../utilities/handler/UsersHandler')
-const Authenticate = require('./Authentication')
-const Authorize = require('./Authorization')
+const Authenticate = require('./authentication')
+const Authorize = require('./authorization')
 const user_router = new express.Router()
 
 
