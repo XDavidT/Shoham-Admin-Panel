@@ -1021,6 +1021,12 @@ pre code {
       flex: 0 0 83.33333%;
       max-width: 83.33333%
   }
+  .col-sm-10-setting {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 83.33333%;
+    flex: 0 0 83.33333%;
+    max-width: 50%
+}
   .col-sm-11 {
       -webkit-box-flex: 0;
       -ms-flex: 0 0 91.66667%;
@@ -2687,14 +2693,19 @@ textarea.form-control.is-invalid {
   }
 }
 
+.form-setting {
+  font-size: 20px;
+}
 
 .input-setting {
 width: 50%;
 }
 .input-setting-number {
-  width: 10%;
-  }
-
+  width: 35%;
+}
+.input-setting-dropdown {
+  max-width: 20%;
+}
 
 
 .btn {

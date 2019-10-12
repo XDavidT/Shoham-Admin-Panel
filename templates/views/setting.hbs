@@ -47,42 +47,39 @@
             <div class="card-body">
 
               <!-- Main Form Start-->
+
+              {{!-- System Name --}}
               <form class="form-setting">
                 <div class="form-group row" name="System name">
-                  <label for="inputEmail3" class="col-sm-2 col-form-label"><B>System Name</B></label>
-                  <div class="col-sm-10">
+                  <label for="inputEmail3" class="col-sm-2 col-form-label"><h5><B>System Name:</B></h5></label>
+                  <div class="col-sm-10-setting">
                     <input type="text" class="form-control input-setting" id="SystemName" placeholder="System Name should be here">
                   </div>
                 </div>
-                {{!-- Based on --}}
+                {{!-- Based on [Automatic selection for dropdown] !--}}
                 <div class="form-group row" name="Based on">
                   <label for="inputEmail3" class="col-sm-2 col-form-label">Correlation based on:</label>
-                  <div class="col-sm-10">
-                    <div class="dropdown mb-4">
-                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown selection
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Computer Name</a>
-                        <a class="dropdown-item" href="#">IP Address</a>
-                        <a class="dropdown-item" href="#">MAC Address</a>
-                        <a class="dropdown-item" href="#">User Name</a>
-                      </div>
-                    </div>
+                  <div class="col-sm-10-setting input-setting-dropdown">
+                    <select class="custom-select" id="BasedOn">
+                    <option value="hostname">Computer Name</option>
+                    <option value="username">Username</option>
+                    <option value="ip_add">IP Address</option>
+                    <option value="mac_add">MAC Address</option>
+                    </select>
                   </div>
                 </div>
                 {{!-- Time to load (Re-check) --}}
-                <div class="form-group row" name="System name">
-                  <label for="inputTime" class="col-sm-2 col-form-label">Standby to next correlation</label>
-                  <div class="col-sm-10">
+                <div class="form-group row">
+                  <label for="inputTime" class="col-sm-2 col-form-label">Standby to next correlation:</label>
+                  <div class="col-sm-10-setting">
                     <input type="number" class="form-control input-setting-number" id="TimeToLoad" placeholder="Seconds" min="0">
                   </div>
                 </div>
                 {{!-- Logs from X hours --}}
-                <div class="form-group row" name="System name">
-                  <label for="inputTime" class="col-sm-2 col-form-label">Query X time back</label>
-                  <div class="col-sm-10">
-                    <input type="number" class="form-control input-setting-number" id="TimeToLoad" placeholder="Hours" min="1">
+                <div class="form-group row">
+                  <label for="inputTime" class="col-sm-2 col-form-label">Query X time back:</label>
+                  <div class="col-sm-10-setting">
+                    <input type="number" class="form-control input-setting-number" id="XTimeBack" placeholder="Hours" min="1">
                   </div>
                 </div>
                 {{!-- Submit button --}}
@@ -93,7 +90,7 @@
                 </div>
               </form>
               <!-- Main Form End-->
-              
+
             </div>
           </div>
         </div>
@@ -145,6 +142,9 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
+
+  {{!-- Load setting from js file --}}
+  <script src="js/setting.js"></script>
 
 </body>
 
