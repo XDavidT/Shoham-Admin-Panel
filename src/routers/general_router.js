@@ -11,12 +11,22 @@ gen_router.get('/setting' , (req, res) =>{
     })
 })
 
-gen_router.get('/api/setting/get-setting', (req, res) => {
-    mongo_handler(req.query,(error,result) =>{
+gen_router.get('/api/setting/get', (req, res) => {
+    mongo_handler.getSettingFromDB(req.query,(error,result) =>{
         if(error){
             res.send(error)
         } else {
             res.jsonp(result)
+        }
+    })
+})
+
+gen_router.post('/api/setting/update',(req, res) => {
+    mongo_handler.updateSetting(req.body,(error,result) =>{
+        if(error){
+            res.send(error)
+        } else {
+            res.sendStatus(result)
         }
     })
 })
