@@ -15,10 +15,8 @@ const getSettingFromDB = (kindOfSetting,callback) => {
             callback(error,undefined)
         } else {
         const settingCollection = client.db(databaseName).collection(collectionName)
-        const result = settingCollection.findOne(kindOfSetting,(error,result) => {
-            if (error){ 
-                callback(error,undefined)
-            }
+        settingCollection.findOne(kindOfSetting,(error,result) => {
+            if (error) callback(error,undefined)
             else callback(undefined,result)
         })
         client.close()
