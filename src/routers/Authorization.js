@@ -7,7 +7,6 @@ const Authorize = async(req,res,next) => {
         const token = req.cookies.token // requesting cookie from the user
         const decoded = jwt.verify(token, 'PrivateToken') // verify the cookie
         const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
-        console.log(user.role)
         if( !user || user.role !== 'admin'  ){
             // user's role is not authorized
             return res.status(401).json({ message: 'Unauthorized->Not admin' })
