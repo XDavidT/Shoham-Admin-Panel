@@ -1,8 +1,9 @@
 const express = require('express')
 const User = require('../utilities/models/user_model')
 require('../utilities/handler/UsersHandler')
-const Authenticate = require('./authentication')
-const Authorize = require('./authorization')
+const Authenticate = require('./Authentication')
+const Authorize = require('./Authorization')
+const logout = require('./logout')
 const user_router = new express.Router()
 
 
@@ -96,17 +97,8 @@ user_router.post('/users/login', async (req, res) => {
 })
 
 //Logout User
-user_router.post('/users/logout', Authenticate, async (req, res) => {
-    try {
-        req.user.tokens = req.user.tokens.filter((token) => {
-           delete token.token
-        })
-        await req.user.save()
+user_router.post('/users/logout', Authenticate, logout, async (req, res) => {
 
-        res.send('Logout Successfuly')
-    } catch (e) {
-        res.status(500).send('Logout Failed')
-    }
 })
 
 //Logout All-Users

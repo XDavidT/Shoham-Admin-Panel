@@ -1,7 +1,7 @@
 const express = require('express')
 const gen_router = new express.Router()
 const mongo_handler = require('../utilities/handler/GeneralHandler')
-const auth = require('./authentication')
+const Authenticate = require('./Authentication')
 
 
 
