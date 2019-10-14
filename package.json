@@ -43,7 +43,7 @@
         "datatables.net-bs4": "1.10.19",
         "express": "^4.17.1",
         "express-jwt": "^5.3.1",
-        "hbs": "^4.0.4",
+        "hbs": "^4.0.6",
         "jquery": "3.4.1",
         "jquery.easing": "^1.4.1",
         "jsonwebtoken": "^8.5.1",

@@ -1,10 +1,17 @@
 const express = require('express')
 const app = express()
+
+//Parsers
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
+
+//Routers
+const gen_Router = require('./routers/general_router')
 const user_Router = require('./routers/user_router')
 const logs_Router = require('./routers/logs_router')
 const policy_Router = require('./routers/policy_router')
-const cookieParser = require('cookie-parser')
+
+
 require('./utilities/models/user_model')
 require('./utilities/handler/policyHandler')
 
@@ -30,7 +37,7 @@ app.use(bodyParser.urlencoded({
   }))
   app.use(cookieParser())
 
-
+app.use(gen_Router)
 app.use(user_Router)
 app.use(logs_Router)
 app.use(policy_Router)
@@ -58,8 +65,9 @@ app.get('/login', (req, res) => {
 })
 
 app.get('*',(req, res) =>{
+    res.status(404);
     res.render('404',{
-
+        
     })
 })
 
