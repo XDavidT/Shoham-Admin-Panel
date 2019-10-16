@@ -4,19 +4,12 @@ const jwt = require('jsonwebtoken')
 const logout = async (req, res,next) => {
     try{
         const token = req.cookies.token
-        console.log(token)
         const decoded = jwt.verify(token, 'PrivateToken') // verify the cookie
         const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
-        console.log("-----------------")
-        console.log(user)
-        const user_token = user.tokens.filter((token)=>{
-            console.log("-----------------")
-            console.log(token.token)
-            delete token.token
-        })
-        
-        console.log('logout success')
-        await req.user.save()
+         user.tokens = []
+        await user.save()
+        res.cookie('token',token,{'maxAge': 0 , httpOnly: true})
+        res.redirect(302 , 'http://localhost:3000')
         next()
         } catch (e) {
             console.log('logout failed')

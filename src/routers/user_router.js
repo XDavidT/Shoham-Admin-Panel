@@ -98,7 +98,11 @@ user_router.post('/users/login', async (req, res) => {
 
 //Logout User
 user_router.post('/users/logout', Authenticate, logout, async (req, res) => {
-
+    try {
+        await req.user.save()
+    } catch (e) {
+        res.status(500).send()
+    }
 })
 
 //Logout All-Users
