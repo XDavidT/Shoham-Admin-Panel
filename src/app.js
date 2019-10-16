@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 
 //Routers
+const site_Router = require('./routers/site_pages')
 const gen_Router = require('./routers/general_router')
 const user_Router = require('./routers/user_router')
 const logs_Router = require('./routers/logs_router')
@@ -37,18 +38,11 @@ app.use(bodyParser.urlencoded({
   }))
   app.use(cookieParser())
 
+app.use(site_Router)
 app.use(gen_Router)
 app.use(user_Router)
-app.use(logs_Router)
-app.use(policy_Router)
-
-
-
-/*app.get('/logs',(req, res) =>{
-    res.render('logs',{
-        
-    })
-})*/
+app.use('/api/logs', logs_Router)
+app.use('/api/policy', policy_Router)
 
 
 
@@ -56,11 +50,6 @@ app.use(policy_Router)
 //Get resolver for site
 app.get('', (req, res) => {
     res.render('index',{
-    })
-})
-
-app.get('/login', (req, res) => {
-    res.render('login',{
     })
 })
 

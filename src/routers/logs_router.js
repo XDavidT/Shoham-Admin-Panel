@@ -6,13 +6,8 @@ const Authorize = require('./Authorization')
 
 
 
-logs_router.get('/logs', Authenticate , Authorize, (req, res) =>{
-    res.render('logs',{
-        
-    })
-})
 
-logs_router.get('/api/logs/data2table', Authenticate, Authorize, (req, res) => {
+logs_router.get('/data2table', Authenticate, Authorize, (req, res) => {
 
     mongo_handler.getLogsFromDB(req.query,(error,result) =>{
         if(error){

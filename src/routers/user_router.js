@@ -13,11 +13,7 @@ user_router.get('/users/me', Authenticate, async (req , res) => {
        res.send(req.user)
 })
 
-user_router.get('/users', Authenticate, (req, res) => {
-    res.render('users',{
-        
-    })
-})
+
 
 
 //getting Users from DB and be Authorized!

@@ -8,15 +8,7 @@ policy_router.use(bodyParser.json());
 policy_router.use(bodyParser.urlencoded({extended: false}))
 
 
-
-
-policy_router.get('/policy',(req, res) =>{
-    res.render('policy',{
-    })
-})
-
-
-policy_router.post('/api/policy/postRules', (req, res) => {
+policy_router.post('/postRules', (req, res) => {
 console.log(req.body)
     policy_handler.postRulesToDB(req.body,(error,result) =>{
         if(error){
@@ -28,7 +20,7 @@ console.log(req.body)
 
 })
 
-policy_router.get('/api/policy/data2table',(req, res) => {
+policy_router.get('/data2table',(req, res) => {
     policy_handler.getRulessFromDB(req.query,(error,result) =>{
         if(error){
             res.send(error)
@@ -38,7 +30,7 @@ policy_router.get('/api/policy/data2table',(req, res) => {
     })
 })
 
-policy_router.post('/api/policy/postEvents', (req, res) => {
+policy_router.post('/postEvents', (req, res) => {
     policy_handler.postEventsToDB(req.body,(error,result) =>{
         if(error){
             res.send(error)
@@ -60,7 +52,7 @@ policy_router.post('/policy/category_select', (req, res) => {
 
 })
 
-policy_router.get('/api/policy/eventData2table',(req, res) => {
+policy_router.get('/eventData2table',(req, res) => {
     policy_handler.getEventsFromDB(req.query,(error,result) =>{
         if(error){
             res.send(error)
