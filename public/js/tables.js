@@ -74,8 +74,8 @@ $.getJSON('/api/policy/eventData2table',function(data){
             columns: [
                 {data: '_id'},
                 {data: 'name'},
-                {data: 'Description'},
-                {data: 'Type'},
+                {data: 'description'},
+                {data: 'type'},
                 {data: 'full.rules.rule_id', 
                 render: function ( full, type, full, meta ) {
                     var result = '';                   
