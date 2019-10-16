@@ -10,6 +10,11 @@ gen_router.get('/setting' , (req, res) =>{
         
     })
 })
+gen_router.get('/setting3rd' , (req, res) =>{
+    res.render('setting-third',{
+        
+    })
+})
 
 gen_router.get('/api/setting/get', (req, res) => {
     mongo_handler.getSettingFromDB(req.query,(error,result) =>{
