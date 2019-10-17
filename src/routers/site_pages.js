@@ -4,7 +4,7 @@ const Authenticate = require('./Authentication')
 const Authorize = require('./Authorization')
 
 
-app.get('/login', (req, res) => {
+site_router.get('/login', (req, res) => {
     res.render('login',{
     })
 })
