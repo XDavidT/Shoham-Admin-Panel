@@ -38,8 +38,8 @@ const postEventsToDB = (events,callback)=>{
     for ( var i=0; i<events.ruleNum.length;i++){	
         rulesArray[i]={
             rule_id : events.ruleNum[i],
-            repeated : events.repeated[i],
-            timeout : events.TIMEOUT[i]
+            repeated : Number(events.repeated[i]),
+            timeout : Number(events.TIMEOUT[i])
         }
     }
    nextID = getNextSequenceValue( client.db(dbPolicy),"eventCounter");
@@ -48,8 +48,8 @@ const postEventsToDB = (events,callback)=>{
         client.db(dbPolicy).collection(collEvents).insert({
                 _id:eventID,
                 name:events.eventName,
-                Description:events.eventDescription,
-                Type:events.type_select,
+                description:events.eventDescription,
+                type:events.type_select,
                 rules: rulesArray
         })
     callback(error,undefined)

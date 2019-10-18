@@ -1,8 +1,8 @@
 const express = require('express')
 const User = require('../utilities/models/user_model')
 require('../utilities/handler/UsersHandler')
-const Authenticate = require('./Authentication')
-const Authorize = require('./Authorization')
+const Authenticate = require('./authentication')
+const Authorize = require('./authorization')
 const logout = require('./logout')
 const user_router = new express.Router()
 
@@ -13,11 +13,7 @@ user_router.get('/users/me', Authenticate, async (req , res) => {
        res.send(req.user)
 })
 
-user_router.get('/users', Authenticate, (req, res) => {
-    res.render('users',{
-        
-    })
-})
+
 
 
 //getting Users from DB and be Authorized!

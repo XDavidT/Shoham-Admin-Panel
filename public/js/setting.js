@@ -20,6 +20,6 @@ $("#submit-setting").click(()=>{
         url:'/api/setting/update',
         data: jsonString,
         success: ()=>{alert('sent !')},
-        'Content-Type': "application/json",
+        'Content-Type': "application/json"
     })
 })
