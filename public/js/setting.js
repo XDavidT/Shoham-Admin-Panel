@@ -1,5 +1,7 @@
 $(document).ready( ()=> {
-    $.getJSON( '/api/setting/get',{"_id":"general-setting"})
+    const req_filter = {}
+    req_filter['_id'] = "basic-setting"
+    $.getJSON( '/api/setting/get',req_filter)
     .done((jsonData)=> {
         $("#SystemName").val(jsonData['system-name'])
         $("#TimeToLoad").val(jsonData['time_to_load'])
@@ -10,7 +12,7 @@ $(document).ready( ()=> {
 
 $("#submit-setting").click(()=>{
     const jsonString = {}
-    jsonString['_id'] = "general-setting"
+    jsonString['_id'] = "basic-setting"
     jsonString['system-name'] = $("input#SystemName").val()
     jsonString['time_to_load'] = $("input#TimeToLoad").val()
     jsonString['logs-from-X-hours'] = $("input#XTimeBack").val()

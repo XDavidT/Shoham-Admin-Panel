@@ -4,10 +4,12 @@ const mongo_handler = require('../utilities/handler/GeneralHandler')
 const Authenticate = require('./Authentication')
 
 gen_router.get('/get', (req, res) => {
+    console.log(req.query)
     mongo_handler.getSettingFromDB(req.query,(error,result) =>{
         if(error){
             res.send(error)
         } else {
+            console.log(result)
             res.jsonp(result)
         }
     })
