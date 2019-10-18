@@ -1,6 +1,6 @@
 $(document).ready( ()=> {
-    $.getJSON( '/api/setting/get',{"_id":"general-setting"}
-    ).done((jsonData)=> {
+    $.getJSON( '/api/setting/get',{"_id":"general-setting"})
+    .done((jsonData)=> {
         $("#SystemName").val(jsonData['system-name'])
         $("#TimeToLoad").val(jsonData['time_to_load'])
         $("#XTimeBack").val(jsonData['logs-from-X-hours'])
