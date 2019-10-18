@@ -24,5 +24,15 @@ site_router.get('/offenses',(req,res) => {
     res.render('offenses', {
     })
 })
+site_router.get('/setting' , (req, res) =>{
+    res.render('setting',{
+        
+    })
+})
+site_router.get('/setting3rd' , (req, res) =>{
+    res.render('setting-third',{
+        
+    })
+})
 
 module.exports = site_router
