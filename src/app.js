@@ -50,7 +50,7 @@ app.use(session({
 app.use(flash())
 
 app.use(site_Router)
-app.use(gen_Router)
+app.use('/api/setting',gen_Router)
 app.use(user_Router)
 app.use('/api/logs', logs_Router)
 app.use('/api/policy', policy_Router)

@@ -1,6 +1,8 @@
 $(document).ready( ()=> {
-    $.getJSON( '/api/setting/get',{"_id":"smtp-setting"}
-    ).done((jsonData)=> {
+    const req_filter = {}
+    req_filter['_id'] = "alert-setting"
+    $.getJSON( '/api/setting/get',req_filter)
+    .done((jsonData)=> {
         $("#SmtpServer").val(jsonData['smtp-server'])
         $("#ServerPort").val(jsonData['smtp-server-port'])
         $("#SmtpUser").val(jsonData['email-username'])
