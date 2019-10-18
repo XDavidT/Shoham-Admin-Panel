@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Logs view</title>
+  <title>SB Admin 2 - Tables</title>
 
   <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -47,49 +47,36 @@
 
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
-          <!-- DataTales Example -->
-          <div class="loading-section" align="center">
-            <img src="img/loading.gif">
-            <h1>Please wait while logs loading...</h1>
-          </div>
-            
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTableLogs" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>Log ID</th>
-                      <th>Time</th>
-                      <th>Type</th>
-                      <th>Source</th>
-                      <th>Category</th>
-                      <th>Device Name</th>
-                      <th>IP Address</th>
-                      <th>mac_add</th>
-                      <th>User</th>
-                      <th>OS</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Error</td>
-                      <td>Error</td>
-                      <td>Error</td>
-                      <td>Error</td>
-                      <td>Error</td>
-                      <td>Error</td>
-                      <td>Error</td>
-                      <td>Error</td>
-                      <td>Error</td>
-                      <td>Error</td>
-                    </tr>
-                  </tbody>
-                </table>
+            <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+              <div class="card shadow mb-4">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    {{!-- Table Start --}}
+                    <table class="table table-bordered" id="dataTableLogs" width="100%" cellspacing="0">
+                      <thead>
+                        <tr>
+                          <th>OffenseID</th>
+                          <th>By Event</th>
+                          <th>Local/Global</th>
+                          <th>Last Device</th>
+                          <th>Time</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Error</td>
+                          <td>Error</td>
+                          <td>Error</td>
+                          <td>Error</td>
+                          <td>Error</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
-            
-          
+          </div>
 
-        </div>
         <!-- /.container-fluid -->
 
       </div>
@@ -109,7 +96,24 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-{{>logout}}
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -128,8 +132,7 @@
 
   <!-- Page level custom scripts | DataTable script -->
 
-  {{!-- Script to fill the table manual --}}
-  <script src="js/tables.js"></script>
+
 
 </body>
 

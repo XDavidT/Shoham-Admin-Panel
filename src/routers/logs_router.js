@@ -1,8 +1,8 @@
 const express = require('express')
 const logs_router = new express.Router()
 const mongo_handler = require('../utilities/handler/LogsHandler')
-const Authenticate = require('./Authentication')
-const Authorize = require('./Authorization')
+const Authenticate = require('./authentication')
+const Authorize = require('./authorization')
 
 
 

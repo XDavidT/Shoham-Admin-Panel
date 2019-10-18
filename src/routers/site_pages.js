@@ -20,4 +20,9 @@ site_router.get('/users', Authenticate, (req, res) => {
     res.render('users',{
     })
 })
+site_router.get('/offenses',(req,res) => {
+    res.render('offenses', {
+    })
+})
+
 module.exports = site_router
