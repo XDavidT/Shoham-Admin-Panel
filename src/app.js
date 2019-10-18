@@ -12,6 +12,8 @@ const user_Router = require('./routers/user_router')
 const logs_Router = require('./routers/logs_router')
 const policy_Router = require('./routers/policy_router')
 
+const session = require('express-session')
+const flash = require('connect-flash')
 
 require('./utilities/models/user_model')
 require('./utilities/handler/policyHandler')
@@ -37,6 +39,14 @@ app.use(bodyParser.urlencoded({
     extended: true
   }))
   app.use(cookieParser())
+
+app.use(session({
+    secret:'session secret',
+    resave: false, 
+    saveUninitialized: false,
+}));
+
+app.use(flash())
 
 app.use(site_Router)
 app.use(gen_Router)
