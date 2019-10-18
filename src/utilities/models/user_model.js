@@ -35,14 +35,27 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        required: true
+        required: true,
+        validate: {
+            validator: function(v) {
+                if (v == 'admin' || v == 'user' )
+                    return true
+                else
+                    return false
+            }
+        }
     },
     tokens: [{
         token: {
             type: String,
             required: true
         }
-    }]
+    }],
+    root:
+    {
+        type: String,
+        required: false
+    }
 })
 
 

@@ -118,18 +118,14 @@ user_router.post('/users/logoutAll', Authenticate, async (req, res) => {
 
 //deleting User from DB
 user_router.delete('/users/delete', async (req, res) => {
-        try{
-         const user = await User.findByIdAndDelete(req.param.id).then(function() {
-                            User.findOneAndDelete(req.param.id).then(function(user) {
-                            })
-                        })
-        if (!user) {
-            return res.status(404).send()
-        }                    
-
-        res.send(user)
-    }   catch (error) {
-        res.status(505).send()
+    try{
+        const user = await User.findById(req.body)
+        if(!user.root){
+            user.remove()
+        }
+        console.log('here')
+    } catch (error) {
+       
     }
 })
 

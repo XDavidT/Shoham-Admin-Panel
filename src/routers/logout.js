@@ -9,7 +9,7 @@ const logout = async (req, res,next) => {
          user.tokens = []
         await user.save()
         res.cookie('token',token,{'maxAge': 0 , httpOnly: true})
-        res.redirect(302 , 'http://localhost:3000')
+        res.redirect(302 , 'http://localhost:3000/login')
         next()
         } catch (e) {
             console.log('logout failed')

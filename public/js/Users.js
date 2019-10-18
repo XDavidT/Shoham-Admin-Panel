@@ -24,16 +24,35 @@ $.getJSON('/users/data2table',function(data){
                 {data: 'name'},
                 {data: 'email'},
                 {data: 'role'},
-                //{defaultContent:'<form method="delete" action="/users/delete"><input type="hidden" name="_id" value="hidden" /><button class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button></form>'}
-                //{defaultContent:'<form method="delete" action="/users/delete"><button class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button></form>'}
-                { render: function ( data, type, full, meta ) {
-                    return '<a href=/#"'+{full}+'>' + 'remove' + '</a>';
-                }
-                }
-            ]
+                {data: null}
+            ],
+            "columnDefs": [ {
+                "targets": -1,
+                "data": null,
+                "defaultContent": '<button type="button" class="btn btn-danger" id="removeUser">Remove</button>'
+            } ]
         });
-      });
-})
+        $('#dataTableUsers tbody').on('click','#removeUser', function () {
+            var data = table.row( $(this).parents('tr') ).data();
+            const jsonString = {}
+            jsonString['_id'] = data['_id'] 
+            $.ajax({
+                type: 'DELETE',
+                url: '/users/delete',
+                data: jsonString,
+                'Content-Type': "application/json",
+                success: function(){
+                }
+                })
+            });
+        });
+    });
+
+
+
+ 
+    
+
 
 function emptyInput(target) {
     if (target=="user"){
