@@ -39,12 +39,10 @@ app.set('view engine','hbs')
 app.set('views',viewsPath)
 hbs.registerPartials(partialsPath)
 
-// Setup static dir to serve
+// Setup static dir to server
 app.use(express.static(public_dir))
 app.use(express.json())
-app.use(bodyParser.urlencoded({
-    extended: true
-  }))
+app.use(bodyParser.urlencoded({extended: true}))
   app.use(cookieParser())
 
 app.use(session({
@@ -55,6 +53,7 @@ app.use(session({
 
 app.use(flash())
 
+// Routers //
 app.use(site_Router)
 app.use('/api/setting', gen_Router)
 app.use('/api/users', user_Router)
