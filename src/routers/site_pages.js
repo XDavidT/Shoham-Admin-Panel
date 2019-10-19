@@ -13,15 +13,12 @@ site_router.get('/logs', Authenticate , Authorize, (req, res) =>{
     })
 })
 site_router.get('/policy',(req, res) =>{
-    res.render('policy',{
-    })
+    const messages = req.flash()
+    res.render('policy',{messages})
 })
 site_router.get('/users', Authenticate, (req, res) => {
     const messages = req.flash()
-    console.log(messages)
-    res.render('users',
-        {messages}
-    )
+    res.render('users',{messages})
 })
 site_router.get('/offenses',(req,res) => {
     res.render('offenses', {

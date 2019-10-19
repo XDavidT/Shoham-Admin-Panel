@@ -49,7 +49,7 @@
           <h1 class="h3 mb-2 text-gray-800">Users</h1>
          {{> messages }}
          <div class="card-body" data-toggle="modal" data-target="#addUserModal">
-            <button>ADD USER</button>
+            <button class="btn btn-secondary">ADD USER</button>
           </div>  
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTableUsers" width="100%" cellspacing="0">
@@ -116,34 +116,33 @@
         
         <div class="modal-body">
 
-          
-              <form class="input-group" method="post" action="/users/add">
+              <form method="post" action="/users/add">
         
                   <div class="input-group-prepend-users">
-                    <div class="input-group-text-users">name</div>
+                    <div class="input-group-text-users">Name</div>
                   </div>
-                  <input type="text" id="name" name="name" size="38" autocomplete="off" required>
-  
+                  <input type="text" class="form-control input-setting" id="name" required>
+                  
                   <div class="input-group-prepend-users">
-                    <div class="input-group-text-users">email</div>
+                    <div class="input-group-text-users">Email</div>
                   </div>
-                  <input type="text" id="email" name="email" size="38" autocomplete="off" required>
+                  <input type="text"class="form-control input-setting" id="email" name="email" size="38" autocomplete="off" required>
                   
                   <div class="input-group-prepend-users"  >
-                    <div class="input-group-text-users">password</div>
+                    <div class="input-group-text-users">Password</div>
                   </div>
-                  <input type="text" id="password" name="password" size="38" autocomplete="off" required>         
+                  <input type="password" class="form-control input-setting" id="password" name="password" size="38" autocomplete="off" required>         
 
                   <div class="input-group-prepend-users">
-                    <div class="input-group-text-users">role</div>
+                    <div class="input-group-text-users">Role</div>
                   </div>
-                  <input type="text" id="role" name="role" size="38" autocomplete="off" required>   
+                  <input type="text" class="form-control input-setting" id="role" name="role" size="38" autocomplete="off" required>   
         </div>
 
         <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" id="send" class="btn btn-success btn-circle" > <i class="fas fa-check"></i> </button>
-               </form>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="submit" id="send" class="btn btn-success " >ADD</button>
+                </form>
         </div>
 
 

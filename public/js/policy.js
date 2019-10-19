@@ -3,7 +3,7 @@ var countRules =1 ;
 $("#addMore").click(function(){
 
    var x = $(".rule_fields_for_duplication:last").clone();
-   x.appendTo(".event_creation");  
+   x.appendTo(".event_creation").find("input[type='text']").val(""); 
 //x.children(1)[1].value=++countRules;
 //x.children(1)[1].style.visibility = 'hidden';
 //x.children(0)[0].style.visibility = 'hidden';
@@ -81,31 +81,3 @@ $(document).ready(function() {
      
     });
 }
-
-
-//store ID number of rules in local storage
-// function setIDNum() {
-//     var x = localStorage.getItem('prod-detail');
-    
-//     //localStorage.setItem("IDRuleNum","1");
-//     document.getElementById("ruleID").value=localStorage.getItem("IDRuleNum");
-//     console.log("ID set to ",localStorage.getItem("IDRuleNum"))
-// }
-
-// //increase by 1 ID of rules
-// function incRuleID(){
-//     var idString = localStorage.getItem("IDRuleNum")
-//     var intID = parseInt(idString,10)
-//     document.getElementById("ruleID").value=intID
-//     console.log("now , " , localStorage.getItem("IDRuleNum"))
-//     intID+= 1
-//     console.log(intID)
-//     localStorage.setItem("IDRuleNum",JSON.stringify(intID))
-//     console.log("now , " , localStorage.getItem("IDRuleNum"))
-//     //reset fields
-//      // $("#NameRule").val("") ;
-//     // $("#ruleQuery").val("") ;
-    
-// }
-
-//verify fields are not empty

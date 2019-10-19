@@ -48,7 +48,7 @@
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h2 mb-0 text-gray-800">Policy Managment</h1>
               <!-- Category select button -->
-              <form method="POST" action="/policy/category_select" id="category" >
+              <form method="POST" action="/api/policy/category_select" id="category" >
               <h5align="right" style="font-weight: bold">Category</h5>
                     <select id="category_select" name="category_select" multiple="multiple"  class="multiple">
                     <option value="application" >Application</option>
@@ -56,12 +56,12 @@
                     <option value="security">Security</option>
                     <option value="setup">Setup</option>
                     </select>
-                <input type="submit" >
+                <input type="submit" class="btn btn-primary">
               </form>
-
-            
           </div>
 
+          {{> messages }}
+          
           <!-- Content Row -->
           <div class="row">
 
@@ -286,9 +286,11 @@
 
                   </div>
                </div>
+
+
                     <div><button class="btn btn-primary btn-user btn-block;input-group-text" href="#" id="addMore" style="position: absolute;right: 200px;bottom:0;">ADD RULE</button></div>
                     
-                    <button type="submit" id="send2" class="btn btn-success btn-circle"style="position: absolute;right: 150px;bottom:0;"onclick="incRuleID()" disabled >
+                    <button type="submit" id="send2" class="btn btn-success btn-circle"style="position: absolute;right: 150px;bottom:0;" disabled >
                           <i class="fas fa-check"></i>
                     </button>
                     
