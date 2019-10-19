@@ -6,5 +6,4 @@ mongoose.connect('mongodb://mongo.davidt.net:27018/SystemManagment',{
     useNewUrlParser: true ,
     useCreateIndex: true,
     useUnifiedTopology: true },
-    console.log('db is connected to SystemManagment!')
 )

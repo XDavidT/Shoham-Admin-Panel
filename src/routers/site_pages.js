@@ -8,7 +8,7 @@ site_router.get('/login', (req, res) => {
     res.render('login',{
     })
 })
-site_router.get('/logs', Authenticate , Authorize, (req, res) =>{
+site_router.get('/logs',  (req, res) =>{
     res.render('logs',{
     })
 })

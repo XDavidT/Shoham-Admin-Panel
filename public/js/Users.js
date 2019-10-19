@@ -1,4 +1,4 @@
-$.getJSON('/users/data2table',function(data){
+$.getJSON('/api/users/data2table',function(data){
     $(document).ready(function() {
 
         $('#dataTableUsers thead tr').clone(true).appendTo( '#dataTableUsers thead' );
@@ -38,7 +38,7 @@ $.getJSON('/users/data2table',function(data){
             jsonString['_id'] = data['_id'] 
             $.ajax({
                 type: 'DELETE',
-                url: '/users/delete',
+                url: '/api/users/delete',
                 data: jsonString,
                 'Content-Type': "application/json",
                 success: function(){
