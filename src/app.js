@@ -17,6 +17,7 @@ const gen_Router = require('./routers/general_router')
 const user_Router = require('./routers/user_router')
 const logs_Router = require('./routers/logs_router')
 const policy_Router = require('./routers/policy_router')
+const Authorize = require('./routers/authorization')
 
 const session = require('express-session')
 const flash = require('connect-flash')

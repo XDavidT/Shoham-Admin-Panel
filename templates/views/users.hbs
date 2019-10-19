@@ -47,7 +47,7 @@
 
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Users</h1>
-         
+         {{> messages }}
          <div class="card-body" data-toggle="modal" data-target="#addUserModal">
             <button>ADD USER</button>
           </div>  
@@ -108,10 +108,12 @@
         <div class="modal-header">
               <h3 class='col-12 modal-title text-center'>
               Create User
+              
               <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
               </button></h3>
         </div>
+        
         <div class="modal-body">
 
           {{> messages}}

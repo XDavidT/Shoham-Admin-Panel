@@ -17,8 +17,11 @@ site_router.get('/policy',(req, res) =>{
     })
 })
 site_router.get('/users', Authenticate, (req, res) => {
-    res.render('users',{
-    })
+    const messages = req.flash()
+    console.log(messages)
+    res.render('users',
+        {messages}
+    )
 })
 site_router.get('/offenses',(req,res) => {
     res.render('offenses', {
