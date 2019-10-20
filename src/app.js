@@ -3,8 +3,8 @@ const app = express()
 
 //login necessary consts
 const User = require('../src/utilities/models/user_model')
-const logout = require('../src/Routers/logout')
-const Authenticate = require('../src/Routers/Authentication')
+const logout = require('../src/routers/logout')
+const Authenticate = require('../src/routers/authentication')
 
 
 //Parsers

@@ -1,7 +1,7 @@
 const express = require('express')
 const site_router = new express.Router()
-const Authenticate = require('./Authentication')
-const Authorize = require('./Authorization')
+const Authenticate = require('./authentication')
+const Authorize = require('./authorization')
 
 
 site_router.get('/login', (req, res) => {
