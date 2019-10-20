@@ -1,13 +1,9 @@
 const mongoose = require('mongoose')
+var ObjectId = require('mongodb').ObjectID
 
 // Same as need to be in DB
 const offenseSchema = new mongoose.Schema({
-    _id:{
-        type: ObjectId,
-        required: true,
-        trim: true,
-        unique: true
-    },
+    id:ObjectId,
     event:String,
     type:String,
     offense_close_time:Date,
@@ -15,7 +11,7 @@ const offenseSchema = new mongoose.Schema({
         type:String
     }],
     logs:[{
-        _id:ObjectId,
+        id:ObjectId,
         logid:String,
         client_time:Date,
         insert_time:Date,
@@ -29,5 +25,8 @@ const offenseSchema = new mongoose.Schema({
         mac_add:String,
         dataList:[{type:String}]
     }]
-})
+},{collection:'success-alert'})
 
+const Offense = mongoose.model('Offense',offenseSchema)
+
+module.exports = Offense

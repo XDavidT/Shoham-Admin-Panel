@@ -1,29 +1,23 @@
 $(document).ready(()=>{
-    $('#dataTableLogs tfoot th').each(()=> {
+    $('#dataTableOffense tfoot th').each(()=> {
         var title = $(this).text();
         $(this).html( '<input type="text" class="form-control" placeholder="Search '+title+'" />' );
     } );
 
-    var logsTable = $('#dataTableLogs').DataTable( {
+    var logsTable = $('#dataTableOffense').DataTable( {
         order:[[1,""]],
         processing: true,
         serverSide: true,
         ajax: {
-            url: '/api/logs/loadata',
+            url: '/api/offense/get',
             type: 'POST'
         },
         columns: [
-            {data: 'logid'},
-            {data: 'insert_time'},
+            {data: '_id'},
+            {data: 'event'},
             {data: 'type'},
-            {data: 'src'},
-            {data: 'cat'},
-            {data: 'hostname'},
-            {data: 'ip_add'},
-            {data: 'mac_add'},
-            {data: 'username'},
-            {data: 'os'}
-        
+            {data: 'device'},
+            {data: 'offense_close_time'}        
         ]
     } )
     logsTable.columns().every(()=> {

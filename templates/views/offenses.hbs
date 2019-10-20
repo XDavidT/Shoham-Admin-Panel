@@ -52,7 +52,7 @@
                 <div class="card-body">
                   <div class="table-responsive">
                     {{!-- Table Start --}}
-                    <table class="table table-bordered" id="dataTableLogs" width="100%" cellspacing="0">
+                    <table class="table table-bordered" id="dataTableOffense" width="100%" cellspacing="0">
                       <thead>
                         <tr>
                           <th>OffenseID</th>
@@ -71,6 +71,15 @@
                           <td>Error</td>
                         </tr>
                       </tbody>
+                      <tfoot>
+                         <tr>
+                          <th>OffenseID</th>
+                          <th>By Event</th>
+                          <th>Local/Global</th>
+                          <th>Last Device</th>
+                          <th>Time</th>
+                        </tr>
+                      </tfoot>
                     </table>
                   </div>
                 </div>
@@ -131,7 +140,7 @@
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <!-- Page level custom scripts | DataTable script -->
-
+  <script src="js/offense.js"></script>
 
 
 </body>

@@ -1,12 +1,10 @@
 const express = require('express')
-require('../utilities/handler/LogsHandler')
-const LogsModel = require('../utilities/models/logs_model')
-const logs_router = new express.Router
-const Authenticate = require('./authentication')
-const Authorize = require('./authorization')
+const offense_router = new express.Router
+require('../utilities/handler/OffenseHandler') //connection to policyManager
+const OffenseModel = require('../utilities/models/offense_model')
 
 
-logs_router.post('/loadata',(req,res)=>{
+offense_router.post('/get',(req,res)=>{
     try{
         //Checking parameters from DataTables query
         //Order
@@ -23,20 +21,20 @@ logs_router.post('/loadata',(req,res)=>{
         }
         //Search field
         const filtering = {}
-        for(var i = 0; i < 10;i++){ //TODO: check if size can be dynamic
+        for(var i = 0; i < 5;i++){ //TODO: check if size can be dynamic
             if(req.body['columns'][i]['search']['value'])
                 filtering[req.body['columns'][i]['data']] = req.body['columns'][i]['search']['value']
         }
 
             try {
-            LogsModel.find({$and:[filtering,searchValue]}).limit(Number(req.body['length'])).skip(Number(req.body['start'])).sort(orderBy).maxTimeMS(10000).lean().exec((err,logs)=>{
+                OffenseModel.find({$and:[filtering,searchValue]}).limit(Number(req.body['length'])).skip(Number(req.body['start'])).sort(orderBy).maxTimeMS(10000).lean().exec((err,result)=>{
                 if(err) res.status(500).jsonp(err)
-                LogsModel.countDocuments().exec((err,count)=>{                      //Get size for the collection
-                    LogsModel.countDocuments(searchValue).exec((err,countFilter)=>{ //Get size for filtered only
+                OffenseModel.countDocuments().exec((err,count)=>{                      //Get size for the collection
+                    OffenseModel.countDocuments(searchValue).exec((err,countFilter)=>{ //Get size for filtered only
                         const resJson = {}
                         if(err) res.status(500).jsonp(err)        //Mongoose return with error
                         else if(countFilter > 0){                //Mongoose return with data
-                            resJson['data'] = logs
+                            resJson['data'] = result
                             resJson['recordsTotal'] = count
                             resJson['recordsFiltered'] = countFilter
                             res.jsonp(resJson)
@@ -56,5 +54,4 @@ logs_router.post('/loadata',(req,res)=>{
     }
 })
 
-
-module.exports = logs_router
+module.exports = offense_router
