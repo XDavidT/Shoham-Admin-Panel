@@ -6,7 +6,31 @@ const Authorize = require('./authorization')
 const logout = require('./logout')
 const user_router = new express.Router()
 
+//Login User 
+user_router.post('/login', async (req, res) => {
+    try{
+    console.log("")
+    const user = await User.findByCredentials(req.body.email , req.body.password)
+    console.log("")
+    const token = await user.generateAuthToken()
+    res.cookie('token',token,{'maxAge': 3600000, httpOnly: true}) // sending cookie with expire time of 1 Hour.
+    res.redirect(302 , 'http://localhost:3000')
+    console.log("Login Succes")
+    } catch(error){
+        console.log("Login Error")
+        res.status(400).send('Login error')
+    }
+})
 
+//Logout User
+user_router.post('/logout', Authenticate, logout, async (req, res) => {
+    //console.log('here')
+    try {
+        await req.user.save()
+    } catch (e) {
+        res.status(500).send()
+    }
+})
 
 //getting Authenticated User from DB
 user_router.get('/me', Authenticate, async (req , res) => {
@@ -14,9 +38,10 @@ user_router.get('/me', Authenticate, async (req , res) => {
 })
 
 //getting Users from DB and be Authenticated!
-user_router.get('/data2table', Authenticate , async (req, res) => {
+user_router.get('/data2table' , async (req, res) => {
     try {
         const users = await User.find({})
+        //console.log(users)
         res.send(users)
     } catch (e) {
         res.status(500).send()

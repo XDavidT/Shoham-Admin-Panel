@@ -3,7 +3,7 @@ var countRules =1 ;
 $("#addMore").click(function(){
 
    var x = $(".rule_fields_for_duplication:last").clone();
-   x.appendTo(".event_creation").find("input[type='text']").val(""); 
+   x.appendTo(".event_creation").find("input[type='number']").val(""); 
 //x.children(1)[1].value=++countRules;
 //x.children(1)[1].style.visibility = 'hidden';
 //x.children(0)[0].style.visibility = 'hidden';
@@ -29,6 +29,14 @@ $(document).ready(function(){
         }
     });
 });
+
+function toggleCheckbox() {
+    var sms = document.getElementById('sms_alert');
+    var email = document.getElementById('email_alert');
+    connect.log("1")
+    sms.checked = !checkbox.checked;
+    email.checked = !checkbox.checked;
+  }
 
 //verify all fields are full for both RULES&EVENT
 function emptyInput(target) {
