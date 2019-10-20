@@ -9,6 +9,7 @@ const user_router = new express.Router()
 //Login User 
 user_router.post('/login', async (req, res) => {
     try{
+    console.log("")
     const user = await User.findByCredentials(req.body.email , req.body.password)
     console.log("")
     const token = await user.generateAuthToken()

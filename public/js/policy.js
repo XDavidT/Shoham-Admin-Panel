@@ -30,6 +30,14 @@ $(document).ready(function(){
     });
 });
 
+function toggleCheckbox() {
+    var sms = document.getElementById('sms_alert');
+    var email = document.getElementById('email_alert');
+    connect.log("1")
+    sms.checked = !checkbox.checked;
+    email.checked = !checkbox.checked;
+  }
+
 //verify all fields are full for both RULES&EVENT
 function emptyInput(target) {
     if (target=="rule"){
