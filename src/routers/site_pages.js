@@ -24,15 +24,13 @@ site_router.get('/offenses',(req,res) => {
     res.render('offenses', {
     })
 })
-site_router.get('/setting' , (req, res) =>{
-    res.render('setting',{
-        
-    })
+site_router.get('/setting' ,Authenticate, (req, res) =>{
+    const messages = req.flash()
+    res.render('setting',{messages})
 })
-site_router.get('/setting3rd' , (req, res) =>{
-    res.render('setting-third',{
-        
-    })
+site_router.get('/setting3rd' ,Authenticate, (req, res) =>{
+    const messages = req.flash()
+    res.render('setting-third',{messages})
 })
 
 module.exports = site_router

@@ -1,7 +1,7 @@
 const express = require('express')
 const gen_router = new express.Router()
 const mongo_handler = require('../utilities/handler/GeneralHandler')
-const Authenticate = require('./Authentication')
+const Authenticate = require('./authorization')
 
 gen_router.get('/get', (req, res) => {
     mongo_handler.getSettingFromDB(req.query,(error,result) =>{
@@ -14,7 +14,7 @@ gen_router.get('/get', (req, res) => {
     })
 })
 
-gen_router.post('/update',(req, res) => {
+gen_router.post('/update',Authenticate,(req, res) => {
     mongo_handler.updateSetting(req.body,(error,result) =>{
         if(error){
             res.send(error)
