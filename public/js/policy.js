@@ -3,7 +3,7 @@ var countRules =1 ;
 $("#addMore").click(function(){
 
    var x = $(".rule_fields_for_duplication:last").clone();
-   x.appendTo(".event_creation").find("input[type='text']").val(""); 
+   x.appendTo(".event_creation").find("input[type='number']").val(""); 
 //x.children(1)[1].value=++countRules;
 //x.children(1)[1].style.visibility = 'hidden';
 //x.children(0)[0].style.visibility = 'hidden';

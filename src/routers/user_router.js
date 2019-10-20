@@ -10,8 +10,8 @@ const user_router = new express.Router()
 user_router.post('/login', async (req, res) => {
     try{
     const user = await User.findByCredentials(req.body.email , req.body.password)
+    console.log("")
     const token = await user.generateAuthToken()
-    //console.log(user)
     res.cookie('token',token,{'maxAge': 3600000, httpOnly: true}) // sending cookie with expire time of 1 Hour.
     res.redirect(302 , 'http://localhost:3000')
     console.log("Login Succes")
@@ -37,7 +37,7 @@ user_router.get('/me', Authenticate, async (req , res) => {
 })
 
 //getting Users from DB and be Authenticated!
-user_router.get('/data2table' ,Authenticate, async (req, res) => {
+user_router.get('/data2table' , async (req, res) => {
     try {
         const users = await User.find({})
         //console.log(users)
