@@ -41,9 +41,14 @@
 //     console.log( "error" );
 //   })
 $(document).ready(function(){
+    $('#dataTableLogs tfoot th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" class="form-control" placeholder="Search '+title+'" />' );
+    } );
 
-
-    $('#dataTableLogs').DataTable( {
+    var logsTable = $('#dataTableLogs').DataTable( {
+        order:[[1,""]],
+        processing: true,
         serverSide: true,
         ajax: {
             url: '/api/logs/loadata',
@@ -63,4 +68,16 @@ $(document).ready(function(){
         
         ]
     } )
+    logsTable.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.footer() ).on( 'keyup change clear', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+
 })
