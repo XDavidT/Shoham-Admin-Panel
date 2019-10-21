@@ -1,8 +1,8 @@
-$(document).ready(()=>{
-    $('#dataTableLogs tfoot th').each(()=> {
+$(document).ready(function (){
+    $('#dataTableLogs tfoot th').each(function () {
         var title = $(this).text();
         $(this).html( '<input type="text" class="form-control" placeholder="Search '+title+'" />' );
-    } );
+    } )
 
     var logsTable = $('#dataTableLogs').DataTable( {
         order:[[1,""]],
@@ -26,10 +26,10 @@ $(document).ready(()=>{
         
         ]
     } )
-    logsTable.columns().every(()=> {
+    logsTable.columns().every(function () {
         var that = this;
  
-        $( 'input', this.footer() ).on( 'keyup change clear', ()=> {
+        $( 'input', this.footer() ).on( 'keyup change clear', function() {
             if ( that.search() !== this.value ) {
                 that
                     .search( this.value )

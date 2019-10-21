@@ -1,10 +1,10 @@
 $(document).ready(()=>{
-    $('#dataTableOffense tfoot th').each(()=> {
+    $('#dataTableOffense tfoot th').each(function () {
         var title = $(this).text();
         $(this).html( '<input type="text" class="form-control" placeholder="Search '+title+'" />' );
     } );
 
-    var logsTable = $('#dataTableOffense').DataTable( {
+    var offenseTable = $('#dataTableOffense').DataTable( {
         order:[[1,""]],
         processing: true,
         serverSide: true,
@@ -20,10 +20,10 @@ $(document).ready(()=>{
             {data: 'offense_close_time'}        
         ]
     } )
-    logsTable.columns().every(()=> {
+    offenseTable.columns().every(function () {
         var that = this;
  
-        $( 'input', this.footer() ).on( 'keyup change clear', ()=> {
+        $( 'input', this.footer() ).on( 'keyup change clear', function () {
             if ( that.search() !== this.value ) {
                 that
                     .search( this.value )
@@ -31,5 +31,10 @@ $(document).ready(()=>{
             }
         } );
     } );
+
+    $('#dataTableOffense').on('click','tr',function(){
+        var data = offenseTable.row($(this).parents('tr') ).data()
+        alert(data[0])
+    })
 
 })
