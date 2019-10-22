@@ -16,10 +16,12 @@ $(document).ready(()=>{
             {data: '_id'},
             {data: 'event'},
             {data: 'type'},
-            {data: 'device'},
-            {data: 'offense_close_time'}        
+            {data: 'device.0'},
+            {data: 'offense_close_time'},
+            {data: 'logs', "visible": false}
         ]
     } )
+
     offenseTable.columns().every(function () {
         var that = this;
  
@@ -32,9 +34,9 @@ $(document).ready(()=>{
         } );
     } );
 
-    $('#dataTableOffense').on('click','tr',function(){
-        var data = offenseTable.row($(this).parents('tr') ).data()
-        alert(data[0])
-    })
-
+    // $('#dataTableOffense').on('click','tr',function(){
+    //     var data = offenseTable.row($(this).parents('tr') ).data()
+    //     alert(data[0])
+    // });
+// 
 })
