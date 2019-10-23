@@ -50,6 +50,7 @@ const postEventsToDB = (events,callback)=>{
                 name:events.eventName,
                 description:events.eventDescription,
                 type:events.type_select,
+                alerts:events.alerts,
                 rules: rulesArray
         })
     callback(error,undefined)

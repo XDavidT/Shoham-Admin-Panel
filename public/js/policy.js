@@ -28,7 +28,12 @@ $(document).ready(function(){
         localStorage.setItem('prod-detail', selected );
         }
     });
+    
+
+
+    
 });
+
 
 function toggleCheckbox() {
     var sms = document.getElementById('sms_alert');
@@ -38,6 +43,15 @@ function toggleCheckbox() {
     email.checked = !checkbox.checked;
   }
 
+  $('#emailToggole').bootstrapToggle({
+    on: 'EMAIL',
+    off: 'OFF'
+  });
+
+  $('#smsToggole').bootstrapToggle({
+    on: 'SMS',
+    off: 'OFF'
+  });
 //verify all fields are full for both RULES&EVENT
 function emptyInput(target) {
     if (target=="rule"){
