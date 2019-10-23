@@ -34,9 +34,8 @@ $(document).ready(()=>{
         } );
     } );
 
-    // $('#dataTableOffense').on('click','tr',function(){
-    //     var data = offenseTable.row($(this).parents('tr') ).data()
-    //     alert(data[0])
-    // });
-// 
+    $('#dataTableOffense tbody').on('click','tr',function(){
+        $('#offview').modal({show:true,keyboard:true,focus:true})
+        //find data
+        } )
 })
