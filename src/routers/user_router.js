@@ -11,13 +11,13 @@ user_router.post('/login', async (req, res) => {
     try{
     console.log("")
     const user = await User.findByCredentials(req.body.email , req.body.password)
-    console.log("")
+    //console.log("")
     const token = await user.generateAuthToken()
     res.cookie('token',token,{'maxAge': 3600000, httpOnly: true}) // sending cookie with expire time of 1 Hour.
     res.redirect(302 , 'http://localhost:3000')
     console.log("Login Succes")
     } catch(error){
-        console.log("Login Error")
+        console.log(error)
         res.status(400).send('Login error')
     }
 })
