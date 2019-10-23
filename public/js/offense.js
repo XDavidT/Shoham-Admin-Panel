@@ -1,9 +1,11 @@
 $(document).ready(()=>{
+    //search start
     $('#dataTableOffense tfoot th').each(function () {
         var title = $(this).text();
         $(this).html( '<input type="text" class="form-control" placeholder="Search '+title+'" />' );
     } );
 
+    //DataTable builder
     var offenseTable = $('#dataTableOffense').DataTable( {
         order:[[1,""]],
         processing: true,
@@ -21,10 +23,9 @@ $(document).ready(()=>{
             {data: 'logs', "visible": false}
         ]
     } )
-
+    //search continue
     offenseTable.columns().every(function () {
         var that = this;
- 
         $( 'input', this.footer() ).on( 'keyup change clear', function () {
             if ( that.search() !== this.value ) {
                 that
@@ -34,8 +35,19 @@ $(document).ready(()=>{
         } );
     } );
 
+
     $('#dataTableOffense tbody').on('click','tr',function(){
-        $('#offview').modal({show:true,keyboard:true,focus:true})
-        //find data
-        } )
+        var data = offenseTable.row( this ).data()
+        $('#offense-view').modal()
+        $('#offense-header').text("Offense View: "+data._id)
+        $('#event-label').text(data.event)
+        $('#time-label').text(data.offense_close_time)
+        $('#type-label').text(data.type)
+        $(data.device).each(function(index, one_device){
+            $('#devices-list-modal').append('<li>'+one_device+'</li>')
+        })
+        $(data.logs).each(function (index,log) {
+            $('#logs-list-modal').append('<li>'+log+'</li>')            
+        })
+    })
 })
