@@ -47,7 +47,11 @@ $(document).ready(()=>{
             $('#devices-list-modal').append('<li>'+one_device+'</li>')
         })
         $(data.logs).each(function (index,log) {
-            $('#logs-list-modal').append('<li>'+log+'</li>')            
+            const logViewByIndex = 'log-view'+index
+            $('#logs-list-modal').append(index+'. <ul id="'+logViewByIndex+'"></ul>')
+            $.each(log,function(key,val){
+                $('#'+logViewByIndex).append('<li><b>'+key+':</b> '+val+'</li>')
+            })
         })
     })
 })
