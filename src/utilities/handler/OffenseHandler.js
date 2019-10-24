@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 
 // Coonect To: PolicyManager-DB
-mongoose.connect('mongodb://mongo.davidt.net:27018/policyManager',{
+mongoose.connect('mongodb+srv://siem:iCDoqbyTT3xh@cluster0-ecrrx.gcp.mongodb.net/test?retryWrites=true&w=majority',{
+    dbName: 'policyManager',
     useNewUrlParser: true ,
     useCreateIndex: true,
     useUnifiedTopology: true },(err)=>{
