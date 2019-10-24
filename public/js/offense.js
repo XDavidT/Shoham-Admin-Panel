@@ -36,7 +36,8 @@ $(document).ready(()=>{
     } );
 
 
-    $('#dataTableOffense tbody').on('click','tr',function(){
+    $('#dataTableOffense tbody').on('click','tr',function(e){
+        e.preventDefault()
         var data = offenseTable.row( this ).data()
         $('#offense-view').modal()
         $('#offense-header').text("Offense View: "+data._id)
@@ -44,7 +45,7 @@ $(document).ready(()=>{
         $('#time-label').text(data.offense_close_time)
         $('#type-label').text(data.type)
         $(data.device).each(function(index, one_device){
-            $('#devices-list-modal').append('<li>'+one_device+'</li>')
+            $('#devices-list-modal').append('<li>'+index+') '+one_device+'</li>')
         })
         $(data.logs).each(function (index,log) {
             const logViewByIndex = 'log-view'+index
@@ -54,4 +55,9 @@ $(document).ready(()=>{
             })
         })
     })
+    $("#offense-view").on('hidden.bs.modal', function () {
+        $('#devices-list-modal').empty()
+        $('#logs-list-modal').empty()
+    })
+
 })
