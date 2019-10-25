@@ -1,6 +1,6 @@
 const express = require('express')
 const offense_router = new express.Router
-require('../utilities/handler/OffenseHandler') //connection to policyManager
+// require('../utilities/handler/OffenseHandler') //connection to policyManager
 const OffenseModel = require('../utilities/models/offense_model')
 
 

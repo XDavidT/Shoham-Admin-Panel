@@ -1,5 +1,15 @@
 const mongoose = require('mongoose')
 
+const conn = mongoose.createConnection('mongodb+srv://siem:iCDoqbyTT3xh@cluster0-ecrrx.gcp.mongodb.net/test?retryWrites=true&w=majority',{
+    dbName: 'clientManager',
+    useNewUrlParser: true ,
+    useCreateIndex: true,
+    useUnifiedTopology: true },(err)=>{
+        if(err)
+            console.log("Mongoose error connection in offense handler:  "+err)
+    }
+)
+
 const logSchema = new mongoose.Schema({
     logid:{
         type:String,
@@ -64,5 +74,5 @@ const logSchema = new mongoose.Schema({
 },{collection:'clientLog'})
 
 
-const Log = mongoose.model('Log', logSchema)
-module.exports = Log
+const Log = conn.model('Log', logSchema)
+module.exports = exports = Log

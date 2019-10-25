@@ -88,6 +88,42 @@
         </div>
         <!-- /.container-fluid -->
 
+        {{!-- Modal Start --}}
+        <div id="log-view" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Offense View" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header" style="color: red">
+                <h5 id="log-header" class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <ul class="list-group">
+                  <li class="list-group-item"><b>Log ID:</b>  <label id="logid-label"></label></li>
+                  <li class="list-group-item"><b>Client Time:  </b> <label id="clientime-label"></label></li>
+                  <li class="list-group-item"><b>Insert Time:  </b><label id="insertime-label"></label></li>
+                  <li class="list-group-item"><b>Type:  </b><label id="type-label"></label></li>
+                  <li class="list-group-item"><b>Made by source:  </b><label id="src-label"></label></li>
+                  <li class="list-group-item"><b>Category:  </b><label id="cat-label"></label></li>
+                  <li class="list-group-item"><b>Hostname:  </b><label id="host-label"></label></li>
+                  <li class="list-group-item"><b>User logged:  </b><label id="user-label"></label></li>
+                  <li class="list-group-item"><b>Operating System:  </b><label id="os-label"></label></li>
+                  <li class="list-group-item"><b>IP Address:  </b><label id="ip-label"></label></li>
+                  <li class="list-group-item"><b>MAC Address:  </b><label id="mac-label"></label></li>
+
+                  <li class="list-group-item">
+                    <p><b>Log records:  </b></p>
+                    <ul id="logs-list-modal">
+                      {{!-- Here need to be automaticly logs --}}
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{!-- Modal End --}}
       </div>
       <!-- End of Main Content -->
 

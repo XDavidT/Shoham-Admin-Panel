@@ -1,5 +1,5 @@
 const express = require('express')
-require('../utilities/handler/LogsHandler')
+// require('../utilities/handler/LogsHandler')
 const LogsModel = require('../utilities/models/logs_model')
 const logs_router = new express.Router
 const Authenticate = require('./authentication')
@@ -29,7 +29,7 @@ logs_router.post('/loadata',(req,res)=>{
         }
 
             try {
-            LogsModel.find({$and:[filtering,searchValue]}).limit(Number(req.body['length'])).skip(Number(req.body['start'])).sort(orderBy).maxTimeMS(10000).lean().exec((err,logs)=>{
+            LogsModel.find({$and:[filtering,searchValue]}).limit(Number(req.body['length'])).skip(Number(req.body['start'])).sort(orderBy).lean().exec((err,logs)=>{
                 if(err) res.status(500).jsonp(err)
                 LogsModel.countDocuments().exec((err,count)=>{                      //Get size for the collection
                     if(err) res.status(500).jsonp(err)
