@@ -23,7 +23,7 @@ logs_router.post('/loadata',(req,res)=>{
         }
         //Search field
         const filtering = {}
-        for(var i = 0; i < 10;i++){ //TODO: check if size can be dynamic
+        for(var i = 0; i < req.body['columns'].length ; i++){ 
             if(req.body['columns'][i]['search']['value'])
                 filtering[req.body['columns'][i]['data']] = req.body['columns'][i]['search']['value']
         }

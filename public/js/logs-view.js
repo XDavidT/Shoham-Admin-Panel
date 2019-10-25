@@ -15,7 +15,6 @@ $(document).ready(function (){
         columns: [
             {data: 'logid'},
             {data: 'insert_time'},
-            {data: 'type'},
             {data: 'src'},
             {data: 'cat'},
             {data: 'hostname'},
