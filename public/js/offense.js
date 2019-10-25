@@ -39,7 +39,7 @@ $(document).ready(()=>{
     $('#dataTableOffense tbody').on('click','tr',function(e){
         e.preventDefault()
         var data = offenseTable.row( this ).data()
-        $('#offense-view').modal()
+        $('#offense-view').modal()  //Add data into the modal
         $('#offense-header').text("Offense View: "+data._id)
         $('#event-label').text(data.event)
         $('#time-label').text(data.offense_close_time)
@@ -57,7 +57,11 @@ $(document).ready(()=>{
     })
     $("#offense-view").on('hidden.bs.modal', function () {
         $('#devices-list-modal').empty()
-        $('#logs-list-modal').empty()
+        $('#logs-list-modal').empty() //Clear the shit from the modal
+        $('#offense-header').empty()
+        $('#event-label').empty()
+        $('#time-label').empty()
+        $('#type-label').empty()
     })
 
 })
