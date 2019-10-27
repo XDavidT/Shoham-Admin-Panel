@@ -14,6 +14,7 @@
   <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> 
 
   <!-- Custom styles for this template -->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -92,28 +93,28 @@
         <div id="log-view" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Offense View" aria-hidden="true">
           <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
-              <div class="modal-header" style="color: red">
-                <h5 id="log-header" class="modal-title"></h5>
+              <div class="modal-header">
+                <h5 id="log-header" class="modal-title-table-view"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
+              <div class="modal-body table-view">
                 <ul class="list-group">
-                  <li class="list-group-item"><b>Log ID:</b>  <label id="logid-label"></label></li>
-                  <li class="list-group-item"><b>Client Time:  </b> <label id="clientime-label"></label></li>
-                  <li class="list-group-item"><b>Insert Time:  </b><label id="insertime-label"></label></li>
-                  <li class="list-group-item"><b>Type:  </b><label id="type-label"></label></li>
-                  <li class="list-group-item"><b>Made by source:  </b><label id="src-label"></label></li>
-                  <li class="list-group-item"><b>Category:  </b><label id="cat-label"></label></li>
-                  <li class="list-group-item"><b>Hostname:  </b><label id="host-label"></label></li>
-                  <li class="list-group-item"><b>User logged:  </b><label id="user-label"></label></li>
-                  <li class="list-group-item"><b>Operating System:  </b><label id="os-label"></label></li>
-                  <li class="list-group-item"><b>IP Address:  </b><label id="ip-label"></label></li>
-                  <li class="list-group-item"><b>MAC Address:  </b><label id="mac-label"></label></li>
+                  <li class="list-group-item"><h6 class="modal-view">Log ID:</h6>  <label id="logid-label"></label></li>
+                  <li class="list-group-item"><h6 class="field">Client Time:  </h6> <label id="clientime-label"></label></li>
+                  <li class="list-group-item"><h6 class="field">Insert Time:  </h6><label id="insertime-label"></label></li>
+                  <li class="list-group-item"><h6 class="field">Type:  </h6><label id="type-label"></label></li>
+                  <li class="list-group-item"><h6 class="field">Made by source:  </h6><label id="src-label"></label></li>
+                  <li class="list-group-item"><h6 class="field">Category:  </h6><label id="cat-label"></label></li>
+                  <li class="list-group-item"><h6 class="field">Hostname:  </h6><label id="host-label"></label></li>
+                  <li class="list-group-item"><h6 class="field">User logged:  </h6><label id="user-label"></label></li>
+                  <li class="list-group-item"><h6 class="field">Operating System:  </h6><label id="os-label"></label></li>
+                  <li class="list-group-item"><h6 class="field">IP Address:  </h6><label id="ip-label"></label></li>
+                  <li class="list-group-item"><h6 class="field">MAC Address:  </h6><label id="mac-label"></label></li>
 
                   <li class="list-group-item">
-                    <p><b>Log records:  </b></p>
+                    <p><h6 class="field">Log records:  </h6></p>
                     <ul id="logs-list-modal">
                       {{!-- Here need to be automaticly logs --}}
                     </ul>

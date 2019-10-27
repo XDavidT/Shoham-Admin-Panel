@@ -6520,6 +6520,10 @@ a.close.disabled {
   margin-bottom: 0;
   line-height: 1.5
 }
+.modal-title-table-view {
+  color:#4e73df;
+  text-shadow: 2px 2px 8px #556db6;
+}
 
 .modal-body {
   position: relative;
@@ -6528,7 +6532,14 @@ a.close.disabled {
   flex: 1 1 auto;
   padding: 1rem
 }
-
+.modal-body.table-view {
+  color: #424744;
+  font-family: 'Roboto', sans-serif;
+}
+.modal-body.table-view h6{
+  display: inline;
+  font-weight: bold;
+}
 .modal-footer {
   display: -webkit-box;
   display: -ms-flexbox;
