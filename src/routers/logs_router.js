@@ -1,5 +1,4 @@
 const express = require('express')
-// require('../utilities/handler/LogsHandler')
 const LogsModel = require('../utilities/models/logs_model')
 const logs_router = new express.Router
 const Authenticate = require('./authentication')
