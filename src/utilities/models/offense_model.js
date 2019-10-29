@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 var ObjectId = require('mongodb').ObjectID
 
-const conn = mongoose.createConnection('mongodb+srv://siem:iCDoqbyTT3xh@cluster0-ecrrx.gcp.mongodb.net/test?retryWrites=true&w=majority',{
+const conn = mongoose.createConnection('mongodb+srv://siem:iCDoqbyTT3xh@cluster0-ecrrx.gcp.mongodb.net/policyManager?retryWrites=true&w=majority',{
     dbName: 'policyManager',
     useNewUrlParser: true ,
     useCreateIndex: true,
