@@ -26,11 +26,11 @@ offense_router.post('/get',(req,res)=>{
         }
 
             try {
-                OffenseModel.find({$and:[filtering,searchValue]}).limit(Number(req.body['length'])).skip(Number(req.body['start'])).sort(orderBy).maxTimeMS(10000).lean().exec((err,result)=>{
+                OffenseModel.find({$and:[filtering,searchValue]}).limit(Number(req.body['length'])).skip(Number(req.body['start'])).sort(orderBy).lean().exec((err,result)=>{
                 if(err) res.status(500).jsonp(err)
                 OffenseModel.countDocuments().exec((err,count)=>{                      //Get size for the collection
                     if(err) res.status(500).jsonp(err)
-                    OffenseModel.countDocuments(searchValue).exec((err,countFilter)=>{ //Get size for filtered only
+                    OffenseModel.countDocuments({$and:[filtering,searchValue]}).exec((err,countFilter)=>{ //Get size for filtered only
                         const resJson = {}
                         if(err) res.status(500).jsonp(err)        //Mongoose return with error
                         else if(countFilter > 0){                //Mongoose return with data
