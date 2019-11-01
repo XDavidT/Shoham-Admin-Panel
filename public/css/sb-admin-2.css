@@ -2698,13 +2698,19 @@ textarea.form-control.is-invalid {
 }
 
 .input-setting {
-width: 50%;
+width: 35%;
 }
+.input-users {
+  width: 50%;
+  }
 .input-setting-number {
   width: 35%;
 }
 .input-setting-dropdown {
-  max-width: 20%;
+  max-width: 17.5%;
+}
+.input-users-dropdown {
+  max-width: 50%;
 }
 
 
@@ -6520,6 +6526,10 @@ a.close.disabled {
   margin-bottom: 0;
   line-height: 1.5
 }
+.modal-title-table-view {
+  color:#4e73df;
+  text-shadow: 2px 2px 8px #556db6;
+}
 
 .modal-body {
   position: relative;
@@ -6528,7 +6538,14 @@ a.close.disabled {
   flex: 1 1 auto;
   padding: 1rem
 }
-
+.modal-body.table-view {
+  color: #424744;
+  font-family: 'Roboto', sans-serif;
+}
+.modal-body.table-view h6{
+  display: inline;
+  font-weight: bold;
+}
 .modal-footer {
   display: -webkit-box;
   display: -ms-flexbox;

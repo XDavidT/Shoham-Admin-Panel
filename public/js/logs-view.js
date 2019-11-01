@@ -5,7 +5,7 @@ $(document).ready(function (){
     } )
 
     var logsTable = $('#dataTableLogs').DataTable( {
-        order:[[1,""]],
+        order:[[1,"desc"]],
         processing: true,
         serverSide: true,
         ajax: {

@@ -3,6 +3,15 @@ const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
+const conn = mongoose.createConnection('mongodb+srv://siem:iCDoqbyTT3xh@cluster0-ecrrx.gcp.mongodb.net/SystemManagment?retryWrites=true&w=majority',{
+    dbName: 'SystemManagment',
+    useNewUrlParser: true ,
+    useCreateIndex: true,
+    useUnifiedTopology: true },(err)=>{
+        if(err)
+            console.log("Mongoose error connection in offense handler:  "+err)
+    }
+)
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -103,6 +112,6 @@ userSchema.pre('save', async function (next) {
     next()
 })
 
-const User = mongoose.model('User', userSchema)
+const User = conn.model('User', userSchema)
 
-module.exports = User
+module.exports = exports = User

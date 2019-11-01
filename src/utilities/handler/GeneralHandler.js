@@ -1,6 +1,6 @@
 const mongodb = require('mongodb')
 const mongoClient = mongodb.MongoClient
-const connectionURL = 'mongodb+srv://siem:iCDoqbyTT3xh@cluster0-ecrrx.gcp.mongodb.net/test?retryWrites=true&w=majority'
+const connectionURL = 'mongodb+srv://siem:iCDoqbyTT3xh@cluster0-ecrrx.gcp.mongodb.net/SystemManagment?retryWrites=true&w=majority'
 
 //////////Logs-DB//////////
 const databaseName = 'SystemManagment'

@@ -31,7 +31,7 @@ logs_router.post('/loadata',(req,res)=>{
                 if(err) res.status(500).jsonp(err)
                 LogsModel.countDocuments().exec((err,count)=>{                      //Get size for the collection
                     if(err) res.status(500).jsonp(err)
-                    LogsModel.countDocuments(searchValue).exec((err,countFilter)=>{ //Get size for filtered only
+                    LogsModel.countDocuments({$and:[filtering,searchValue]}).exec((err,countFilter)=>{ //Get size for filtered only
                         const resJson = {}
                         if(err) res.status(500).jsonp(err)        //Mongoose return with error
                         else if(countFilter > 0){                //Mongoose return with data

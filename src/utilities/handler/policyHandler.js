@@ -1,7 +1,7 @@
 const mongodb = require('mongodb')
 const mongoClient = mongodb.MongoClient
 
-const connectionURL = 'mongodb://mongo.davidt.net:27018'
+const connectionURL = 'mongodb+srv://siem:iCDoqbyTT3xh@cluster0-ecrrx.gcp.mongodb.net/policyManager?retryWrites=true&w=majority'
 const dbPolicy = 'policyManager'
 const collRules = 'rules'
 const collEvents = 'events'
