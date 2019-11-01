@@ -55,4 +55,11 @@ offense_router.post('/get',(req,res)=>{
     }
 })
 
+offense_router.get('/count',(req,res)=>{
+    OffenseModel.countDocuments().exec((err,count)=>{
+        if(err) res.status(500)
+        else res.jsonp(count)
+    })
+})
+
 module.exports = offense_router

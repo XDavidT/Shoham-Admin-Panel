@@ -1,11 +1,10 @@
 const express = require('express')
-// require('../utilities/handler/LogsHandler')
 const LogsModel = require('../utilities/models/logs_model')
 const logs_router = new express.Router
 const Authenticate = require('./authentication')
 const Authorize = require('./authorization')
 
-
+// loadata is serving Logs DataTable in logs page
 logs_router.post('/loadata',(req,res)=>{
     try{
         //Checking parameters from DataTables query
@@ -27,7 +26,6 @@ logs_router.post('/loadata',(req,res)=>{
             if(req.body['columns'][i]['search']['value'])
                 filtering[req.body['columns'][i]['data']] = req.body['columns'][i]['search']['value']
         }
-
             try {
             LogsModel.find({$and:[filtering,searchValue]}).limit(Number(req.body['length'])).skip(Number(req.body['start'])).sort(orderBy).lean().exec((err,logs)=>{
                 if(err) res.status(500).jsonp(err)
@@ -57,5 +55,11 @@ logs_router.post('/loadata',(req,res)=>{
     }
 })
 
+logs_router.get('/count',(req,res) =>{
+    LogsModel.countDocuments().exec((err,numOfLogs)=>{
+        if(err) res.status(500)
+        else res.jsonp(numOfLogs)
+    })
+})
 
 module.exports = logs_router
