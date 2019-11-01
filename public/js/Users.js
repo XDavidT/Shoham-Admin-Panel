@@ -4,7 +4,7 @@ $.getJSON('/api/users/data2table',function(data){
         $('#dataTableUsers thead tr').clone(true).appendTo( '#dataTableUsers thead' );
         $('#dataTableUsers thead tr:eq(1) th').each( function (i) {
             var title = $(this).text();
-            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+            $(this).html( '<input type="text" id="search-col'+i+'" placeholder="Search '+title+'" />' );
             $( 'input', this ).on( 'keyup change', function () {
                 if ( table.column(i).search() !== this.value ) {
                     table
@@ -24,14 +24,19 @@ $.getJSON('/api/users/data2table',function(data){
                 {data: 'name'},
                 {data: 'email'},
                 {data: 'role'},
-                {data: null}
+                {data: null, "searchable":false}
             ],
             "columnDefs": [ {
                 "targets": -1,
+                "searchable": false,
+                "orderable": false,
                 "data": null,
                 "defaultContent": '<button type="button" class="btn btn-danger" id="removeUser">Remove</button>'
             } ]
         });
+
+        $("#search-col4").hide(); //hide search for Remove column
+
         $('#dataTableUsers tbody').on('click','#removeUser', function () {
             var data = table.row( $(this).parents('tr') ).data();
             const jsonString = {}
