@@ -16,7 +16,7 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="css/sb-admin-2.css" rel="stylesheet">
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
  
 
 
@@ -121,22 +121,25 @@
                   <div class="input-group-prepend-users">
                     <div class="input-group-text-users">Name</div>
                   </div>
-                  <input type="text" class="form-control input-setting" id="name" name="name" required>
+                  <input type="text" class="form-control input-users" id="name" name="name" required>
                   
                   <div class="input-group-prepend-users">
                     <div class="input-group-text-users">Email</div>
                   </div>
-                  <input type="text"class="form-control input-setting" id="email" name="email" size="38" autocomplete="off" required>
+                  <input type="text"class="form-control input-users" id="email" name="email" size="38" required>
                   
                   <div class="input-group-prepend-users"  >
                     <div class="input-group-text-users">Password</div>
                   </div>
-                  <input type="password" class="form-control input-setting" id="password" name="password" size="38" autocomplete="off" required>         
+                  <input type="password" class="form-control input-users" id="password" name="password" size="38" autocomplete="off" required>         
 
                   <div class="input-group-prepend-users">
                     <div class="input-group-text-users">Role</div>
                   </div>
-                  <input type="text" class="form-control input-setting" id="role" name="role" size="38" autocomplete="off" required>   
+                  <select type="text" id="role" name="role" class="form-control input-users-dropdown" required>
+                    <option value="admin" selected>Admin</option>
+                    <option value="user">Viewer</option>
+                  </select>
         </div>
 
         <div class="modal-footer">

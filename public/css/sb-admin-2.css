@@ -2698,13 +2698,19 @@ textarea.form-control.is-invalid {
 }
 
 .input-setting {
-width: 50%;
+width: 35%;
 }
+.input-users {
+  width: 50%;
+  }
 .input-setting-number {
   width: 35%;
 }
 .input-setting-dropdown {
-  max-width: 20%;
+  max-width: 17.5%;
+}
+.input-users-dropdown {
+  max-width: 50%;
 }
 
 
