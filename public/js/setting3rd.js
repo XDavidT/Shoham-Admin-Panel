@@ -1,7 +1,7 @@
 $(document).ready( ()=> {
     const req_filter = {}
     req_filter['_id'] = "alert-setting"
-    $.getJSON( '/api/setting/get',req_filter)
+    $.getJSON( '/api/gen/get-setting',req_filter)
     .done((jsonData)=> {
         $("#SmtpServer").val(jsonData['smtp-server'])
         $("#ServerPort").val(jsonData['smtp-server-port'])
@@ -19,7 +19,7 @@ $("#submit-setting").click(()=>{
     jsonString['email-password'] = $("input#SmtpPass").val()
     $.ajax({
         type: 'POST',
-        url:'/api/setting/update',
+        url:'/api/gen/update-setting',
         data: jsonString,
         success: ()=>{alert('sent !')},
         'Content-Type': "application/json",

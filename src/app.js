@@ -56,7 +56,7 @@ app.use(flash())
 
 // Routers //
 app.use(site_Router)
-app.use('/api/setting', gen_Router)
+app.use('/api/gen', gen_Router)
 app.use('/api/users', user_Router)
 app.use('/api/logs', logs_Router)
 app.use('/api/policy', policy_Router)

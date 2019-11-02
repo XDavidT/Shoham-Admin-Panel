@@ -1,7 +1,7 @@
 $(document).ready( ()=> {
     const req_filter = {}
     req_filter['_id'] = "basic-setting"
-    $.getJSON( '/api/setting/get',req_filter)
+    $.getJSON( '/api/gen/get-setting',req_filter)
     .done((jsonData)=> {
         $("#SystemName").val(jsonData['system-name'])
         $("#TimeToLoad").val(jsonData['time_to_load'])
@@ -19,7 +19,7 @@ $("#submit-setting").click(()=>{
     jsonString['local_based_on'] = $("select#BasedOn").val()
     $.ajax({
         type: 'POST',
-        url:'/api/setting/update',
+        url:'/api/gen/update-setting',
         data: jsonString,
         success: ()=>{alert('sent !')},
         'Content-Type': "application/json"
