@@ -24,14 +24,15 @@ $.getJSON('/api/users/data2table',function(data){
                 {data: 'name'},
                 {data: 'email'},
                 {data: 'role'},
-                {data: null, "searchable":false}
+                {data: null} 
             ],
             "columnDefs": [ {
                 "targets": -1,
                 "searchable": false,
                 "orderable": false,
                 "data": null,
-                "defaultContent": '<button type="button" class="btn btn-danger" id="removeUser">Remove</button>'
+                "defaultContent": '<button type="button" class="btn btn-danger" id="removeUser">Remove</button><button type="button" class="fa fa-pencil-square-o" aria-hidden="true" id="editUser"></button> '
+                
             } ]
         });
 
@@ -50,6 +51,20 @@ $.getJSON('/api/users/data2table',function(data){
                 }
                 })
             });
+            $('#dataTableUsers tbody').on('click','#editUser', function () {
+                var data = table.row( $(this).parents('tr') ).data();
+                const jsonString = {}
+                jsonString['_id'] = data['_id'] 
+                $.ajax({
+                    type: 'PATCH',
+                    url: '/api/users/:id',
+                    data: jsonString,
+                    'Content-Type': "application/json",
+                    success: function(){
+                    
+                    }
+                    })
+                });       
         });
     });
 

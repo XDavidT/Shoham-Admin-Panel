@@ -66,8 +66,9 @@ user_router.get('/:id', async (req, res) => {
 
 //Updating User to DB
 user_router.patch('/:id', async (req, res) => {
+    console.log('here')
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['name', 'email', 'password']
+    const allowedUpdates = ['name', 'email', 'password' , 'role']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidOperation) {
@@ -79,7 +80,6 @@ user_router.patch('/:id', async (req, res) => {
             User.findOne({_id: req.param.id}).then(function(user) {
             })
         })
-        console.log(user)
         res.send(user)
     } catch (e) {
         res.status(400).send(e)
@@ -87,7 +87,7 @@ user_router.patch('/:id', async (req, res) => {
 })
 
 //Creating User to DB
-user_router.post('/add', Authorize, async (req, res) => {
+user_router.post('/add',  async (req, res) => {
     const user = new User(req.body)
 
     try {
