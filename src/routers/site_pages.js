@@ -16,6 +16,17 @@ site_router.get('/policy',(req, res) =>{
     const messages = req.flash()
     res.render('policy',{messages})
 })
+
+site_router.get('/rules',(req, res) =>{
+    const messages = req.flash()
+    res.render('rules',{messages})
+})
+
+site_router.get('/events',(req, res) =>{
+    const messages = req.flash()
+    res.render('events',{messages})
+})
+
 site_router.get('/users', Authenticate, (req, res) => {
     const messages = req.flash()
     res.render('users',{messages})
