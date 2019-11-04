@@ -46,6 +46,7 @@
         "express-jwt": "^5.3.1",
         "express-session": "^1.17.0",
         "hbs": "^4.0.6",
+        "is-port-reachable": "^2.0.1",
         "jquery": "3.4.1",
         "jquery.easing": "^1.4.1",
         "jsonwebtoken": "^8.5.1",

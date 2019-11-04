@@ -2,6 +2,7 @@ const express = require('express')
 const gen_router = new express.Router()
 const mongo_handler = require('../utilities/handler/GeneralHandler')
 const Authenticate = require('./authorization')
+const isPortReachable = require('is-port-reachable')
 
 gen_router.get('/get-setting', (req, res) => {
     mongo_handler.getSettingFromDB(req.query,(error,result) =>{
@@ -36,6 +37,12 @@ gen_router.get('/index-server-uptime',(req,res)=>{
         return pad(hours) + ':' + pad(minutes) + ':' + pad(seconds);
       }
       res.jsonp(format(process.uptime()))  
+})
+
+//Using in statics
+gen_router.get('/is-logger-alive',async (req,res)=>{
+    const status = await isPortReachable(50051,{host:'logger.davidt.net'})
+    res.send(status)
 })
 
 module.exports = gen_router

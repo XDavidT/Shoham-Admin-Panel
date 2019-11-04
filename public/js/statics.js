@@ -21,5 +21,20 @@ $(document).ready(function(){
         })
     },1000)
     
+    //logger status
+    $('#SystemStatusHead').text('System Status')
+    $.get('/api/gen/is-logger-alive',function (status) {
+        if(status){
+            $("#SystemStatusHead").toggleClass("text-success text-uppercase mb-1")
+            $('#SystemStatusCard').toggleClass("border-left-success shadow h-100 py-2")
+            $('#SystemStatus').text('Logger: Alive')
+        }
+        else{
+            $("#SystemStatusHead").toggleClass("text-danger text-uppercase mb-1")
+            $('#SystemStatusCard').toggleClass("border-left-danger shadow h-100 py-2")
+            $('#SystemStatus').text('Logger: Down')
+        }
+        
+    })
 
 })
