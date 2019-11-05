@@ -19,6 +19,12 @@ $.getJSON('/api/policy/data2table',function(data){
             e.preventDefault()
             var data = table.row( this ).data()
             console.log(data._id)
+            $('#editRuleModal').modal("show");
+            $('#editNameRule').val(data.name)
+            $('#editruleField').val(data.field)
+            $('#editruleValue').val(data.value)
+            
+
         })
     
     });
