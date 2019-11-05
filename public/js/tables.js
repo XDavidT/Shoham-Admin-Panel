@@ -27,6 +27,7 @@ $.getJSON('/api/policy/data2table',function(data){
 
         })
     
+        
     });
 })
                 //event table//

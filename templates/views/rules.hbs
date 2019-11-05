@@ -154,6 +154,7 @@
       </div>
       <div class="modal-body">
         
+        <form class="input-group"method="post" action="/api/policy/editRule" >
             <div class="input-group-prepend-users">
               <div class="input-group-text-users">Name</div>
             </div>
@@ -162,17 +163,18 @@
             <div class="input-group-prepend-users">
               <div class="input-group-text-users">FIELD</div>
             </div>
-            <input type="number"class="form-control input-users" id="editruleField" name="ruleField" size="38">
+            <input type="text"class="form-control input-users" id="editruleField" name="ruleField" size="38">
             
             <div class="input-group-prepend-users"  >
               <div class="input-group-text-users">VALUE</div>
             </div>
-            <input type="number" class="form-control input-users" id="editruleValue" name="ruleValue" size="38" autocomplete="off"> 
+            <input type="text" class="form-control input-users" id="editruleValue" name="ruleValue" size="38" autocomplete="off"> 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
+      </form>
     </div>
   </div>
 </div>

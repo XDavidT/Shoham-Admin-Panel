@@ -45,6 +45,18 @@ policy_router.post('/postEvents',Authorize, (req, res) => {
 
 })
 
+policy_router.post('/editRule', (req, res) => {
+    policy_handler.editRules(req.body,(error,result) =>{
+        if(error){
+            res.send(error)
+        } else {
+            req.flash('success','New Event Added')
+            res.redirect('/rules')
+        }
+    })
+
+})
+
 policy_router.post('/category_select',Authorize, (req, res) => {
     policy_handler.postCategoryToDB(req.body,(error,result) =>{
         if(error){

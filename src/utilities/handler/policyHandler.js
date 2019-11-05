@@ -98,6 +98,24 @@ const getRulessFromDB = (myfilter,callback) => {
     })
 }
 
+const editRules = (myfilter,callback) => {
+    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+        if(error) {
+            console.log('Error in MongoDB connection (MongoHandler)')
+            callback(error,undefined)
+        } else {
+        const rules = client.db(dbPolicy).collection(collRules)
+        rules.find({ name: myfilter.NameRule,field:myfilter.ruleField , value:myfilter.ruleValue } ).toArray((error,ruleDocument) => {
+
+            console.log(ruleDocument)
+            //callback(undefined,rulesList)
+        })
+        client.close()
+        }
+        
+    })
+}
+
 const getEventsFromDB = (myfilter,callback) => {
     mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
         if(error) {
@@ -134,5 +152,6 @@ module.exports = {
     getRulessFromDB: getRulessFromDB,
     postEventsToDB: postEventsToDB,
     getEventsFromDB:getEventsFromDB,
-    postCategoryToDB: postCategoryToDB
+    postCategoryToDB: postCategoryToDB,
+    editRules:editRules
 }
