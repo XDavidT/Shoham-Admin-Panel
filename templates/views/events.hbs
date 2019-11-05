@@ -49,14 +49,14 @@
           <h1 class="h3 mb-2 text-gray-800">Events</h1>
         {{> messages }}
         <div class="card-body" >
-        <button class="btn btn-secondary" data-toggle="modal" data-target="#addRuleModal">ADD EVENT</button>
+        <button class="btn btn-secondary" data-toggle="modal" data-target="#EvtModal">ADD EVENT</button>
         </div>
         <div class="container-fluid">
 
           <!-- Page Heading -->
           <!-- DataTales Example -->
               <div class="table-responsive" style="min-width: 980px;padding-top: 8px">
-                <table class="table table-bordered eventDataTable" width="100%" cellspacing="0"style="margin-top: 20px">
+                <table class="table table-bordered" id="eventDataTable" width="100%" cellspacing="0"style="margin-top: 20px">
                   <thead>
                     <tr>
                       <th>EVENT ID</th>                      
@@ -68,17 +68,6 @@
                       <th>TIMEOUT</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>Error</td>
-                      <td>Error</td>
-                      <td>Error</td>
-                      <td>Error</td>
-                      <td>Error</td>
-                      <td>Error</td>
-                      <td>Error</td>
-                    </tr>
-                  </tbody>
                 </table>
               </div>
         </div>
@@ -109,12 +98,12 @@
   {{>logout}}
   
 
-<!-- Add User Modal -->
-<div class="modal fade modal-center-screen" id="addRuleModal" tabindex="-1" role="dialog" data-backdrop="static" style="padding-top: 280px">
+<!-- Event Modal -->
+<div class="modal fade modal-center-screen" id="EvtModal" tabindex="-1" role="dialog" data-backdrop="static" style="padding-top: 280px">
     <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
-              <h3 class='col-12 modal-title text-center'>
+              <h3 class='col-12 modal-title text-center' id="EvtModalHead">
               Create Event
               
               <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
@@ -134,7 +123,7 @@
                   <div class="input-group-prepend-users">
                     <div class="input-group-text-users">Description</div>
                   </div>
-                  <input type="number"class="form-control input-users" id="Description" name="Description" size="38" onkeyup="emptyInput()" autocomplete="off" required>
+                  <input type="text" class="form-control input-users" id="evtDescription" name="Description" size="38" onkeyup="emptyInput()" autocomplete="off" required>
                   
                   <div class="input-group-prepend-users"  >
                     <div class="input-group-text-users">Type</div>
@@ -143,10 +132,39 @@
                     <option value="Local" selected>Local</option>
                     <option value="Global">Global</option>
                   </select>
-
+                  {{!-- Rules Managment --}}
+                  <div class="event_creation_details" >
+                      <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                          <label for="validationTooltip01">Rule ID</label>
+                          <input type="text" class="form-control" id="validationTooltip01" placeholder="#" id="Rule ID" name="Rule ID" required>
+                          <div class="valid-tooltip">
+                            Looks good!
+                          </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <label for="validationTooltip02">Repeated</label>
+                          <input type="text" class="form-control" id="validationTooltip02" placeholder="1 or more" value="1" id="repeated" name="repeated" required>
+                          <div class="valid-tooltip">
+                            Looks good!
+                          </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <label for="validationTooltipUsername">Timeout</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="validationTooltipUsername" placeholder="In seconds" aria-describedby="validationTooltipUsernamePrepend" id="TIMEOUT" name="TIMEOUT" required>
+                            <div class="invalid-tooltip">
+                              Please choose timeout bigger then 0
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="btn btn-primary btn-user btn-block;input-group-text" href="#" id="addMore">ADD RULE</button>
+                    </div>
+                      {{!-- End rules managment --}}
                   <!-- notifications-->
 
-                 <div class="event_creation" >
+                 {{!-- <div class="event_creation" >
                      <div class="rule_fields_for_duplication ">
 
                             <div class="input-group-prepend-users">
@@ -164,9 +182,9 @@
                             </div>
                             <input type="number"class="form-control input-users" id="TIMEOUT" name="TIMEOUT" size="38" onkeyup="emptyInput()" autocomplete="off" required>
                   </div>
-               </div>
+               </div> --}}
 
-               <div><button class="btn btn-primary btn-user btn-block;input-group-text" href="#" id="addMore" style="position: absolute;right: 200px;bottom:0;">ADD RULE</button></div>
+               {{!-- <div><button class="btn btn-primary btn-user btn-block;input-group-text" href="#" id="addMore" style="position: absolute;right: 200px;bottom:0;">ADD RULE</button></div> --}}
                     
         </div>
 

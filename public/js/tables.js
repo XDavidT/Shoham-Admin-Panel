@@ -23,9 +23,13 @@ $.getJSON('/api/policy/data2table',function(data){
             $('#editNameRule').val(data.name)
             $('#editruleField').val(data.field)
             $('#editruleValue').val(data.value)
-            
-
         })
+
+        $('#addMore').click(function(){
+            var $button = $('.form-row').clone();
+            $('.event_creation_details').html($button);
+        })
+
     
     });
 })
@@ -34,7 +38,7 @@ $.getJSON('/api/policy/eventData2table',function(data){
     
     $(document).ready(function() {
         
-        var table = $('.eventDataTable').DataTable({
+        var table = $('#eventDataTable').DataTable({
             orderCellsTop: true,
             fixedHeader: true,
             data:data,
@@ -44,7 +48,7 @@ $.getJSON('/api/policy/eventData2table',function(data){
                 {data: 'name'},
                 {data: 'description'},
                 {data: 'type'},
-                {data: 'full.rules.rule_id', 
+                {data: 'rules.rule_id', 
                 render: function ( full, type, full, meta ) {
                     var result = '';                   
                     $.each(full.rules, function( index, value ) {
@@ -58,7 +62,7 @@ $.getJSON('/api/policy/eventData2table',function(data){
                 },
                 "className": "text-center"
             },
-                {data: 'full.rules.repeated',
+                {data: 'rules.repeated',
                 render: function ( full, type, full, meta ) {
                     var result = '';
                     $.each(full.rules, function( index, value ) {
@@ -72,7 +76,7 @@ $.getJSON('/api/policy/eventData2table',function(data){
                 },
                 "className": "text-center"
             },
-                {data: 'full.rules.timeout',
+                {data: 'rules.timeout',
                 render: function ( full, type, full, meta ) {
                     var result = '';
                     $.each(full.rules, function( index, value ) {
@@ -88,7 +92,20 @@ $.getJSON('/api/policy/eventData2table',function(data){
             }
             ]
         });
-      });
+        $('#eventDataTable tbody').on('click','tr',function(e){
+            e.preventDefault()
+            var data = table.row( this ).data()
+            console.log(data._id)
+            $('#EvtModal').modal("show");
+            $('#EvtModalHead').text('Edit Event')
+            $('#eventName').val(data.name)
+            $('#evtDescription').val(data.description)
+            $('#type_select').val(data.type)
+            
+
+        })
+
+    });
 })
 
 
