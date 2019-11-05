@@ -13,21 +13,7 @@ $("#addMore").click(function(){
 //category select drop down
 $(document).ready(function(){
 // To get selected values on page load
-    var opts = localStorage.getItem('prod-detail'); // get selected items from localStorage key
-    opts =  opts.split(','); // split result from localstorage to array
-    $('#category_select').val(opts); // select options with array
 
-    $('#category_select').multiselect({
-        onChange: function(element, checked) {
-        //assign selected categories into an array
-        var category = $('#category_select option:selected');
-        var selected = [];
-        $(category).each(function(index, brand){
-            selected.push([$(this).val()]);
-        });
-        localStorage.setItem('prod-detail', selected );
-        }
-    });
     
 
 

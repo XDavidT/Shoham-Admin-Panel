@@ -3,7 +3,7 @@ $.getJSON('/api/policy/data2table',function(data){
     
     $(document).ready(function() {
         
-        var table = $('.RuleDataTable').DataTable({
+        var table = $('#RuleDataTable').DataTable({
             orderCellsTop: true,
             fixedHeader: true,
             data:data,
@@ -15,9 +15,15 @@ $.getJSON('/api/policy/data2table',function(data){
                 {data: 'value'}
             ]
         });
-      });
+        $('#RuleDataTable tbody').on('click','tr',function(e){
+            e.preventDefault()
+            var data = table.row( this ).data()
+            console.log(data._id)
+        })
+    
+    });
 })
-                //event table///
+                //event table//
 $.getJSON('/api/policy/eventData2table',function(data){
     
     $(document).ready(function() {
