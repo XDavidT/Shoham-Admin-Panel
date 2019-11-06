@@ -39,9 +39,9 @@ gen_router.get('/index-server-uptime',(req,res)=>{
       res.jsonp(format(process.uptime()))  
 })
 
-//Using in statics
+//Using in statics//
 gen_router.get('/is-logger-alive',async (req,res)=>{
-    const status = await isPortReachable(50051,{host:'siem.davidt.net'})
+    const status = await isPortReachable(50051, {host:'siem.davidt.net'} )
     res.send(status)
 })
 
