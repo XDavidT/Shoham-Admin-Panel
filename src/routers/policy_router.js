@@ -33,7 +33,8 @@ policy_router.get('/data2table',(req, res) => {
     })
 })
 
-policy_router.post('/postEvents',Authorize, (req, res) => {
+policy_router.post('/postEvents', (req, res) => {
+    console.log(req.body)
     policy_handler.postEventsToDB(req.body,(error,result) =>{
         if(error){
             res.send(error)

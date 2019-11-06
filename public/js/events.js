@@ -58,38 +58,118 @@ $.getJSON('/api/policy/eventData2table',function(data){
         });
         //Table end
 
-        //On click - Modal
+        //Add event Modal
+        $('#AddEventButton').click(function(e){
+            e.preventDefault()
+            $('#EvtModal').modal()
+            $('#submitModal').text('ADD')
+            $('#EvtModalHead').text('Add Event')
+        })
+
+        //On click - Modal in table
         $('#eventDataTable tbody').on('click','tr',function(e){
             e.preventDefault()
             var data = table.row( this ).data()
-            $('#EvtModal').modal("show");
+            $('#EvtModal').modal()
             $('#eventID').val(data._id)
             $('#EvtModalHead').text('Edit Event')
             $('#eventName').val(data.name)
             $('#evtDescription').val(data.description)
             $('#type_select').val(data.type)
-            
+            $('#submitModal').text('EDIT')
+            //TODO: Add method
+            $('#ruleID0').val(data.rules[0].rule_id)
+            $('#ruleRepeat0').val(data.rules[0].repeated)
+            $('#ruleTimeout0').val(data.rules[0].timeout)
+            if(data.rules.length>1){
+                $('#rulesCount').val(data.rules.length)
+                for(var i =1;i<data.rules.length;i++){
+                    $( "#event_creation_details" ).append( "<div class='form-row' id='rulesList"+i+"'> <div class='col-md-4 mb-3'> <input type='number' class='form-control' id='ruleID"+i+"' placeholder='#' id='Rule ID' name='Rule ID' autocomplete='off' required> <div class='valid-tooltip'> Looks good! </div></div><div class='col-md-4 mb-3'> <input type='number' class='form-control' id='ruleRepeat"+i+"' placeholder='1 or more' value='1' id='repeated' name='repeated' autocomplete='off' required> <div class='valid-tooltip'> Looks good! </div></div><div class='col-md-4 mb-3'> <div class='input-group'> <input type='number' class='form-control' id='ruleTimeout"+i+"' placeholder='In seconds' aria-describedby='validationTooltipUsernamePrepend' id='TIMEOUT' name='TIMEOUT' autocomplete='off' required> <div class='invalid-tooltip'> Please choose timeout bigger then 0 </div></div></div></div>" );
+                    $('#ruleID'+i).val(data.rules[i].rule_id)
+                    $('#ruleRepeat'+i).val(data.rules[i].repeated)
+                    $('#ruleTimeout'+i).val(data.rules[i].timeout)
+                }
+            }
 
         })
-       //On click - Modal
-       $('#EvtModal').on('hidden.bs.modal', function () {
-            $('#EvtModalHead').empty()
-            $('#eventName').empty()
-            $('#evtDescription').empty()
-        })
-
 
         //Manage rules when adding new event
         $('#addMore').click(function(e){
             e.preventDefault()
-            var rule_count = $('#rulesCount').val()
-            var rule_counter = parseInt(rule_count) //make it Int
-            $('#EvtModalHead').val('Add Event')
+            const rule_count = $('#rulesCount').val()
+            let int_rule_count = Number(rule_count)
+            int_rule_count++
+            let rule_index = Number(int_rule_count)
+            rule_index-- 
+
             $('#eventName').empty()
             $('#evtDescription').empty()
-            rule_counter += 1
-            $( "#event_creation_details" ).append( "<div class='form-row'> <div class='col-md-4 mb-3'> <input type='text' class='form-control' id='ruleID"+rule_counter+"' placeholder='#' id='Rule ID' name='Rule ID' autocomplete='off' required> <div class='valid-tooltip'> Looks good! </div></div><div class='col-md-4 mb-3'> <input type='text' class='form-control' id='ruleRepeat"+rule_counter+"' placeholder='1 or more' value='1' id='repeated' name='repeated' autocomplete='off' required> <div class='valid-tooltip'> Looks good! </div></div><div class='col-md-4 mb-3'> <div class='input-group'> <input type='text' class='form-control' id='ruleTimeout"+rule_counter+"' placeholder='In seconds' aria-describedby='validationTooltipUsernamePrepend' id='TIMEOUT' name='TIMEOUT' autocomplete='off' required> <div class='invalid-tooltip'> Please choose timeout bigger then 0 </div></div></div></div>" );
-            $('#rulesCount').val(rule_counter)
+            $( "#event_creation_details" ).append( "<div class='form-row'> <div class='col-md-4 mb-3'> <input type='number' class='form-control' id='ruleID"+rule_index+"' placeholder='#' id='Rule ID' name='Rule ID' autocomplete='off' required> <div class='valid-tooltip'> Looks good! </div></div><div class='col-md-4 mb-3'> <input type='number' class='form-control' id='ruleRepeat"+rule_index+"' placeholder='1 or more' value='1' id='repeated' name='repeated' autocomplete='off' required> <div class='valid-tooltip'> Looks good! </div></div><div class='col-md-4 mb-3'> <div class='input-group'> <input type='number' class='form-control' id='ruleTimeout"+rule_index+"' placeholder='In seconds' aria-describedby='validationTooltipUsernamePrepend' id='TIMEOUT' name='TIMEOUT' autocomplete='off' required> <div class='invalid-tooltip'> Please choose timeout bigger then 0 </div></div></div></div>" );
+            $('#rulesCount').val(int_rule_count)
+        })
+
+        // Add or Edit button
+        $('#submitModal').click(()=>{
+            const getJsonReady ={}
+
+            //Check if its new event or edited
+            if($('#submitModal').text() == 'Edit'){
+                getJsonReady['_id'] = $('#eventID').val()
+            }
+            
+            //Regular values
+            getJsonReady['name'] = $('#eventName').val()
+            getJsonReady['description'] = $('#evtDescription').val()
+            getJsonReady['type'] = $('#type_select').val()
+            
+            //Check alerts
+            getJsonReady['alerts'] = {}
+            if($('#AlertEmail').is(':checked')) getJsonReady['alerts']['email'] = true
+            else getJsonReady['alerts']['email'] = false
+            if($('#AlertSMS').is(':checked')) getJsonReady['alerts']['sms'] = true
+            else getJsonReady['alerts']['sms'] = false
+            if($('#AlertApp').is(':checked')) getJsonReady['alerts']['app'] = true
+            else getJsonReady['alerts']['app'] = false
+            
+            //Get all rules
+            getJsonReady['rules'] = []
+            var count_rules = $('#rulesCount').val()
+            console.log(count_rules)
+            for(var i=0;i<count_rules;i++){
+                getJsonReady['rules'].push({
+                  rule_id: $('#ruleID'+i).val(),
+                  repeated: $('#ruleRepeat'+i).val(),
+                  timeout: $('#ruleTimeout'+i).val()
+                })
+                console.log("Now: "+i)
+            }
+            $.ajax({
+                type: 'POST',
+                url:'/api/policy/postEvents',
+                data: getJsonReady,
+                'Content-Type': "application/json",
+                success: ()=>{
+                    $('#EvtModal').modal("hide")
+                    $('#rulesCount').val('1')
+                }
+            })
+
+        })
+
+
+        //Modal Hide
+        $('#EvtModal').on('hidden.bs.modal', function (e) {
+            e.preventDefault()
+            $('#eventName').val('')
+            $('#evtDescription').val('')
+            $('#ruleID0').val('')
+            $('#ruleRepeat0').val('1')
+            $('#ruleTimeout0').val('')
+            var rules_to_clean = $('#rulesCount').val()
+            for(var i=1;i<rules_to_clean;i++){
+                $('#rulesList'+i).remove()
+            }
+            $('#rulesCount').val('1')
         })
     }); //end document
 }) //end json
