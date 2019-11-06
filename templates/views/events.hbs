@@ -116,9 +116,13 @@
               <form method="post" action="/api/policy/postEvents">
         
                   <div class="input-group-prepend-users">
+                    <div class="input-group-text-users">Event ID</div>
+                  </div>
+                  <input type="number" class="form-control input-users" id="eventID" name="eventID" onkeyup="emptyInput()" autocomplete="off" disabled>        
+                  <div class="input-group-prepend-users">
                     <div class="input-group-text-users">Name</div>
                   </div>
-                  <input type="text" class="form-control input-users" id="eventName" name="eventName" onkeyup="emptyInput()" required>
+                  <input type="text" class="form-control input-users" id="eventName" name="eventName" onkeyup="emptyInput()" autocomplete="off" required>
                   
                   <div class="input-group-prepend-users">
                     <div class="input-group-text-users">Description</div>
@@ -128,23 +132,46 @@
                   <div class="input-group-prepend-users"  >
                     <div class="input-group-text-users">Type</div>
                   </div>
-                  <select type="text" id="type_select" name="type_select" class="form-control input-users-dropdown" required>
-                    <option value="Local" selected>Local</option>
-                    <option value="Global">Global</option>
-                  </select>
+                  <div class="form-row">
+                    <select type="text" id="type_select" name="type_select" class="form-control input-users-dropdown" autocomplete="off" required>
+                      <option value="Local" selected>Local</option>
+                      <option value="Global">Global</option>
+                    </select>
+                    <div class="col-lg-1 " style="display: none;"><input class="form-control" type="number" id="rulesCount" value="1" disabled></div>
+                  </div>
+
+                  <br>
+                  <!-- notifications-->
+                  <div class="input-group-prepend-users">
+                    <div class="input-group-text-users">Alert Options</div>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="email" autocomplete="off">
+                    <label class="form-check-label" for="inlineCheckbox1">Email</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="sms" autocomplete="off" disabled>
+                    <label class="form-check-label" for="inlineCheckbox2">SMS</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="app" autocomplete="off" disabled>
+                    <label class="form-check-label" for="inlineCheckbox3">Application</label>
+                  </div>
+                  <br>
+
                   {{!-- Rules Managment --}}
-                  <div class="event_creation_details" >
+                  <div id="event_creation_details" >
                       <div class="form-row">
                         <div class="col-md-4 mb-3">
                           <label for="validationTooltip01">Rule ID</label>
-                          <input type="text" class="form-control" id="validationTooltip01" placeholder="#" id="Rule ID" name="Rule ID" required>
+                          <input type="text" class="form-control" id="ruleID1" placeholder="#" id="Rule ID" name="Rule ID" autocomplete="off" required>
                           <div class="valid-tooltip">
                             Looks good!
                           </div>
                         </div>
                         <div class="col-md-4 mb-3">
                           <label for="validationTooltip02">Repeated</label>
-                          <input type="text" class="form-control" id="validationTooltip02" placeholder="1 or more" value="1" id="repeated" name="repeated" required>
+                          <input type="text" class="form-control" id="ruleRepeat1" placeholder="1 or more" value="1" id="repeated" name="repeated" autocomplete="off" required>
                           <div class="valid-tooltip">
                             Looks good!
                           </div>
@@ -152,39 +179,17 @@
                         <div class="col-md-4 mb-3">
                           <label for="validationTooltipUsername">Timeout</label>
                           <div class="input-group">
-                            <input type="text" class="form-control" id="validationTooltipUsername" placeholder="In seconds" aria-describedby="validationTooltipUsernamePrepend" id="TIMEOUT" name="TIMEOUT" required>
+                            <input type="text" class="form-control" id="ruleTimeout1" placeholder="In seconds" aria-describedby="validationTooltipUsernamePrepend" id="TIMEOUT" name="TIMEOUT" autocomplete="off" required>
                             <div class="invalid-tooltip">
                               Please choose timeout bigger then 0
                             </div>
                           </div>
                         </div>
                       </div>
-                      <button class="btn btn-primary btn-user btn-block;input-group-text" href="#" id="addMore">ADD RULE</button>
                     </div>
+                    <button class="btn btn-primary btn-user btn-block;input-group-text" href="#" id="addMore">Add Rule</button>
                       {{!-- End rules managment --}}
-                  <!-- notifications-->
 
-                 {{!-- <div class="event_creation" >
-                     <div class="rule_fields_for_duplication ">
-
-                            <div class="input-group-prepend-users">
-                                <div class="input-group-text-users">Rule ID</div>
-                            </div>
-                            <input type="number"class="form-control input-users" id="Rule ID" name="Rule ID" size="38" onkeyup="emptyInput()" autocomplete="off" required>
-                  
-                            <div class="input-group-prepend-users">
-                                <div class="input-group-text-users">Repeated</div>
-                            </div>
-                            <input type="number"class="form-control input-users" id="repeated" name="repeated" size="38" onkeyup="emptyInput()" autocomplete="off" required>
-
-                            <div class="input-group-prepend-users">
-                                <div class="input-group-text-users">Timeout</div>
-                            </div>
-                            <input type="number"class="form-control input-users" id="TIMEOUT" name="TIMEOUT" size="38" onkeyup="emptyInput()" autocomplete="off" required>
-                  </div>
-               </div> --}}
-
-               {{!-- <div><button class="btn btn-primary btn-user btn-block;input-group-text" href="#" id="addMore" style="position: absolute;right: 200px;bottom:0;">ADD RULE</button></div> --}}
                     
         </div>
 
@@ -216,8 +221,8 @@
   <!-- Page level custom scripts | DataTable script -->
 
   {{!-- Script to fill the table manual --}}
-  <script src="js/policy.js"></script>
-  <script src="js/tables.js"></script>
+  {{!-- <script src="js/policy.js"></script> --}}
+  <script src="js/events.js"></script>
   
   
 
