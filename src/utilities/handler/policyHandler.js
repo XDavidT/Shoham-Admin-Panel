@@ -68,6 +68,23 @@ const editEventDB = (event,callback)=>{
     })
 }
 
+const deleteEventDB = (event,callback)=>{
+    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+        if(error) {
+            callback(error,undefined)
+        }
+    client.db(dbPolicy).collection(collEvents).deleteOne({_id:event['_id']},function(err,result){
+        if(err){
+            callback(error,undefined)
+        }
+        else{
+            callback(undefined,result)
+        }
+    })
+    client.close()
+    })
+}
+
 const postRulesToDB = (Rules,callback)=>{
     mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
         if(error) {
@@ -163,5 +180,6 @@ module.exports = {
     getEventsFromDB:getEventsFromDB,
     postCategoryToDB: postCategoryToDB,
     editRules:editRules,
-    editEventDB:editEventDB
+    editEventDB:editEventDB,
+    deleteEventDB:deleteEventDB
 }

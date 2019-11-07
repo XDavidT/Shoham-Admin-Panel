@@ -55,6 +55,17 @@ policy_router.post('/editEvent',(req,res)=>{
     })
 })
 
+policy_router.post('/deleteEvent',(req,res)=>{
+    policy_handler.deleteEventDB(req.body,(error,result) =>{
+        if(error){
+            res.send(error)
+        } else {
+            req.flash('success','Event Deleted')
+            res.redirect('/policy')
+        }
+    })
+})
+
 
 policy_router.post('/editRule', (req, res) => {
     policy_handler.editRules(req.body,(error,result) =>{
