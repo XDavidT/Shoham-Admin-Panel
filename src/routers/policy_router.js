@@ -34,7 +34,6 @@ policy_router.get('/data2table',(req, res) => {
 })
 
 policy_router.post('/postEvents', (req, res) => {
-    console.log(req.body)
     policy_handler.postEventsToDB(req.body,(error,result) =>{
         if(error){
             res.send(error)
@@ -43,8 +42,19 @@ policy_router.post('/postEvents', (req, res) => {
             res.redirect('/policy')
         }
     })
-
 })
+
+policy_router.post('/editEvent',(req,res)=>{
+    policy_handler.editEventDB(req.body,(error,result) =>{
+        if(error){
+            res.send(error)
+        } else {
+            req.flash('success','Event Edited')
+            res.redirect('/policy')
+        }
+    })
+})
+
 
 policy_router.post('/editRule', (req, res) => {
     policy_handler.editRules(req.body,(error,result) =>{

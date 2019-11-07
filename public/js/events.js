@@ -6,7 +6,7 @@ $.getJSON('/api/policy/eventData2table',function(data){
             orderCellsTop: true,
             fixedHeader: true,
             data:data,
-            "pageLength": 5,
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
             columns: [
                 {data: '_id'},
                 {data: 'name'},
@@ -95,6 +95,7 @@ $.getJSON('/api/policy/eventData2table',function(data){
 
         //Manage rules when adding new event
         $('#addMore').click(function(e){
+            //Manage counting
             e.preventDefault()
             const rule_count = $('#rulesCount').val()
             let int_rule_count = Number(rule_count)
@@ -111,10 +112,12 @@ $.getJSON('/api/policy/eventData2table',function(data){
         // Add or Edit button
         $('#submitModal').click(()=>{
             const getJsonReady ={}
-
+            var postUrl = '/api/policy/postEvents' 
             //Check if its new event or edited
-            if($('#submitModal').text() == 'Edit'){
+            if($('#eventID').val()){
+                console.log('Heloom!!')
                 getJsonReady['_id'] = $('#eventID').val()
+                postUrl = '/api/policy/editEvent'
             }
             
             //Regular values
@@ -134,18 +137,16 @@ $.getJSON('/api/policy/eventData2table',function(data){
             //Get all rules
             getJsonReady['rules'] = []
             var count_rules = $('#rulesCount').val()
-            console.log(count_rules)
             for(var i=0;i<count_rules;i++){
                 getJsonReady['rules'].push({
                   rule_id: $('#ruleID'+i).val(),
                   repeated: $('#ruleRepeat'+i).val(),
                   timeout: $('#ruleTimeout'+i).val()
                 })
-                console.log("Now: "+i)
             }
             $.ajax({
                 type: 'POST',
-                url:'/api/policy/postEvents',
+                url:postUrl,
                 data: getJsonReady,
                 'Content-Type': "application/json",
                 success: ()=>{

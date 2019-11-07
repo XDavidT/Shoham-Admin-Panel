@@ -47,8 +47,25 @@ const postEventsToDB = (events,callback)=>{
         })
     callback(error,undefined)
     client.close()
-})
-})
+        })
+    })
+}
+
+const editEventDB = (event,callback)=>{
+    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+        if(error) {
+            callback(error,undefined)
+        }
+    client.db(dbPolicy).collection(collEvents).updateOne({_id:event['_id']},{$set:event} , {upsert: false} ,function(err,result){
+        if(err){
+            callback(error,undefined)
+        }
+        else{
+            callback(undefined,result)
+        }
+    })
+    client.close()
+    })
 }
 
 const postRulesToDB = (Rules,callback)=>{
@@ -145,5 +162,6 @@ module.exports = {
     postEventsToDB: postEventsToDB,
     getEventsFromDB:getEventsFromDB,
     postCategoryToDB: postCategoryToDB,
-    editRules:editRules
+    editRules:editRules,
+    editEventDB:editEventDB
 }
