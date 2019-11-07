@@ -61,7 +61,17 @@ $.getJSON('/api/policy/eventData2table',function(data){
         //Add event Modal
         $('#AddEventButton').click(function(e){
             e.preventDefault()
+            //Clear old modal
+            $('#EvtModal').remove()
+
+            //Build new modal
+            create_modal()
+            $('#rulesCount').val('1')
+
+            //Show the modal
             $('#EvtModal').modal()
+
+            //Custom view changes
             $('#submitModal').text('ADD')
             $('#EvtModalHead').text('Add Event')
         })
@@ -70,6 +80,13 @@ $.getJSON('/api/policy/eventData2table',function(data){
         $('#eventDataTable tbody').on('click','tr',function(e){
             e.preventDefault()
             var data = table.row( this ).data()
+
+            //Clear old modal
+            $('#EvtModal').remove()
+            //Create new one
+            create_modal()
+
+            //Build new modal
             $('#EvtModal').modal()
             $('#eventID').val(data._id)
             $('#EvtModalHead').text('Edit Event')
@@ -77,7 +94,10 @@ $.getJSON('/api/policy/eventData2table',function(data){
             $('#evtDescription').val(data.description)
             $('#type_select').val(data.type)
             $('#submitModal').text('EDIT')
-            //TODO: Add method
+            
+            var isEmailCheck = (data.alerts['email'] === "true") //Convert to boolean
+            $('#AlertEmail').prop('checked',isEmailCheck)
+
             $('#ruleID0').val(data.rules[0].rule_id)
             $('#ruleRepeat0').val(data.rules[0].repeated)
             $('#ruleTimeout0').val(data.rules[0].timeout)
@@ -93,86 +113,75 @@ $.getJSON('/api/policy/eventData2table',function(data){
 
         })
 
-        //Manage rules when adding new event
-        $('#addMore').click(function(e){
+        // Buttons in Modal
+            /// Since each action we remove modal and re-build it, 
+            ///      we need to add listener to static div parent
+        document.getElementById("modalDynamic").addEventListener("click", function(event) {
+
+            //Add more rules in modal
+            if ( event.target.id === 'addMore') {
             //Manage counting
-            e.preventDefault()
             const rule_count = $('#rulesCount').val()
             let int_rule_count = Number(rule_count)
             int_rule_count++
             let rule_index = Number(int_rule_count)
             rule_index-- 
 
-            $('#eventName').empty()
-            $('#evtDescription').empty()
             $( "#event_creation_details" ).append( "<div class='form-row'> <div class='col-md-4 mb-3'> <input type='number' class='form-control' id='ruleID"+rule_index+"' placeholder='#' id='Rule ID' name='Rule ID' autocomplete='off' required> <div class='valid-tooltip'> Looks good! </div></div><div class='col-md-4 mb-3'> <input type='number' class='form-control' id='ruleRepeat"+rule_index+"' placeholder='1 or more' value='1' id='repeated' name='repeated' autocomplete='off' required> <div class='valid-tooltip'> Looks good! </div></div><div class='col-md-4 mb-3'> <div class='input-group'> <input type='number' class='form-control' id='ruleTimeout"+rule_index+"' placeholder='In seconds' aria-describedby='validationTooltipUsernamePrepend' id='TIMEOUT' name='TIMEOUT' autocomplete='off' required> <div class='invalid-tooltip'> Please choose timeout bigger then 0 </div></div></div></div>" );
             $('#rulesCount').val(int_rule_count)
-        })
-
-        // Add or Edit button
-        $('#submitModal').click(()=>{
-            const getJsonReady ={}
-            var postUrl = '/api/policy/postEvents' 
-            //Check if its new event or edited
-            if($('#eventID').val()){
-                console.log('Heloom!!')
-                getJsonReady['_id'] = $('#eventID').val()
-                postUrl = '/api/policy/editEvent'
             }
-            
-            //Regular values
-            getJsonReady['name'] = $('#eventName').val()
-            getJsonReady['description'] = $('#evtDescription').val()
-            getJsonReady['type'] = $('#type_select').val()
-            
-            //Check alerts
-            getJsonReady['alerts'] = {}
-            if($('#AlertEmail').is(':checked')) getJsonReady['alerts']['email'] = true
-            else getJsonReady['alerts']['email'] = false
-            if($('#AlertSMS').is(':checked')) getJsonReady['alerts']['sms'] = true
-            else getJsonReady['alerts']['sms'] = false
-            if($('#AlertApp').is(':checked')) getJsonReady['alerts']['app'] = true
-            else getJsonReady['alerts']['app'] = false
-            
-            //Get all rules
-            getJsonReady['rules'] = []
-            var count_rules = $('#rulesCount').val()
-            for(var i=0;i<count_rules;i++){
-                getJsonReady['rules'].push({
-                  rule_id: $('#ruleID'+i).val(),
-                  repeated: $('#ruleRepeat'+i).val(),
-                  timeout: $('#ruleTimeout'+i).val()
+
+            //Submit the form
+            if ( event.target.id === 'submitModal'){
+                const getJsonReady ={}
+                var postUrl = '/api/policy/postEvents' 
+                //Check if its new event or edited
+                if($('#eventID').val()){
+                    getJsonReady['_id'] = $('#eventID').val()
+                    postUrl = '/api/policy/editEvent'
+                }
+                
+                //Regular values
+                getJsonReady['name'] = $('#eventName').val()
+                getJsonReady['description'] = $('#evtDescription').val()
+                getJsonReady['type'] = $('#type_select').val()
+                
+                //Check alerts
+                getJsonReady['alerts'] = {}
+                if($('#AlertEmail').is(':checked')) getJsonReady['alerts']['email'] = true
+                else getJsonReady['alerts']['email'] = false
+                if($('#AlertSMS').is(':checked')) getJsonReady['alerts']['sms'] = true
+                else getJsonReady['alerts']['sms'] = false
+                if($('#AlertApp').is(':checked')) getJsonReady['alerts']['app'] = true
+                else getJsonReady['alerts']['app'] = false
+                
+                //Get all rules
+                getJsonReady['rules'] = []
+                var count_rules = $('#rulesCount').val()
+                for(var i=0;i<count_rules;i++){
+                    getJsonReady['rules'].push({
+                      rule_id: $('#ruleID'+i).val(),
+                      repeated: $('#ruleRepeat'+i).val(),
+                      timeout: $('#ruleTimeout'+i).val()
+                    })
+                }
+                $.ajax({
+                    type: 'POST',
+                    url:postUrl,
+                    data: getJsonReady,
+                    'Content-Type': "application/json",
+                    complete:function(data){
+                        $('#EvtModal').modal("hide")
+                        $('#rulesCount').val('1')
+                        location.reload()
+                    }
                 })
             }
-            $.ajax({
-                type: 'POST',
-                url:postUrl,
-                data: getJsonReady,
-                'Content-Type': "application/json",
-                success: ()=>{
-                    $('#EvtModal').modal("hide")
-                    $('#rulesCount').val('1')
-                }
-            })
-
-        })
-
-
-        //Modal Hide
-        $('#EvtModal').on('hidden.bs.modal', function (e) {
-            e.preventDefault()
-            $('#eventName').val('')
-            $('#evtDescription').val('')
-            $('#ruleID0').val('')
-            $('#ruleRepeat0').val('1')
-            $('#ruleTimeout0').val('')
-            var rules_to_clean = $('#rulesCount').val()
-            for(var i=1;i<rules_to_clean;i++){
-                $('#rulesList'+i).remove()
-            }
-            $('#rulesCount').val('1')
-        })
+       });
     }); //end document
 }) //end json
 
 
+function create_modal(){
+    $('#modalDynamic').append("<div class='modal fade' id='EvtModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLongTitle' aria-hidden='true'> <div class='modal-dialog' role='document'> <div class='modal-content'> <div class='modal-header'> <h5 class='modal-title' id='EvtModalHead'></h5> <button type='button' class='close' data-dismiss='modal' aria-label='Close'> <span aria-hidden='true'>&times;</span> </button> </div><div class='modal-body'> <div class='input-group-prepend-users'> <div class='input-group-text-users'>Event ID</div></div><input type='number' class='form-control input-users' id='eventID' name='eventID' autocomplete='off' disabled> <div class='input-group-prepend-users'> <div class='input-group-text-users'>Name</div></div><input type='text' class='form-control input-users' id='eventName' name='eventName' autocomplete='off' required> <div class='input-group-prepend-users'> <div class='input-group-text-users'>Description</div></div><input type='text' class='form-control input-users' id='evtDescription' name='Description' size='38' autocomplete='off' required> <div class='input-group-prepend-users'> <div class='input-group-text-users'>Type</div></div><div class='form-row'> <select type='text' id='type_select' name='type_select' class='form-control input-users-dropdown' autocomplete='off' required> <option value='Local' selected>Local</option> <option value='Global'>Global</option> </select> <div class='col-lg-1 ' style='display: none;'> <input class='form-control' type='number' id='rulesCount' value='1' autocomplete='off' disabled> </div></div><br><div class='input-group-prepend-users'> <div class='input-group-text-users'>Alert Options</div></div><div class='form-check form-check-inline'> <input class='form-check-input' type='checkbox' id='AlertEmail' value='email' autocomplete='off'> <label class='form-check-label' for='inlineCheckbox1'>Email</label> </div><div class='form-check form-check-inline'> <input class='form-check-input' type='checkbox' id='AlertSMS' value='sms' autocomplete='off' disabled> <label class='form-check-label' for='inlineCheckbox2'>SMS</label> </div><div class='form-check form-check-inline'> <input class='form-check-input' type='checkbox' id='AlertApp' value='app' autocomplete='off' disabled> <label class='form-check-label' for='inlineCheckbox3'>Application</label> </div><br><div id='event_creation_details'> <div class='form-row'> <div class='col-md-4 mb-3'> <label>Rule ID</label> <input type='number' class='form-control' id='ruleID0' placeholder='#' name='Rule ID' autocomplete='off' required> </div><div class='col-md-4 mb-3'> <label>Repeated</label> <input type='number' class='form-control' id='ruleRepeat0' placeholder='1 or more' value='1' name='repeated' autocomplete='off' required> </div><div class='col-md-4 mb-3'> <label>Timeout</label> <div class='input-group'> <input type='number' class='form-control' id='ruleTimeout0' placeholder='In seconds' aria-describedby='validationTooltipUsernamePrepend' name='TIMEOUT' autocomplete='off' required> </div></div></div></div><button class='btn btn-primary btn-user btn-block;input-group-text' href='#' id='addMore'>Add Rule</button> </div><div class='modal-footer'> <button type='button' class='btn btn-primary' id='submitModal'>Save changes</button> <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button> </div></div></div></div>")
+}
