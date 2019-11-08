@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
     $('#title').text('Siem Admin Dashboard')
 
     $('#LogCountHead').text('Logs in Database')
