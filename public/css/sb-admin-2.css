@@ -12117,6 +12117,8 @@ form.user .btn-user {
   width: 12.5rem
 }
 
+.dataTables_wrapper .myfilter .dataTables_filter{float:left}
+
 @-webkit-keyframes noise-anim {
   0% {
       clip: rect(89px, 9999px, 100px, 0)
