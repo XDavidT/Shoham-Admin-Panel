@@ -206,10 +206,12 @@ function deleteEvent(id){
 }
 
 function viewRules(){
+  //  $('RulesTableArea').append(" <table class='table table-striped table-bordered dt-responsive nowrap' id='RuleDataTable' width='100%' cellspacing='0' style='margin-top: 20px'> <thead> <tr> <th>ID</th> <th>Name</th> <th>Field</th> <th>Value</th> </tr></thead> </table>")
     $.getJSON('/api/policy/data2table',function(data){
-            var table = $('#RuleDataTable').DataTable({
+            $('#RuleDataTable').DataTable({
                 orderCellsTop: true,
                 fixedHeader: true,
+                destroy:true,
                 data:data,
                 dom:"<'myfilter'f>",
                 "bLengthChange" : false,
@@ -220,6 +222,6 @@ function viewRules(){
                     {data: 'field'},
                     {data: 'value'}
                 ]
-            });            
+            });     
         });
 }
