@@ -104,15 +104,43 @@ const editRules = (myfilter,callback) => {
             console.log('Error in MongoDB connection (MongoHandler)')
             callback(error,undefined)
         } else {
+        ruleToReplace = JSON.parse(myfilter.originaFieldsValue)
+        const query = {}
+        query["_id"] = ruleToReplace._id
+        query["name"] = myfilter.NameRule
+        query["field"] = myfilter.ruleField
+        query["value"] = myfilter.ruleValue
+        
+        
         const rules = client.db(dbPolicy).collection(collRules)
-        rules.find({ name: myfilter.NameRule,field:myfilter.ruleField , value:myfilter.ruleValue } ).toArray((error,ruleDocument) => {
-
-            console.log(ruleDocument)
-            //callback(undefined,rulesList)
+        rules.findOneAndReplace(ruleToReplace,query).then(replacedDocument => {
+            if(replacedDocument){
+                callback(error,undefined)
+            } else {
+            console.log("No document matches the provided query.")
+            }
+            client.close()
         })
-        client.close()
+        .catch(err => console.error(`Failed to find and replace document: ${err}`))
         }
         
+    })
+}
+
+const deleteRulesDB = (rule,callback)=>{
+    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+        if(error) {
+            callback(error,undefined)
+        }
+    client.db(dbPolicy).collection(collRules).deleteOne({_id:rule['_id']},function(err,result){
+        if(err){
+            callback(error,undefined)
+        }
+        else{
+            callback(undefined,result)
+        }
+    })
+    client.close()
     })
 }
 
@@ -153,5 +181,6 @@ module.exports = {
     postEventsToDB: postEventsToDB,
     getEventsFromDB:getEventsFromDB,
     postCategoryToDB: postCategoryToDB,
+    deleteRulesDB:deleteRulesDB,
     editRules:editRules
 }

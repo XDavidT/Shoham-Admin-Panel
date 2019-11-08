@@ -17,7 +17,7 @@ policy_router.post('/postRules',Authorize, (req, res) => {
             res.send(error)
         } else {
             req.flash('success','New Rule Added')
-            res.redirect('/policy')
+            res.redirect('/rules')
         }
     })
 
@@ -50,11 +50,22 @@ policy_router.post('/editRule', (req, res) => {
         if(error){
             res.send(error)
         } else {
-            req.flash('success','New Event Added')
+            req.flash('success','Rule Edited')
             res.redirect('/rules')
         }
     })
 
+})
+
+policy_router.post('/deleteRule',(req,res)=>{
+    policy_handler.deleteRulesDB(req.body,(error,result) =>{
+        if(error){
+            res.send(error)
+        } else {
+            req.flash('success','Rule Deleted')
+            res.redirect('/rules')
+        }
+    })
 })
 
 policy_router.post('/category_select',Authorize, (req, res) => {

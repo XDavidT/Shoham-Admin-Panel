@@ -10,16 +10,11 @@ $("#addMore").click(function(){
 //localStorage.setItem('eventID', ++countRules );
 });
 
-//category select drop down
-$(document).ready(function(){
-// To get selected values on page load
-
+$(document).on('show.bs.modal', '#editRuleModal', function (e) {
+  
     
 
-
-    
 });
-
 
 function toggleCheckbox() {
     var sms = document.getElementById('sms_alert');
@@ -29,15 +24,15 @@ function toggleCheckbox() {
     email.checked = !checkbox.checked;
   }
 
-  $('#emailToggole').bootstrapToggle({
-    on: 'EMAIL',
-    off: 'OFF'
-  });
+//   $('#emailToggole').bootstrapToggle({
+//     on: 'EMAIL',
+//     off: 'OFF'
+//   });
 
-  $('#smsToggole').bootstrapToggle({
-    on: 'SMS',
-    off: 'OFF'
-  });
+//   $('#smsToggole').bootstrapToggle({
+//     on: 'SMS',
+//     off: 'OFF'
+//   });
 //verify all fields are full for both RULES&EVENT
 function emptyInput(target) {
     if (target=="rule"){
@@ -89,3 +84,6 @@ $(document).ready(function() {
      
     });
 }
+
+
+
