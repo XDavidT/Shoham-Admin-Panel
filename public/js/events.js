@@ -187,7 +187,7 @@ $.getJSON('/api/policy/eventData2table',function(data){
 
 function create_modal(){
     $('.modal-body').remove()
-    $('#modal-body-cover').append(" <div class='modal-body'> <div class='input-group-prepend-users'> <div class='input-group-text-users'>Event ID</div></div><input type='number' class='form-control input-users' id='eventID' name='eventID' autocomplete='off' disabled> <div class='input-group-prepend-users'> <div class='input-group-text-users'>Name</div></div><input type='text' class='form-control input-users' id='eventName' name='eventName' autocomplete='off' required> <div class='input-group-prepend-users'> <div class='input-group-text-users'>Description</div></div><input type='text' class='form-control input-users' id='evtDescription' name='Description' size='38' autocomplete='off' required> <div class='input-group-prepend-users'> <div class='input-group-text-users'>Type</div></div><div class='form-row'> <select type='text' id='type_select' name='type_select' class='form-control input-users-dropdown' autocomplete='off' required> <option value='Local' selected>Local</option> <option value='Global'>Global</option> </select> <div class='col-lg-1 ' style='display: none;'> <input class='form-control' type='number' id='rulesCount' value='1' autocomplete='off' disabled> </div></div><br><div class='input-group-prepend-users'> <div class='input-group-text-users'>Alert Options</div></div><div class='form-check form-check-inline'> <input class='form-check-input' type='checkbox' id='AlertEmail' value='email' autocomplete='off'> <label class='form-check-label' for='inlineCheckbox1'>Email</label> </div><div class='form-check form-check-inline'> <input class='form-check-input' type='checkbox' id='AlertSMS' value='sms' autocomplete='off' disabled> <label class='form-check-label' for='inlineCheckbox2'>SMS</label> </div><div class='form-check form-check-inline'> <input class='form-check-input' type='checkbox' id='AlertApp' value='app' autocomplete='off' disabled> <label class='form-check-label' for='inlineCheckbox3'>Application</label> </div><br><div id='event_creation_details'> <div class='form-row'> <div class='col-md-4 mb-3'> <label>Rule ID</label> <input type='number' class='form-control' id='ruleID0' placeholder='#' name='Rule ID' autocomplete='off' required> </div><div class='col-md-4 mb-3'> <label>Repeated</label> <input type='number' class='form-control' id='ruleRepeat0' placeholder='1 or more' value='1' name='repeated' autocomplete='off' required> </div><div class='col-md-4 mb-3'> <label>Timeout</label> <div class='input-group'> <input type='number' class='form-control' id='ruleTimeout0' placeholder='In seconds' aria-describedby='validationTooltipUsernamePrepend' name='TIMEOUT' autocomplete='off' required> </div></div></div></div><button class='btn btn-primary btn-user btn-block;input-group-text' href='#' id='addMore'>Add Rule</button> </div>")
+    $('#modal-body-cover').append(" <div class='modal-body'> <div class='input-group-prepend-users'> <div class='input-group-text-users'>Event ID</div></div><input type='number' class='form-control input-users' id='eventID' name='eventID' autocomplete='off' disabled> <div class='input-group-prepend-users'> <div class='input-group-text-users'>Name</div></div><input type='text' class='form-control input-users' id='eventName' name='eventName' autocomplete='off' required> <div class='input-group-prepend-users'> <div class='input-group-text-users'>Description</div></div><input type='text' class='form-control input-users' id='evtDescription' name='Description' size='38' autocomplete='off' required> <div class='input-group-prepend-users'> <div class='input-group-text-users'>Type</div></div><div class='form-row'> <select type='text' id='type_select' name='type_select' class='form-control input-users-dropdown' autocomplete='off' required> <option value='Local' selected>Local</option> <option value='Global'>Global</option> </select> <div class='col-lg-1 ' style='display: none;'> <input class='form-control' type='number' id='rulesCount' value='1' autocomplete='off' disabled> </div></div><br><div class='input-group-prepend-users'> <div class='input-group-text-users'>Alert Options</div></div><div class='form-check form-check-inline'> <input class='form-check-input' type='checkbox' id='AlertEmail' value='email' autocomplete='off'> <label class='form-check-label' for='inlineCheckbox1'>Email</label> </div><div class='form-check form-check-inline'> <input class='form-check-input' type='checkbox' id='AlertSMS' value='sms' autocomplete='off' disabled> <label class='form-check-label' for='inlineCheckbox2'>SMS</label> </div><div class='form-check form-check-inline'> <input class='form-check-input' type='checkbox' id='AlertApp' value='app' autocomplete='off' disabled> <label class='form-check-label' for='inlineCheckbox3'>Application</label> </div><br><div id='event_creation_details'> <div class='form-row'> <div class='col-md-4 mb-3'> <label>Rule ID</label> <input type='number' class='form-control' id='ruleID0' placeholder='#' name='Rule ID' autocomplete='off' required> </div><div class='col-md-4 mb-3'> <label>Repeated</label> <input type='number' class='form-control' id='ruleRepeat0' placeholder='1 or more' value='1' name='repeated' autocomplete='off' required> </div><div class='col-md-4 mb-3'> <label>Timeout</label> <div class='input-group'> <input type='number' class='form-control' id='ruleTimeout0' placeholder='In seconds' aria-describedby='validationTooltipUsernamePrepend' name='TIMEOUT' autocomplete='off' required> </div></div></div></div><button class='btn btn-outline-primary btn-user btn-block;input-group-text' href='#' id='addMore'>Add Rule</button> </div>")
 }
 
 function deleteEvent(id){
@@ -203,4 +203,23 @@ function deleteEvent(id){
          location.reload()
      }
  })
+}
+
+function viewRules(){
+    $.getJSON('/api/policy/data2table',function(data){
+            var table = $('#RuleDataTable').DataTable({
+                orderCellsTop: true,
+                fixedHeader: true,
+                data:data,
+                dom:"<'myfilter'f>",
+                "bLengthChange" : false,
+                "pageLength": 5,
+                columns: [
+                    {data: '_id'},
+                    {data: 'name'},
+                    {data: 'field'},
+                    {data: 'value'}
+                ]
+            });            
+        });
 }
