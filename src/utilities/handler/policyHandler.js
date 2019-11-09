@@ -34,29 +34,56 @@ const postEventsToDB = (events,callback)=>{
         if(error) {
             callback(error,undefined)
         }
-    rulesArray=[]
-    for ( var i=0; i<events.ruleNum.length;i++){	
-        rulesArray[i]={
-            rule_id : events.ruleNum[i],
-            repeated : Number(events.repeated[i]),
-            timeout : Number(events.TIMEOUT[i])
-        }
-    }
+
    nextID = getNextSequenceValue( client.db(dbPolicy),"eventCounter");
    
    nextID.then(function(eventID){
-        client.db(dbPolicy).collection(collEvents).insert({
+        client.db(dbPolicy).collection(collEvents).insertOne({
                 _id:eventID,
-                name:events.eventName,
-                description:events.eventDescription,
-                type:events.type_select,
+                name:events.name,
+                description:events.description,
+                type:events.type,
                 alerts:events.alerts,
-                rules: rulesArray
+                rules: events.rules
         })
     callback(error,undefined)
     client.close()
-})
-})
+        })
+    })
+}
+
+const editEventDB = (event,callback)=>{
+    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+        if(error) {
+            callback(error,undefined)
+        }
+    client.db(dbPolicy).collection(collEvents).updateOne({_id:event['_id']},{$set:event} , {upsert: false} ,function(err,result){
+        if(err){
+            callback(error,undefined)
+        }
+        else{
+            callback(undefined,result)
+        }
+    })
+    client.close()
+    })
+}
+
+const deleteEventDB = (event,callback)=>{
+    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+        if(error) {
+            callback(error,undefined)
+        }
+    client.db(dbPolicy).collection(collEvents).deleteOne({_id:event['_id']},function(err,result){
+        if(err){
+            callback(error,undefined)
+        }
+        else{
+            callback(undefined,result)
+        }
+    })
+    client.close()
+    })
 }
 
 const postRulesToDB = (Rules,callback)=>{
@@ -98,6 +125,52 @@ const getRulessFromDB = (myfilter,callback) => {
     })
 }
 
+const editRules = (myfilter,callback) => {
+    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+        if(error) {
+            console.log('Error in MongoDB connection (MongoHandler)')
+            callback(error,undefined)
+        } else {
+        ruleToReplace = JSON.parse(myfilter.originaFieldsValue)
+        const query = {}
+        query["_id"] = ruleToReplace._id
+        query["name"] = myfilter.NameRule
+        query["field"] = myfilter.ruleField
+        query["value"] = myfilter.ruleValue
+        
+        
+        const rules = client.db(dbPolicy).collection(collRules)
+        rules.findOneAndReplace(ruleToReplace,query).then(replacedDocument => {
+            if(replacedDocument){
+                callback(error,undefined)
+            } else {
+            console.log("No document matches the provided query.")
+            }
+            client.close()
+        })
+        .catch(err => console.error(`Failed to find and replace document: ${err}`))
+        }
+        
+    })
+}
+
+const deleteRulesDB = (rule,callback)=>{
+    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+        if(error) {
+            callback(error,undefined)
+        }
+    client.db(dbPolicy).collection(collRules).deleteOne({_id:rule['_id']},function(err,result){
+        if(err){
+            callback(error,undefined)
+        }
+        else{
+            callback(undefined,result)
+        }
+    })
+    client.close()
+    })
+}
+
 const getEventsFromDB = (myfilter,callback) => {
     mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
         if(error) {
@@ -134,5 +207,9 @@ module.exports = {
     getRulessFromDB: getRulessFromDB,
     postEventsToDB: postEventsToDB,
     getEventsFromDB:getEventsFromDB,
-    postCategoryToDB: postCategoryToDB
+    postCategoryToDB: postCategoryToDB,
+    deleteRulesDB:deleteRulesDB,
+    editRules:editRules,
+    editEventDB:editEventDB,
+    deleteEventDB:deleteEventDB
 }

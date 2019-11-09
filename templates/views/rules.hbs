@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Users</title>
+  <title>SB Admin 2 - Rules</title>
 
   <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -52,23 +52,16 @@
         <button class="btn btn-secondary" data-toggle="modal" data-target="#addRuleModal">ADD RULE</button>
         </div>
         <div class="table-responsive">
-        <table class="table table-bordered RuleDataTable"width="100%" cellspacing="0"style="margin-top: 20px">
+        <table class="table table-bordered" id="RuleDataTable" width="100%" cellspacing="0"style="margin-top: 20px">
             <thead>
             <tr>
                 <th>ID</th>
                 <th>NAME</th>
                 <th>FIELD</th>
                 <th>VALUE</th>
+                <th></th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td>Error</td>
-                <td>Error</td>
-                <td>Error</td>
-                <td>Error</td>
-            </tr>
-            </tbody>
         </table>
         </div>
             
@@ -82,7 +75,6 @@
 
       <!-- Footer -->
       {{>footer}}
-
     </div>
     <!-- End of Content Wrapper -->
 
@@ -98,48 +90,82 @@
   {{>logout}}
   
 
-<!-- Add User Modal -->
-<div class="modal fade modal-center-screen" id="addRuleModal" tabindex="-1" role="dialog" data-backdrop="static" style="padding-top: 280px">
-    <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-        <div class="modal-header">
-              <h3 class='col-12 modal-title text-center'>
-              Create Rule
-              
-              <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-              <span aria-hidden='true'>&times;</span>
-              </button></h3>
-        </div>
-        
-        <div class="modal-body">
+<!-- Add Rule Modal -->
 
-              <form method="post" action="/api/policy/postRules">
-        
+<div class="modal fade" id="addRuleModal" tabindex="-1" role="dialog" aria-labelledby="addRuleModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addRuleModalTitle">Create Rule</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="/api/policy/postRules">
+
                   <div class="input-group-prepend-users">
                     <div class="input-group-text-users">Name</div>
                   </div>
-                  <input type="text" class="form-control input-users" id="NameRule" name="NameRule" onkeyup="emptyInput('rule')" required>
+                  <input type="text" class="form-control input-users" id="NameRule" name="NameRule" onkeyup="emptyInput('rule')" required >
                   
                   <div class="input-group-prepend-users">
                     <div class="input-group-text-users">FIELD</div>
                   </div>
-                  <input type="number"class="form-control input-users" id="ruleField" name="ruleField" size="38" onkeyup="emptyInput('rule')" required>
+                  <input type="text"class="form-control input-users" id="ruleField" name="ruleField" size="38" onkeyup="emptyInput('rule')" required >
                   
                   <div class="input-group-prepend-users"  >
                     <div class="input-group-text-users">VALUE</div>
                   </div>
-                  <input type="number" class="form-control input-users" id="ruleValue" name="ruleValue" size="38" autocomplete="off" onkeyup="emptyInput('rule')" required>         
+                  <input type="text" class="form-control input-users" id="ruleValue" name="ruleValue" size="38" autocomplete="off" onkeyup="emptyInput('rule')" required >         
 
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" id="send" class="btn btn-primary" disabled>ADD</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 
-        <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="submit" id="send" class="btn btn-success " disabled >ADD</button>
-                </form>
-        </div>
+<!-- edit rule Modal -->
 
+<div class="modal fade" id="editRuleModal" tabindex="-1" role="dialog" aria-labelledby="editRuleModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editRuleModalTitle">Edit Rule</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="/api/policy/editRule">
 
+                  <input type="hidden" name="originaFieldsValue" id="originaFieldsValue">
+                  <div class="input-group-prepend-users">
+                    <div class="input-group-text-users">Name</div>
+                  </div>
+                  <input type="text" class="form-control input-users" id="editNameRule" name="NameRule" >
+                  
+                  <div class="input-group-prepend-users">
+                    <div class="input-group-text-users">FIELD</div>
+                  </div>
+                  <input type="text"class="form-control input-users" id="editruleField" name="ruleField" size="38" >
+                  
+                  <div class="input-group-prepend-users"  >
+                    <div class="input-group-text-users">VALUE</div>
+                  </div>
+                  <input type="text" class="form-control input-users" id="editruleValue" name="ruleValue" size="38" autocomplete="off" >         
 
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">EDIT</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 
   <!-- Bootstrap core JavaScript-->

@@ -8,7 +8,6 @@ const user_router = new express.Router()
 //Login User 
 user_router.post('/login', async (req, res) => {
     try{
-    console.log("")
     const user = await User.findByCredentials(req.body.email , req.body.password)
     //console.log("")
     const token = await user.generateAuthToken()
@@ -93,9 +92,11 @@ user_router.post('/add',  async (req, res) => {
     try {
         await user.save()
         const token = await user.generateAuthToken()
+        req.flash('success','New user created')
         res.redirect('/users')
     } catch (e) {
-        res.status(400).send(e)
+        req.flash('error','Error!! - > '+e)
+        res.redirect('/users')
     }
 })
 
@@ -115,15 +116,14 @@ user_router.post('/logoutAll', Authenticate, async (req, res) => {
 
 
 //deleting User from DB
-user_router.delete('/users/delete',Authorize, async (req, res) => {
+user_router.delete('/deleteOne',Authorize, async (req, res) => {
     try{
         const user = await User.findById(req.body)
-        console.log('0')
+        console.log("2")
         if(!user.root){
             user.remove()
-            console.log('1')
             req.flash('success','User Removed')
-            res.redirect('back')
+            res.redirect('/users')
         }
     } catch (error) {
        

@@ -20,7 +20,6 @@ $.getJSON('/api/users/data2table',function(data){
             fixedHeader: true,
             data:data,
             columns: [
-                {data: '_id'},
                 {data: 'name'},
                 {data: 'email'},
                 {data: 'role'},
@@ -31,24 +30,27 @@ $.getJSON('/api/users/data2table',function(data){
                 "searchable": false,
                 "orderable": false,
                 "data": null,
-                "defaultContent": '<button type="button" class="btn btn-danger" id="removeUser">Remove</button><button type="button" class="fa fa-pencil-square-o" aria-hidden="true" id="editUser"></button> '
-                
+                "defaultContent": '<button type="button" class="btn btn-danger btn-circle btn-sm" id="removeUser"><i class="fas fa-trash"></i></button>'
             } ]
         });
 
         $("#search-col4").hide(); //hide search for Remove column
 
-        $('#dataTableUsers tbody').on('click','#removeUser', function () {
+        $('#dataTableUsers tbody').on('click','#removeUser', function (e) {
+            e.preventDefault();
             var data = table.row( $(this).parents('tr') ).data();
             const jsonString = {}
             jsonString['_id'] = data['_id'] 
             $.ajax({
                 type: 'DELETE',
-                url: '/api/users/delete',
+                url: '/api/users/deleteOne',
                 data: jsonString,
                 'Content-Type': "application/json",
                 success: function(){
+                    location.href = "http://localhost:3000/users"
                 }
+                }).then(function(){
+                    return 
                 })
             });
             $('#dataTableUsers tbody').on('click','#editUser', function () {

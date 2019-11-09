@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    $('#title').text('Siem Admin Dashboard')
 
     $('#LogCountHead').text('Logs in Database')
     $.get('/api/logs/count',function(result){
