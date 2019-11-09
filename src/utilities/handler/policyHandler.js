@@ -34,6 +34,7 @@ const postEventsToDB = (events,callback)=>{
         if(error) {
             callback(error,undefined)
         }
+
    nextID = getNextSequenceValue( client.db(dbPolicy),"eventCounter");
    
    nextID.then(function(eventID){

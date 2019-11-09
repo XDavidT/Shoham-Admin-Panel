@@ -33,18 +33,19 @@ policy_router.get('/data2table',(req, res) => {
     })
 })
 
-policy_router.post('/postEvents', (req, res) => {
+policy_router.post('/postEvents',Authorize, (req, res) => {
     policy_handler.postEventsToDB(req.body,(error,result) =>{
         if(error){
             res.send(error)
         } else {
-            req.flash('success','New Event Added')
+            req.flash('error','New Event Added')
+            console.log("0")
             res.redirect('/policy')
         }
     })
 })
 
-policy_router.post('/editEvent',(req,res)=>{
+policy_router.post('/editEvent',Authorize,(req,res)=>{
     policy_handler.editEventDB(req.body,(error,result) =>{
         if(error){
             res.send(error)
@@ -55,7 +56,7 @@ policy_router.post('/editEvent',(req,res)=>{
     })
 })
 
-policy_router.post('/deleteEvent',(req,res)=>{
+policy_router.post('/deleteEvent',Authorize,(req,res)=>{
     policy_handler.deleteEventDB(req.body,(error,result) =>{
         if(error){
             res.send(error)
@@ -67,7 +68,7 @@ policy_router.post('/deleteEvent',(req,res)=>{
 })
 
 
-policy_router.post('/editRule', (req, res) => {
+policy_router.post('/editRule',Authorize, (req, res) => {
     policy_handler.editRules(req.body,(error,result) =>{
         if(error){
             res.send(error)
@@ -79,7 +80,7 @@ policy_router.post('/editRule', (req, res) => {
 
 })
 
-policy_router.post('/deleteRule',(req,res)=>{
+policy_router.post('/deleteRule',Authorize,(req,res)=>{
     policy_handler.deleteRulesDB(req.body,(error,result) =>{
         if(error){
             res.send(error)

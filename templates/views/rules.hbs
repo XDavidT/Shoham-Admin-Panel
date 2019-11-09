@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Users</title>
+  <title>SB Admin 2 - Rules</title>
 
   <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -62,14 +62,6 @@
                 <th></th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td>Error</td>
-                <td>Error</td>
-                <td>Error</td>
-                <td>Error</td>
-            </tr>
-            </tbody>
         </table>
         </div>
             
@@ -83,7 +75,6 @@
 
       <!-- Footer -->
       {{>footer}}
-
     </div>
     <!-- End of Content Wrapper -->
 
@@ -101,8 +92,8 @@
 
 <!-- Add Rule Modal -->
 
-<div class="modal fade" id="addRuleModal" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="addRuleModalTitle" aria-hidden="true">
-  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+<div class="modal fade" id="addRuleModal" tabindex="-1" role="dialog" aria-labelledby="addRuleModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="addRuleModalTitle">Create Rule</h5>
@@ -140,7 +131,7 @@
 <!-- edit rule Modal -->
 
 <div class="modal fade" id="editRuleModal" tabindex="-1" role="dialog" aria-labelledby="editRuleModalTitle" aria-hidden="true">
-  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-sm modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editRuleModalTitle">Edit Rule</h5>

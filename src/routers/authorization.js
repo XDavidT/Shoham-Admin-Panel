@@ -15,7 +15,8 @@ const Authorize = async(req,res,next) => {
             }   
             next()
         }catch(e) {
-            return res.send('Unauthorized->Not loggin').status(401)
+            //no user is logged in 
+            return res.redirect('http://localhost:3000/login')
         }
     }
 

@@ -1,7 +1,7 @@
 const express = require('express')
 const gen_router = new express.Router()
 const mongo_handler = require('../utilities/handler/GeneralHandler')
-const Authenticate = require('./authorization')
+const Authorize = require('./authorization')
 const isPortReachable = require('is-port-reachable')
 
 gen_router.get('/get-setting', (req, res) => {
@@ -15,11 +15,12 @@ gen_router.get('/get-setting', (req, res) => {
     })
 })
 
-gen_router.post('/update-setting',Authenticate,(req, res) => {
+gen_router.post('/update-setting',Authorize,(req, res) => {
     mongo_handler.updateSetting(req.body,(error,result) =>{
         if(error){
             res.send(error)
         } else {
+            req.flash('success','Setting Updated')
             res.sendStatus(result)
         }
     })
