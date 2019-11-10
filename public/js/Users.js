@@ -23,7 +23,7 @@ $.getJSON('/api/users/data2table',function(data){
                 {data: 'name'},
                 {data: 'email'},
                 {data: 'role'},
-                {data: null, "searchable":false}
+                {data: null} 
             ],
             "columnDefs": [ {
                 "targets": -1,
@@ -51,6 +51,20 @@ $.getJSON('/api/users/data2table',function(data){
                 }
                 })
             });
+            $('#dataTableUsers tbody').on('click','#editUser', function () {
+                var data = table.row( $(this).parents('tr') ).data();
+                const jsonString = {}
+                jsonString['_id'] = data['_id'] 
+                $.ajax({
+                    type: 'PATCH',
+                    url: '/api/users/:id',
+                    data: jsonString,
+                    'Content-Type': "application/json",
+                    success: function(){
+                    
+                    }
+                    })
+                });       
         });
     });
 
