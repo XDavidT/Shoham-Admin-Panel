@@ -90,6 +90,15 @@ policy_router.post('/deleteRule',Authorize,(req,res)=>{
     })
 })
 
+policy_router.get('/category_select',(req,res)=>{
+    policy_handler.getCategoryFromDB(undefined,(error,result)=>{
+        if(error) res.send(error)
+        else{
+            res.send(result)
+        }
+    })
+})
+
 policy_router.post('/category_select',Authorize, (req, res) => {
     policy_handler.postCategoryToDB(req.body,(error,result) =>{
         if(error){

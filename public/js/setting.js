@@ -1,19 +1,12 @@
 $(document).ready( ()=> {
-    //Restore category
-    var opts = localStorage.getItem('prod-detail'); // get selected items from localStorage key
-    opts =  opts.split(',');                        // split result from localstorage to array
-    $('#category_select').val(opts);                // select options with array
+
 
     $('#category_select').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-        const selected_list =[]
-        const select_list = document.getElementById('category_select'),
-        options = select_list.options,
-        len = options.length;
-        for(var i=0;i<len;i++){
-            if(options[i].selected)
-                selected_list.push(options[i].value)
-        }
-        localStorage.setItem('prod-detail', selected_list );
+        var that = $(this)
+        that.tooltip('show');
+        setTimeout(function(){
+            that.tooltip('hide');
+        }, 2000);
       });
 
     const req_filter = {}
@@ -24,6 +17,9 @@ $(document).ready( ()=> {
         $("#TimeToLoad").val(jsonData['time_to_load'])
         $("#XTimeBack").val(jsonData['logs-from-X-hours'])
         $("#BasedOn").val(jsonData['local_based_on'])
+    })
+    $.getJSON('/api/policy/category_select').done((result)=>{
+        $('#category_select').val(result);                
     })
 })
 

@@ -202,12 +202,27 @@ const postCategoryToDB = (category,callback)=>{
 })
 }
 
+const getCategoryFromDB = (req,callback)=>{
+    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+        if(error) {
+            callback(error,undefined)
+        }
+    client.db(dbPolicy).collection(collCategory).findOne({},(err,result)=>{
+        if(err) callback(err,undefined)
+        else    callback(undefined,result['category_select'])
+    })
+
+    client.close()
+})
+}
+
 module.exports = {
     postRulesToDB: postRulesToDB,
     getRulessFromDB: getRulessFromDB,
     postEventsToDB: postEventsToDB,
     getEventsFromDB:getEventsFromDB,
     postCategoryToDB: postCategoryToDB,
+    getCategoryFromDB,
     deleteRulesDB:deleteRulesDB,
     editRules:editRules,
     editEventDB:editEventDB,
