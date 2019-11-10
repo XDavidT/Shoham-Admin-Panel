@@ -12,7 +12,7 @@ user_router.post('/login', async (req, res) => {
     //console.log("")
     const token = await user.generateAuthToken()
     res.cookie('token',token,{'maxAge': 3600000, httpOnly: true}) // sending cookie with expire time of 1 Hour.
-    res.redirect(302 , 'http://localhost:3000')
+    res.redirect(302 , '/index')
     console.log("Login Succes")
     } catch(error){
         req.flash('error','Login error')

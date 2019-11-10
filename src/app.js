@@ -2,10 +2,7 @@ const express = require('express')
 const app = express()
 
 //login necessary consts
-const User = require('../src/utilities/models/user_model')
-const logout = require('../src/routers/logout')
 const Authenticate = require('../src/routers/authentication')
-
 
 //Parsers
 const bodyParser = require('body-parser')
@@ -46,6 +43,7 @@ app.use(express.json())
 app.use(bodyParser.urlencoded({extended: true}))
   app.use(cookieParser())
 
+// flash messages middelware
 app.use(session({
     secret:'session secret',
     resave: false, 
@@ -63,33 +61,13 @@ app.use('/api/policy', policy_Router)
 app.use('/api/offense',offense_Router)
 
 
-
-
-//Login User 
-app.post('/login', async (req, res) => {
-    try{
-    const user = await User.findByCredentials(req.body.email , req.body.password)
-    const token = await user.generateAuthToken()
-    res.cookie('token',token,{'maxAge': 3600000, httpOnly: true}) // sending cookie with expire time of 1 Hour.
-    res.redirect(302 , 'http://localhost:3000')
-    console.log("Login Succes")
-    } catch(error){
-        console.log("Login Error")
-        res.status(400).send('Login error')
-    }
-})
-
-//Logout User
-app.post('/logout', Authenticate, logout, async (req, res) => {
-    try {
-        await req.user.save()
-    } catch (e) {
-        res.status(500).send()
-    }
-})
-
 //Get resolver for site
 app.get('', (req, res) => {
+    res.render('login',{
+    })
+})
+
+app.get('/index',Authenticate, (req, res) => {
     res.render('index',{
     })
 })
