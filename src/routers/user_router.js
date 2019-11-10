@@ -15,14 +15,13 @@ user_router.post('/login', async (req, res) => {
     res.redirect(302 , 'http://localhost:3000')
     console.log("Login Succes")
     } catch(error){
-        console.log(error)
-        res.status(400).send('Login error')
+        req.flash('error','Login error')
+        res.redirect('back')
     }
 })
 
 //Logout User
 user_router.post('/logout', Authenticate, logout, async (req, res) => {
-    //console.log('here')
     try {
         await req.user.save()
     } catch (e) {
@@ -119,11 +118,10 @@ user_router.post('/logoutAll', Authenticate, async (req, res) => {
 user_router.delete('/deleteOne',Authorize, async (req, res) => {
     try{
         const user = await User.findById(req.body)
-        console.log("2")
         if(!user.root){
             user.remove()
             req.flash('success','User Removed')
-            res.redirect('/users')
+            res.redirect('/')
         }
     } catch (error) {
        

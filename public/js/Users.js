@@ -46,11 +46,9 @@ $.getJSON('/api/users/data2table',function(data){
                 url: '/api/users/deleteOne',
                 data: jsonString,
                 'Content-Type': "application/json",
-                success: function(){
-                    location.href = "http://localhost:3000/users"
+                complete:function(){
+                    location.reload()
                 }
-                }).then(function(){
-                    return 
                 })
             });
         });

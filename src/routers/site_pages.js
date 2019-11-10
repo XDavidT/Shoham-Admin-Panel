@@ -5,8 +5,8 @@ const Authorize = require('./authorization')
 
 
 site_router.get('/login', (req, res) => {
-    res.render('login',{
-    })
+    const messages = req.flash()
+    res.render('login',{messages})
 })
 site_router.get('/logs',Authenticate,  (req, res) =>{
     res.render('logs',{

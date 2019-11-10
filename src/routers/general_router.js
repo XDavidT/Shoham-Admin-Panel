@@ -21,7 +21,7 @@ gen_router.post('/update-setting',Authorize,(req, res) => {
             res.send(error)
         } else {
             req.flash('success','Setting Updated')
-            res.sendStatus(result)
+            res.redirect('/setting3rd')
         }
     })
 })

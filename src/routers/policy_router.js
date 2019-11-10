@@ -38,9 +38,8 @@ policy_router.post('/postEvents',Authorize, (req, res) => {
         if(error){
             res.send(error)
         } else {
-            req.flash('error','New Event Added')
-            console.log("0")
-            res.redirect('/policy')
+            req.flash('success','New Event Added')
+            res.redirect('/')
         }
     })
 })
@@ -51,7 +50,7 @@ policy_router.post('/editEvent',Authorize,(req,res)=>{
             res.send(error)
         } else {
             req.flash('success','Event Edited')
-            res.redirect('/policy')
+            res.redirect('/')
         }
     })
 })
@@ -62,7 +61,7 @@ policy_router.post('/deleteEvent',Authorize,(req,res)=>{
             res.send(error)
         } else {
             req.flash('success','Event Deleted')
-            res.redirect('/policy')
+            res.redirect('/')
         }
     })
 })

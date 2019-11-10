@@ -38,7 +38,10 @@ $("#submit-setting").click(()=>{
         type: 'POST',
         url:'/api/gen/update-setting',
         data: jsonString,
-        'Content-Type': "application/json"
+        'Content-Type': "application/json",
+        complete:function(){
+            location.reload()
+        }
     })
 
     // Post catergory to DB -Start
@@ -56,7 +59,8 @@ $("#submit-setting").click(()=>{
         type:'POST',
         url: '/api/policy/category_select',
         data: jsonCategory,
-        'Content-Type': "application/json"
+        'Content-Type': "application/json",
+
     })
     // Post catergory to DB  - End
 })
