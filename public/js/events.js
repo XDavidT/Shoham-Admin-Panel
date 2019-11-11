@@ -238,6 +238,6 @@ function viewRules(){
 function toggleEvent(data){
     const details_to_send = {}
     details_to_send['_id'] = data.id
-    details_to_send['status'] = (data.checked == 'true')
+    details_to_send['status'] = data.checked
     $.post('/api/policy/statusEvent',details_to_send)
 }
