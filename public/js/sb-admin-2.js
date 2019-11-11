@@ -47,3 +47,10 @@
   });
 
 })(jQuery); // End of use strict
+
+$(document).ready(function(){
+  $.getJSON( '/api/gen/what-is-my-name')
+  .done((jsonData)=> {
+    $('#SystemName').text(jsonData)
+  })
+})

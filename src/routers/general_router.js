@@ -4,6 +4,16 @@ const mongo_handler = require('../utilities/handler/GeneralHandler')
 const Authorize = require('./authorization')
 const isPortReachable = require('is-port-reachable')
 
+gen_router.get('/what-is-my-name', (req, res) => {
+    mongo_handler.getSettingFromDB({"_id" : "basic-setting"},(error,result) =>{
+        if(error){
+            res.send(error)
+        } else {
+            res.jsonp(result['system-name'])
+        }
+    })
+})
+
 gen_router.get('/get-setting', (req, res) => {
     mongo_handler.getSettingFromDB(req.query,(error,result) =>{
         if(error){
