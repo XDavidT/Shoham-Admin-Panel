@@ -57,13 +57,22 @@ $.getJSON('/api/policy/eventData2table',function(data){
             {
                 data:null,
                 render:function(data,type,row){
+                    if(data.enable == 'true')
+                        return "<div class='custom-control custom-switch'><input type='checkbox' class='custom-control-input' id='"+data._id+"' onClick='toggleEvent(this)' checked><label class='custom-control-label' for='"+data._id+"'></label></div>"
+                    else
+                        return "<div class='custom-control custom-switch'><input type='checkbox' class='custom-control-input' id='"+data._id+"' onClick='toggleEvent(this)'><label class='custom-control-label' for='"+data._id+"'></label></div>"
+                }
+            },
+            {
+                data:null,
+                render:function(data,type,row){
                     return "<button class='btn btn-danger btn-circle btn-sm' id='"+data._id+"' onClick='deleteEvent(this.id)'><i class='fas fa-trash'></i></button>"
                 }
             }
             ]
         });
         //Table end
-
+        // $('#customSwitch1').prop('checked',false)
         //Add event Modal
         $('#AddEventButton').click(function(e){
             e.preventDefault()
@@ -82,6 +91,7 @@ $.getJSON('/api/policy/eventData2table',function(data){
 
         //On click - Modal in table
         $('#eventDataTable tbody').on('click','tr',function(e){
+            if(e['target']._DT_CellIndex == undefined || e['target']._DT_CellIndex['column']>6) return  //Disable click on last column
             e.preventDefault()
             var data = table.row( this ).data()
 
@@ -206,7 +216,6 @@ function deleteEvent(id){
 }
 
 function viewRules(){
-  //  $('RulesTableArea').append(" <table class='table table-striped table-bordered dt-responsive nowrap' id='RuleDataTable' width='100%' cellspacing='0' style='margin-top: 20px'> <thead> <tr> <th>ID</th> <th>Name</th> <th>Field</th> <th>Value</th> </tr></thead> </table>")
     $.getJSON('/api/policy/data2table',function(data){
             $('#RuleDataTable').DataTable({
                 orderCellsTop: true,
@@ -224,4 +233,11 @@ function viewRules(){
                 ]
             });     
         });
+}
+
+function toggleEvent(data){
+    const details_to_send = {}
+    details_to_send['_id'] = data.id
+    details_to_send['status'] = data.checked
+    $.post('/api/policy/statusEvent',details_to_send)
 }

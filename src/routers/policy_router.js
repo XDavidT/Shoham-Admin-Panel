@@ -66,6 +66,16 @@ policy_router.post('/deleteEvent',Authorize,(req,res)=>{
     })
 })
 
+policy_router.post('/statusEvent',Authorize,(req,res)=>{
+    policy_handler.statusEvent(req.body,(error,result) =>{
+        if(error){
+            res.send(error)
+        } else {
+            res.redirect('/')
+        }
+    })
+})
+
 
 policy_router.post('/editRule',Authorize, (req, res) => {
     policy_handler.editRules(req.body,(error,result) =>{

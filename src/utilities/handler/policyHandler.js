@@ -86,6 +86,23 @@ const deleteEventDB = (event,callback)=>{
     })
 }
 
+const statusEvent = (event,callback)=>{
+    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+        if(error) {
+            callback(error,undefined)
+        }
+    client.db(dbPolicy).collection(collEvents).updateOne({_id:event['_id']},{$set:{'enable':event['status']}} , {upsert: false} ,function(err,result){
+        if(err){
+            callback(error,undefined)
+        }
+        else{
+            callback(undefined,result)
+        }
+    })
+    client.close()
+    })
+}
+
 const postRulesToDB = (Rules,callback)=>{
     mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
         if(error) {
@@ -226,5 +243,6 @@ module.exports = {
     deleteRulesDB:deleteRulesDB,
     editRules:editRules,
     editEventDB:editEventDB,
+    statusEvent:statusEvent,
     deleteEventDB:deleteEventDB
 }
