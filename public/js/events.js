@@ -192,6 +192,8 @@ $.getJSON('/api/policy/eventData2table',function(data){
        });
 
     }); //end document
+}).done(()=>{
+    $('#loadingIcon').remove()
 }) //end json
 
 
