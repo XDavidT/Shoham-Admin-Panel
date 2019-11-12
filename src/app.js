@@ -72,11 +72,6 @@ app.get('/index',Authenticate, (req, res) => {
     })
 })
 
-app.get('/index', (req, res) => {
-    res.render('index',{
-    })
-})
-
 app.get('*',(req, res) =>{
     res.status(404);
     res.render('404',{
