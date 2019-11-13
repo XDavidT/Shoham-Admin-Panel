@@ -157,6 +157,7 @@ $.getJSON('/api/policy/eventData2table',function(data){
                 getJsonReady['name'] = $('#eventName').val()
                 getJsonReady['description'] = $('#evtDescription').val()
                 getJsonReady['type'] = $('#type_select').val()
+                getJsonReady['status'] = true
                 
                 //Check alerts
                 getJsonReady['alerts'] = {}
@@ -172,7 +173,7 @@ $.getJSON('/api/policy/eventData2table',function(data){
                 var count_rules = $('#rulesCount').val()
                 for(var i=0;i<count_rules;i++){
                     getJsonReady['rules'].push({
-                      rule_id: $('#ruleID'+i).val(),
+                      rule_id: ($('#ruleID'+i).val()),
                       repeated: $('#ruleRepeat'+i).val(),
                       timeout: $('#ruleTimeout'+i).val()
                     })
