@@ -183,7 +183,7 @@ $.getJSON('/api/policy/eventData2table',function(data){
                     url:postUrl,
                     data: getJsonReady,
                     'Content-Type': "application/json",
-                    complete:function(data){
+                    complete:function(){
                         $('#EvtModal').modal("hide")
                         $('#rulesCount').val('1')
                         location.reload()
@@ -241,6 +241,7 @@ function viewRules(){
 function toggleEvent(data){
     const details_to_send = {}
     details_to_send['_id'] = data.id
+    console.log(data.checked)
     details_to_send['enable'] = data.checked
     $.post('/api/policy/statusEvent',details_to_send)
 }

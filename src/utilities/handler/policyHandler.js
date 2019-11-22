@@ -92,7 +92,7 @@ const statusEvent = (event,callback)=>{
         if(error) {
             callback(error,undefined)
         }
-    client.db(dbPolicy).collection(collEvents).updateOne({_id:event['_id']},{$set:{'enable':event['status']}} , {upsert: false} ,function(err,result){
+    client.db(dbPolicy).collection(collEvents).updateOne({_id:event['_id']},{$set:{'enable':event['enable']}} , {upsert: false} ,function(err,result){
         if(err){
             callback(error,undefined)
         }
