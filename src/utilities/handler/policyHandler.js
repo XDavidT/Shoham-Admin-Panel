@@ -44,6 +44,7 @@ const postEventsToDB = (events,callback)=>{
                 name:events.name,
                 description:events.description,
                 type:events.type,
+                enable:events.enable,
                 alerts:events.alerts,
                 rules: events.rules
         })

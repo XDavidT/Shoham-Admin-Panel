@@ -157,7 +157,7 @@ $.getJSON('/api/policy/eventData2table',function(data){
                 getJsonReady['name'] = $('#eventName').val()
                 getJsonReady['description'] = $('#evtDescription').val()
                 getJsonReady['type'] = $('#type_select').val()
-                getJsonReady['status'] = true
+                getJsonReady['enable'] = 'true'
                 
                 //Check alerts
                 getJsonReady['alerts'] = {}
