@@ -72,7 +72,7 @@ $.getJSON('/api/policy/eventData2table',function(data){
             ]
         });
         //Table end
-        // $('#customSwitch1').prop('checked',false)
+
         //Add event Modal
         $('#AddEventButton').click(function(e){
             e.preventDefault()
