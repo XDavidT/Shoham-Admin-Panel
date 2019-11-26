@@ -56,4 +56,13 @@ gen_router.get('/is-logger-alive',async (req,res)=>{
     res.send(status)
 })
 
+gen_router.get('/offense-by-months',(req,res)=>{
+    mongo_handler.offenseByMonths(req,(error,result)=>{
+        if(error) res.status(500)
+        else{ 
+            res.jsonp(result)
+        }
+    })
+})
+
 module.exports = gen_router
