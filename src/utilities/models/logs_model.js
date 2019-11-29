@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
-const conn = mongoose.createConnection('mongodb+srv://siem:iCDoqbyTT3xh@cluster0-ecrrx.gcp.mongodb.net/clientManager?retryWrites=true&w=majority',{
+// const conn = mongoose.createConnection('mongodb+srv://siem:iCDoqbyTT3xh@cluster0-ecrrx.gcp.mongodb.net/clientManager?retryWrites=true&w=majority',{
+const conn = mongoose.createConnection('mongodb://siem.davidt.net:27018',{
     dbName: 'clientManager',
     useNewUrlParser: true ,
     useCreateIndex: true,

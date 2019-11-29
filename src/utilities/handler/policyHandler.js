@@ -1,7 +1,8 @@
 const mongodb = require('mongodb')
 const mongoClient = mongodb.MongoClient
 
-const connectionURL = 'mongodb+srv://siem:iCDoqbyTT3xh@cluster0-ecrrx.gcp.mongodb.net/policyManager?retryWrites=true&w=majority'
+// const connectionURL = 'mongodb+srv://siem:iCDoqbyTT3xh@cluster0-ecrrx.gcp.mongodb.net/policyManager?retryWrites=true&w=majority'
+const connectionURL = 'mongodb://siem.davidt.net:27018'
 const dbPolicy = 'policyManager'
 const collRules = 'rules'
 const collEvents = 'events'
@@ -30,7 +31,7 @@ function editID(db){
 }
 
 const postEventsToDB = (events,callback)=>{
-    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+    mongoClient.connect(connectionURL,{useNewUrlParser: true, useUnifiedTopology: true},(error, client) => {
         if(error) {
             callback(error,undefined)
         }
@@ -43,6 +44,7 @@ const postEventsToDB = (events,callback)=>{
                 name:events.name,
                 description:events.description,
                 type:events.type,
+                enable:events.enable,
                 alerts:events.alerts,
                 rules: events.rules
         })
@@ -53,7 +55,7 @@ const postEventsToDB = (events,callback)=>{
 }
 
 const editEventDB = (event,callback)=>{
-    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+    mongoClient.connect(connectionURL,{useNewUrlParser: true, useUnifiedTopology: true},(error, client) => {
         if(error) {
             callback(error,undefined)
         }
@@ -70,7 +72,7 @@ const editEventDB = (event,callback)=>{
 }
 
 const deleteEventDB = (event,callback)=>{
-    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+    mongoClient.connect(connectionURL,{useNewUrlParser: true, useUnifiedTopology: true},(error, client) => {
         if(error) {
             callback(error,undefined)
         }
@@ -87,11 +89,11 @@ const deleteEventDB = (event,callback)=>{
 }
 
 const statusEvent = (event,callback)=>{
-    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+    mongoClient.connect(connectionURL,{useNewUrlParser: true, useUnifiedTopology: true},(error, client) => {
         if(error) {
             callback(error,undefined)
         }
-    client.db(dbPolicy).collection(collEvents).updateOne({_id:event['_id']},{$set:{'enable':event['status']}} , {upsert: false} ,function(err,result){
+    client.db(dbPolicy).collection(collEvents).updateOne({_id:event['_id']},{$set:{'enable':event['enable']}} , {upsert: false} ,function(err,result){
         if(err){
             callback(error,undefined)
         }
@@ -104,7 +106,7 @@ const statusEvent = (event,callback)=>{
 }
 
 const postRulesToDB = (Rules,callback)=>{
-    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+    mongoClient.connect(connectionURL,{useNewUrlParser: true, useUnifiedTopology: true},(error, client) => {
         if(error) {
             callback(error,undefined)
         }
@@ -127,7 +129,7 @@ const postRulesToDB = (Rules,callback)=>{
 }
 
 const getRulessFromDB = (myfilter,callback) => {
-    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+    mongoClient.connect(connectionURL,{useNewUrlParser: true, useUnifiedTopology: true},(error, client) => {
         if(error) {
             console.log('Error in MongoDB connection (MongoHandler)')
             callback(error,undefined)
@@ -143,7 +145,7 @@ const getRulessFromDB = (myfilter,callback) => {
 }
 
 const editRules = (myfilter,callback) => {
-    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+    mongoClient.connect(connectionURL,{useNewUrlParser: true, useUnifiedTopology: true},(error, client) => {
         if(error) {
             console.log('Error in MongoDB connection (MongoHandler)')
             callback(error,undefined)
@@ -172,7 +174,7 @@ const editRules = (myfilter,callback) => {
 }
 
 const deleteRulesDB = (rule,callback)=>{
-    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+    mongoClient.connect(connectionURL,{useNewUrlParser: true, useUnifiedTopology: true},(error, client) => {
         if(error) {
             callback(error,undefined)
         }
@@ -189,7 +191,7 @@ const deleteRulesDB = (rule,callback)=>{
 }
 
 const getEventsFromDB = (myfilter,callback) => {
-    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+    mongoClient.connect(connectionURL,{useNewUrlParser: true, useUnifiedTopology: true},(error, client) => {
         if(error) {
             console.log('Error in MongoDB connection (MongoHandler)')
             callback(error,undefined)
@@ -206,7 +208,7 @@ const getEventsFromDB = (myfilter,callback) => {
 }
 
 const postCategoryToDB = (category,callback)=>{
-    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+    mongoClient.connect(connectionURL,{useNewUrlParser: true, useUnifiedTopology: true},(error, client) => {
         if(error) {
             callback(error,undefined)
         }
@@ -220,7 +222,7 @@ const postCategoryToDB = (category,callback)=>{
 }
 
 const getCategoryFromDB = (req,callback)=>{
-    mongoClient.connect(connectionURL,{useNewUrlParser: true},(error, client) => {
+    mongoClient.connect(connectionURL,{useNewUrlParser: true, useUnifiedTopology: true},(error, client) => {
         if(error) {
             callback(error,undefined)
         }

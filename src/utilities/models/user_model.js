@@ -3,8 +3,8 @@ const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-//Connecting fr database 
-const conn = mongoose.createConnection('mongodb+srv://siem:iCDoqbyTT3xh@cluster0-ecrrx.gcp.mongodb.net/SystemManagment?retryWrites=true&w=majority',{
+// const conn = mongoose.createConnection('mongodb+srv://siem:iCDoqbyTT3xh@cluster0-ecrrx.gcp.mongodb.net/SystemManagment?retryWrites=true&w=majority',{
+const conn = mongoose.createConnection('mongodb://siem.davidt.net:27018',{
     dbName: 'SystemManagment',
     useNewUrlParser: true ,
     useCreateIndex: true,

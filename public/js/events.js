@@ -72,7 +72,7 @@ $.getJSON('/api/policy/eventData2table',function(data){
             ]
         });
         //Table end
-        // $('#customSwitch1').prop('checked',false)
+
         //Add event Modal
         $('#AddEventButton').click(function(e){
             e.preventDefault()
@@ -157,6 +157,7 @@ $.getJSON('/api/policy/eventData2table',function(data){
                 getJsonReady['name'] = $('#eventName').val()
                 getJsonReady['description'] = $('#evtDescription').val()
                 getJsonReady['type'] = $('#type_select').val()
+                getJsonReady['enable'] = 'true'
                 
                 //Check alerts
                 getJsonReady['alerts'] = {}
@@ -172,7 +173,7 @@ $.getJSON('/api/policy/eventData2table',function(data){
                 var count_rules = $('#rulesCount').val()
                 for(var i=0;i<count_rules;i++){
                     getJsonReady['rules'].push({
-                      rule_id: $('#ruleID'+i).val(),
+                      rule_id: ($('#ruleID'+i).val()),
                       repeated: $('#ruleRepeat'+i).val(),
                       timeout: $('#ruleTimeout'+i).val()
                     })
@@ -182,7 +183,7 @@ $.getJSON('/api/policy/eventData2table',function(data){
                     url:postUrl,
                     data: getJsonReady,
                     'Content-Type': "application/json",
-                    complete:function(data){
+                    complete:function(){
                         $('#EvtModal').modal("hide")
                         $('#rulesCount').val('1')
                         location.reload()
@@ -240,6 +241,6 @@ function viewRules(){
 function toggleEvent(data){
     const details_to_send = {}
     details_to_send['_id'] = data.id
-    details_to_send['status'] = data.checked
+    details_to_send['enable'] = data.checked
     $.post('/api/policy/statusEvent',details_to_send)
 }
