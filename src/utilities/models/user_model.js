@@ -3,6 +3,7 @@ const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
+//Connecting fr database 
 const conn = mongoose.createConnection('mongodb+srv://siem:iCDoqbyTT3xh@cluster0-ecrrx.gcp.mongodb.net/SystemManagment?retryWrites=true&w=majority',{
     dbName: 'SystemManagment',
     useNewUrlParser: true ,
@@ -13,6 +14,7 @@ const conn = mongoose.createConnection('mongodb+srv://siem:iCDoqbyTT3xh@cluster0
     }
 )
 
+//scheme for Users
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -79,6 +81,7 @@ userSchema.methods.toJSON = function () {
     return userObject
 }
 
+//Generating new token to user login or create.
 userSchema.methods.generateAuthToken = async function() {
     const user = this
     const token = jwt.sign({_id: user._id.toString() }, 'PrivateToken' )
@@ -88,6 +91,7 @@ userSchema.methods.generateAuthToken = async function() {
     return token
 }
 
+//method for finding user
 userSchema.statics.findByCredentials = async (email, password) =>{
     const user = await User.findOne({ email })
     if(!user){
